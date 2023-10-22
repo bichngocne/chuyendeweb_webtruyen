@@ -1,10 +1,10 @@
 import dotenv from "dotenv";
 import express from "express";
 import {createProxyMiddleware} from "http-proxy-middleware";
-
+import connect from "./configs/config.js";
 dotenv.config();
 const app = express();
-
+connect;
 
 // Cấu hình proxy middleware
 var options = {
