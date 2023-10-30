@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import express from "express";
 import {createProxyMiddleware} from "http-proxy-middleware";
-import {sequelize } from "./configs/config.js";
+import {sequelize } from "./database/connect.js";
 import {category} from './routes/index.js'
 import cors from "cors"
 dotenv.config();

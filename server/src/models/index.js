@@ -1,1 +1,1 @@
-export {default as Category} from './Category.js'
+export {Category} from './Category.js'

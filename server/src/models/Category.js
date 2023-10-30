@@ -1,12 +1,26 @@
-// models/category.js
-import { DataTypes } from 'sequelize';
-import { sequelize } from '../configs/config.js';
-
-const Category = sequelize.define('category', {
-  name: {
-    type: DataTypes.STRING,
-    allowNull: false
+"use strict";
+import { DataTypes, Model } from "sequelize";
+import {sequelize} from "../database/connect.js";
+class Category extends Model {
+  /**
+   * Helper method for defining associations.
+   * This method is not a part of Sequelize lifecycle.
+   * The `models/index` file will call this method automatically.
+   */
+  static associate(models) {
+    // define association here
+  }
+}
+Category.init(
+  {
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   },
-});
-
-export default Category;
+  {
+    sequelize,
+    modelName: "Category",
+  }
+);
+export {Category};
