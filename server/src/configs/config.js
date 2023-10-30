@@ -1,20 +1,22 @@
-import { createConnection } from 'mysql2';
+import { Sequelize } from 'sequelize';
 
-const connect = createConnection({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "webtruyen"
+// Create a Sequelize instance for your application
+const sequelize = new Sequelize('webtruyen', 'root', '', {
+  host: 'localhost',
+  dialect: 'mysql',
+  define: {
+    timestamps: true,
+  },
 });
 
-connect.connect(function(err) {
-  if (err) {
-    console.error('Connect database unsuccessfull: ' + err.message);
-    process.exit(1); // Kết thúc ứng dụng nếu không thể kết nối cơ sở dữ liệu
-  }
-  console.log("Connect database successfull!");
-});
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log('Connect database successful');
+  })
+  .catch((err) => {
+    console.error('Connect database unsuccessful: ' + err.message);
+    process.exit(1);
+  });
 
-connect.end();
-
-export default connect;
+export { sequelize };
