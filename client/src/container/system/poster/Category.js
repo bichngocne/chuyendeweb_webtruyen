@@ -34,7 +34,8 @@ const Category = () => {
   useEffect(() => {
     dispatch(actions.getCategories());
   }, []);
-  console.log(data);
+  // console.log(data);
+  // console.log(text);
   useEffect(() => {
     if (data) {
       const updatedData = data.map((row, index) => ({
@@ -53,7 +54,7 @@ const Category = () => {
           <Search />
         </div>
         <div className="pt-[35px]">
-          <div style={{ height: 450, width: "100%" }}>
+          <div style={{ height: 420, width: "100%" }}>
             <DataGrid
               rows={rowsWithSTT}
               columns={columns}

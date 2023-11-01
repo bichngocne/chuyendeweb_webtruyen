@@ -1,19 +1,18 @@
-import React from "react";
+import React from 'react'
 import { Title, Arrange,Search,TableStory } from "../../../components/poster";
-import path from "../../../ultis/path";
-const ListStory = () => {
+const PendingStory = () => {
   return (
     <>
       <div className="flex flex-col">
-        <Title text="Danh sách truyện"></Title>
+        <Title text="Thùng rác"></Title>
         <div className="flex justify-between items-center">
           <Arrange />
           <Search/>
         </div>
-        <TableStory text="liststory"/> 
+        <TableStory text="pendingstory"/>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default ListStory;
+export default PendingStory
