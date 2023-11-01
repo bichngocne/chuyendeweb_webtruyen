@@ -1,15 +1,17 @@
 import actionTypes from "../actions/actionTypes";
 
 const initState = {
-   banner:[],
+   Categories:[],
 
 }
 
 const appReducer = (state = initState,action)=>{
     switch (action.type) {
-        case actionTypes.GET_HOME:
-            console.log(action);
-            return state
+        case actionTypes.GET_CATEGORIES_FOR_POSTER:
+            return {
+                ...state,
+                data :action.categoriesData
+            }
     
         default:
             return state
