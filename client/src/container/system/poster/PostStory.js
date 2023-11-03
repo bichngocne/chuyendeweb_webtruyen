@@ -4,7 +4,7 @@ const PostStory = () => {
   return (
     <>
       <div className="flex flex-col">
-        <Title text="Thùng rác"></Title>
+        <Title text="Đăng truyện"></Title>
         <div className="flex justify-between items-center">
           <FormStory/>
         </div>

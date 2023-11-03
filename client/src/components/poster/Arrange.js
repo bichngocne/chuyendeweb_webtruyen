@@ -13,6 +13,7 @@ const Arrange = () => {
         placeholder="Sắp xếp"
         menuClassName="!bg-[#C0E9DD]"
         controlClassName="!bg-[#C0E9DD]"
+        className=" !text-white"
       />
     </div>
   );
