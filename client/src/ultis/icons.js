@@ -4,7 +4,7 @@ import { BiEditAlt } from "react-icons/bi";
 import { MdOutlineDelete } from "react-icons/md";
 import {AiOutlineMenuUnfold} from "react-icons/ai";
 import {BsFillImageFill} from "react-icons/bs";
-import {BiSearchAlt} from "react-icons/bi";
+import {BiSearchAlt,BiSolidHot} from "react-icons/bi";
 const icons = {
   RiArrowDropDownLine,
   FcSearch,
@@ -12,7 +12,8 @@ const icons = {
   MdOutlineDelete,
   AiOutlineMenuUnfold,
   BsFillImageFill,
-  BiSearchAlt
+  BiSearchAlt,
+  BiSolidHot,
 };
 
 export default icons;
