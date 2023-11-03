@@ -3,24 +3,24 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    return queryInterface.bulkInsert('Category', [{
-      name: 'Ngôn tình',
+    return queryInterface.bulkInsert('role', [{
+      name: 'reader',
       createdAt: new Date(),
       updatedAt: new Date()
     },
     {
-      name: 'Kiếm hiệp',
+      name: 'poster',
       createdAt: new Date(),
       updatedAt: new Date()
     },
     {
-      name: 'Đam mỹ',
+      name: 'admin',
       createdAt: new Date(),
       updatedAt: new Date()
     }]);
   },
 
   async down (queryInterface, Sequelize) {
-    return queryInterface.bulkDelete('Category', null, {});
+    return queryInterface.bulkDelete('role', null, {});
   }
 };

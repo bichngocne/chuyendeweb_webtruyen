@@ -1,7 +1,7 @@
 'use strict';
 import { DataTypes, Model } from "sequelize";
 import {sequelize} from "../database/connect.js";
-  class story extends Model {
+  class user extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,20 +11,13 @@ import {sequelize} from "../database/connect.js";
       // define association here
     }
   }
-  story.init({
+  user.init({
     name: DataTypes.STRING,
-    description: DataTypes.STRING,
-    total_chapter: DataTypes.INTEGER,
-    author: DataTypes.STRING,
-    status_approve: DataTypes.BOOLEAN,
-    status_chapter: DataTypes.BOOLEAN,
-    classifi: DataTypes.INTEGER,
-    image: DataTypes.STRING,
-    view: DataTypes.INTEGER,
-    id_user: DataTypes.INTEGER,
-    deleted: DataTypes.BOOLEAN
+    email: DataTypes.STRING,
+    password: DataTypes.STRING,
+    id_role: DataTypes.INTEGER
   }, {
     sequelize,
-    modelName: 'stories',
+    modelName: 'user',
   });
- export {story}
+export {user}
