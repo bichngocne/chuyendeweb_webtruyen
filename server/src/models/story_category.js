@@ -1,7 +1,7 @@
 'use strict';
 import { DataTypes, Model } from "sequelize";
 import {sequelize} from "../database/connect.js";
-  class Role extends Model {
+  class story_category extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,10 +11,11 @@ import {sequelize} from "../database/connect.js";
       // define association here
     }
   }
-  Role.init({
-    name: DataTypes.STRING
+  story_category.init({
+    id_story: DataTypes.INTEGER,
+    id_category: DataTypes.INTEGER
   }, {
     sequelize,
-    modelName: 'Role',
+    modelName: 'story_category',
   });
-export {Role}
+export {story_category}

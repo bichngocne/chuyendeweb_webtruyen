@@ -1,7 +1,7 @@
 'use strict';
 import { DataTypes, Model } from "sequelize";
 import {sequelize} from "../database/connect.js";
-  class Role extends Model {
+  class chapper extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,10 +11,14 @@ import {sequelize} from "../database/connect.js";
       // define association here
     }
   }
-  Role.init({
-    name: DataTypes.STRING
+  chapper.init({
+    title: DataTypes.STRING,
+    id_story: DataTypes.INTEGER,
+    number_chapper: DataTypes.INTEGER,
+    image: DataTypes.STRING,
+    content: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'Role',
+    modelName: 'chapper',
   });
-export {Role}
+export{chapper}
