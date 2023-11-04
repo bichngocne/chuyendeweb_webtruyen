@@ -12,8 +12,7 @@ const icons = {
   MdOutlineDelete,
   AiOutlineMenuUnfold,
   BsFillImageFill,
-  BiSearchAlt
-  MdOutlineDelete,
+  BiSearchAlt,
   RiDeviceRecoverLine
 };
 
