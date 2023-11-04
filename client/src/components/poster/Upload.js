@@ -31,7 +31,7 @@ const Upload = (props) => {
         }) => (
           <div className="block w-full h-auto">
             <input
-              className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+              className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer focus:outline-none dark:border-gray-600 dark:placeholder-gray-400"
               aria-describedby="file_input_help"
               id={props.text}
               type="file"
@@ -41,7 +41,7 @@ const Upload = (props) => {
               onChange={onChange}
             />
             <p
-              className="mt-1 text-sm text-gray-500 dark:text-gray-300"
+              className="mt-1 text-sm text-gray-500"
               id="file_input_help"
             >
               SVG, PNG, JPG (MAX. 800x400px).

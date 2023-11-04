@@ -34,7 +34,7 @@ class FormStory extends React.Component {
           <div className="block">
             <div className="flex gap-[40px] items-center">
               <label
-                className="block w-[100px] mb-2 text-sm font-medium text-gray-900 dark:text-white gap-[40px]"
+                className="block w-[100px] mb-2 text-sm font-medium text-gray-900 gap-[40px]"
                 htmlFor="namestory"
               >
                 Tên truyện
@@ -43,7 +43,7 @@ class FormStory extends React.Component {
                 type="text"
                 value={this.state.nameValue} // Sử dụng giá trị cho tên truyện
                 onChange={this.handleNameChange} // Sử dụng phương thức để cập nhật giá trị
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-400 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 dark:border-gray-400 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 id="namestory"
                 placeholder="Nhập tên truyện ..."
                 required
@@ -53,7 +53,7 @@ class FormStory extends React.Component {
           <div className="block">
             <div className="flex gap-[40px]">
               <label
-                className="block w-[100px] mb-2 text-sm font-medium text-gray-900 dark:text-white gap-[40px]"
+                className="block w-[100px] mb-2 text-sm font-medium text-gray-900 gap-[40px]"
                 htmlFor="description"
               >
                 Nội dung
@@ -63,7 +63,7 @@ class FormStory extends React.Component {
                 onChange={this.handleDescriptionChange} // Sử dụng phương thức để cập nhật giá trị
                 id="description"
                 rows="4"
-                className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Nhập giới thiệu nội dung truyện ..."
               ></textarea>
             </div>
@@ -71,7 +71,7 @@ class FormStory extends React.Component {
             <div className="block">
             <div className="flex gap-[40px]">
               <label
-                className="block w-[89px] mb-2 text-sm font-medium text-gray-900 dark:text-white gap-[40px]"
+                className="block w-[89px] mb-2 text-sm font-medium text-gray-900 gap-[40px]"
               >
                 Thể loại
               </label>
@@ -81,7 +81,7 @@ class FormStory extends React.Component {
           <div className="block">
             <div className="flex gap-[40px]">
               <label
-                className="block w-[100px] mb-2 text-sm font-medium text-gray-900 dark:text-white gap-[40px]"
+                className="block w-[100px] mb-2 text-sm font-medium text-gray-900 gap-[40px]"
                 htmlFor="imgmain"
               >
                 Ảnh đại diện

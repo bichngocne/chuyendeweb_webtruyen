@@ -16,9 +16,9 @@ function App() {
             <Route path={path.HOME_FOR_POSTER} element={<HomePoster />}>
               <Route path={path.POST_STORY} element={<PostStory />} />
               <Route path={path.LIST_STORY} element={<ListStory />} />
-              <Route path={path.CHO_DUYET} element={<PostStory />} />
+              <Route path={path.CHO_DUYET} element={<PendingStory />} />
               <Route path={path.CATEGORY_STORY_POSTER} element={<Category />} />
-              <Route path={path.STORY_NEED_UPDATE} element={<PostStory />} />
+              <Route path={path.STORY_NEED_UPDATE} element={<UpdateStory />} />
               <Route path={path.THUNG_RAC} element={<TrashcanStory />} />
             </Route>
               {/* Tuyến đường của reader */}
