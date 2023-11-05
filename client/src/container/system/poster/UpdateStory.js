@@ -4,7 +4,7 @@ const UpdateStory = () => {
   return (
     <>
       <div className="flex flex-col">
-        <Title text="Thùng rác"></Title>
+        <Title text="Truyện cần cập nhật"></Title>
         <div className="flex justify-between items-center">
           <Arrange />
           <Search/>

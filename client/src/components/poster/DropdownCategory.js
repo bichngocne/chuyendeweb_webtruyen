@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../store/actions";
-const DropdownCategory = () => {
+const DropdownCategory = ({ value, onChange }) => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const [selectedValue, setSelectedValue] = useState([]);
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
@@ -38,6 +38,16 @@ const DropdownCategory = () => {
         });
       })
     );
+  };
+  const handleCheckboxChange = (id) => {
+    const updatedValue = [...selectedValue];
+    if (updatedValue.includes(id)) {
+      updatedValue.splice(updatedValue.indexOf(id), 1);
+    } else {
+      updatedValue.push(id);
+    }
+    setSelectedValue(updatedValue);
+    onChange(updatedValue); // Gọi hàm onChange và truyền giá trị đã chọn
   };
   return (
     <div className="relative">
@@ -114,7 +124,9 @@ const DropdownCategory = () => {
                     key={item.name}
                     value={item.id}
                     className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-                  />
+                    checked={selectedValue.includes(item.id)}
+                    onChange={() => handleCheckboxChange(item.id)}
+                 />
                   <label
                     key={item.id}
                     htmlFor={item.name}
