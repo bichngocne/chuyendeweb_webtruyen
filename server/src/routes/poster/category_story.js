@@ -1,8 +1,8 @@
 import { Router } from 'express';
 const router = Router();
 // import connect from "../configs/config.js";
-import {categoryP} from '../../controllers/index.js';
+import {category_storyP} from '../../controllers/index.js';
 //[GET] class
-router.get('/categories', categoryP.getCategory);
+router.get('/category_story', category_storyP.index);
 
 export default router;

@@ -50,7 +50,7 @@ const Category = () => {
       <div className="flex flex-col">
         <Title text="Danh sách thể loại truyện"></Title>
         <div className="flex justify-between items-center">
-          <Arrange />
+          <Arrange text="Sắp xếp"/>
           <Search />
         </div>
         <div className="pt-[35px]">

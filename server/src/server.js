@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 import express from "express";
 import {createProxyMiddleware} from "http-proxy-middleware";
 import {sequelize } from "./database/connect.js";
-import {category,story} from './routes/index.js'
+import {categoryP,storyP} from './routes/index.js'
 import cors from "cors"
 dotenv.config();
 const app = express();
@@ -15,8 +15,8 @@ sequelize.sync()
     console.error('Error syncing database:', err);
   });
 // call api
-app.use('/api',cors({ origin: '*' }),category)
-app.use('/api',cors({ origin: '*' }),story)
+app.use('/api',cors({ origin: '*' }),categoryP)
+app.use('/api',cors({ origin: '*' }),storyP)
 
 // Cấu hình proxy middleware
 var options = {

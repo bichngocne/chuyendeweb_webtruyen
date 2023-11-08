@@ -6,7 +6,7 @@ const TrashcanStory = () => {
       <div className="flex flex-col">
         <Title text="Thùng rác"></Title>
         <div className="flex justify-between items-center">
-          <Arrange />
+          <Arrange text="Sắp xếp"/>
           <Search/>
         </div>
         <TableStory text="trashcanstory"/>

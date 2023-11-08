@@ -1,5 +1,6 @@
 const path = {
     PUBLIC:'/',
+    // đường dẫn của poster
     HOME_FOR_POSTER:'management-story',
     POST_STORY:'post-story',
     LIST_STORY:'list-story',
@@ -8,6 +9,8 @@ const path = {
     STORY_NEED_UPDATE:'story-need-update',
     THUNG_RAC:'thung-rac',
     STORY__NAME__ID:'story/:name/:sid',
+    STORY__NAME__ID_UPDATE:'edit',
+    CHAPPER__NAME__ID:':sid',
     // đường dẫn của reader
     HOME_FOR_READER:'reader'
 }

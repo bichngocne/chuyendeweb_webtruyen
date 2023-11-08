@@ -221,7 +221,7 @@ class FormStory extends React.Component {
                   </div>
                 </div>
                 <div className="h-[35px]">
-                  <ButtonSave onClick={this.handleSubmit} />
+                  <ButtonSave text="Lưu" onClick={this.handleSubmit} />
                 </div>
               </div>
             </div>

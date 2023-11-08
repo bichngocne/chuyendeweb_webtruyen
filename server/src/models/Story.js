@@ -1,6 +1,8 @@
 "use strict";
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../database/connect.js";
+import { story_category } from "./story_category.js";
+import { Category } from "./Category.js";
 class story extends Model {
   /**
    * Helper method for defining associations.
@@ -9,10 +11,11 @@ class story extends Model {
    */
   static associate(models) {
     // define association here
-    story.belongsToMany(models.Category, {
-      through: "story-categories", // Tên bảng liên kết
-      foreignKey: "story_id", // Khóa ngoại của bảng Story
-      otherKey: "category_id", // Khóa ngoại của bảng Category
+    story.belongsToMany(Category, {
+      through: story_category, // Tên bảng liên kết
+      foreignKey: "id_story", // Khóa ngoại của bảng Story
+      otherKey: "id_category", // Khóa ngoại của bảng Category
+      as:'Category'
     });
   }
 }

@@ -1,2 +1,2 @@
-export {default as category} from './poster/category.js'
-export {default as story} from './poster/story.js'
+export {default as categoryP} from './poster/category.js'
+export {default as storyP} from './poster/story.js'

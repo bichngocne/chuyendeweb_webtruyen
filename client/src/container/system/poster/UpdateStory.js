@@ -6,7 +6,7 @@ const UpdateStory = () => {
       <div className="flex flex-col">
         <Title text="Truyện cần cập nhật"></Title>
         <div className="flex justify-between items-center">
-          <Arrange />
+          <Arrange text="Sắp xếp"/>
           <Search/>
         </div>
         <TableStory text="needupdate"/>
