@@ -4,7 +4,7 @@ import {ContentHome, Footer, Header} from "../../../components/reader"
 const Home = () =>{
     return(
         <div className="">
-           <div className="bg-[#0e2234]">
+           <div >
             <Header/>
             </div>
             {/* content */}

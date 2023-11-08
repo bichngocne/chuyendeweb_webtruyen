@@ -1,6 +1,7 @@
 'use strict';
 import { DataTypes, Model } from "sequelize";
 import {sequelize} from "../database/connect.js";
+import { user } from "./user.js";
   class story extends Model {
     /**
      * Helper method for defining associations.
@@ -14,7 +15,7 @@ import {sequelize} from "../database/connect.js";
   story.init({
     name: DataTypes.STRING,
     description: DataTypes.STRING,
-    total_chapter: DataTypes.INTEGER,
+    total_chapper: DataTypes.INTEGER,
     author: DataTypes.STRING,
     status_approve: DataTypes.BOOLEAN,
     status_chapter: DataTypes.BOOLEAN,
@@ -27,4 +28,5 @@ import {sequelize} from "../database/connect.js";
     sequelize,
     modelName: 'stories',
   });
+  story.belongsTo(user, { foreignKey: 'id_user' }); // Định nghĩa mối quan hệ
  export {story}

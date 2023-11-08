@@ -9,7 +9,9 @@ const path = {
     THUNG_RAC:'thung-rac',
 
     // đường dẫn của reader
-    HOME_FOR_READER:'reader'
+    HOME_FOR_READER:'reader',
+    TYPE_STORY:'type-story/:categoryId',
+    DETAIL_STORY:'story/:storyId'
 }
 
 export default path

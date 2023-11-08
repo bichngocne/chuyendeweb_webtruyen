@@ -8,6 +8,7 @@ import Search from "./Search";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import ListType from "./ListType";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const { AiOutlineMenuUnfold } = icon;
@@ -35,7 +36,10 @@ const Header = () => {
         {/* select */}
         <div className="flex items-center">
           {/* thể loại */}
-       <Setup/>
+      
+      <div>
+        <ListType/>
+      </div>
           {/* Phân loại theo chương */}
           <div className="flex items-center relative">
             <AiOutlineMenuUnfold size={24} color="white" />
@@ -52,9 +56,9 @@ const Header = () => {
           </div>
 
           {/* truyện tranh */}
-          <div className="flex gap-2">
+          <div className="flex gap-2 pr-3">
             <BsFillImageFill size={24} color="white" />
-            <a className="text-white">Truyện tranh</a>
+            <Link to="#" className="text-white ">Truyện tranh</Link>
           </div>
 
           {/* cài đặt */}

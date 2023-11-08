@@ -1,6 +1,8 @@
 'use strict';
 import { DataTypes, Model } from "sequelize";
 import {sequelize} from "../database/connect.js";
+import { Category } from "./Category.js";
+import {story} from "./story.js";
   class story_category extends Model {
     /**
      * Helper method for defining associations.
@@ -18,4 +20,6 @@ import {sequelize} from "../database/connect.js";
     sequelize,
     modelName: 'story_category',
   });
+  story_category.belongsTo(Category, { foreignKey: 'id_category' }); // Định nghĩa mối quan hệ
+  story_category.belongsTo(story, { foreignKey: 'id_story' }); // Định nghĩa mối quan hệ
 export {story_category}
