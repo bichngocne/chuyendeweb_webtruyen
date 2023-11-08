@@ -1,5 +1,5 @@
 // import { useSelector,useDispatch } from "react-redux";
-import { Home, PostStory,ListStory,Category,TrashcanStory,UpdateStory,PendingStory,AddStory } from "./container/system/poster";
+import { Home, PostStory,ListStory,Category,TrashcanStory,UpdateStory,PendingStory,Story } from "./container/system/poster";
 import { Public } from "./container/public";
 import { Route, Routes } from "react-router-dom";
 import path from "./ultis/path";
@@ -20,6 +20,7 @@ function App() {
               <Route path={path.CATEGORY_STORY_POSTER} element={<Category />} />
               <Route path={path.STORY_NEED_UPDATE} element={<UpdateStory />} />
               <Route path={path.THUNG_RAC} element={<TrashcanStory />} />
+              <Route path={path.STORY__NAME__ID} element={<Story />} />
             </Route>
               {/* Tuyến đường của reader */}
             <Route>

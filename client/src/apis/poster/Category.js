@@ -1,4 +1,4 @@
-import axios from "../axios";
+import axios from "../../axios";
 
 export const getCategories = () => new Promise(async(resolve,reject) => {
     try {

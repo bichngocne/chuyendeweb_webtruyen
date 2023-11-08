@@ -1,5 +1,5 @@
-import actionTypes from "./actionTypes";
-import * as apis from "../../apis";
+import actionTypes from "../actionTypes";
+import * as apis from "../../../apis";
 
 export const getCategories = () => async (dispatch) => {
     try {

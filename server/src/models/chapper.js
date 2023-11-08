@@ -16,7 +16,7 @@ import {sequelize} from "../database/connect.js";
     id_story: DataTypes.INTEGER,
     number_chapper: DataTypes.INTEGER,
     image: DataTypes.STRING,
-    content: DataTypes.STRING
+    content: DataTypes.TEXT
   }, {
     sequelize,
     modelName: 'chapper',

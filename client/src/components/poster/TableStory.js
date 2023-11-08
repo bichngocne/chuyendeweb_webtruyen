@@ -1,35 +1,35 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { DataGrid } from "@mui/x-data-grid";
 import icons from "../../ultis/icons";
 import table from "../../assets/css/table.css";
+import * as actions from "../../store/actions";
+import { createSlug, encryptData, callDetail } from "../../ultis/function";
 const { BiEditAlt, MdOutlineDelete, RiDeviceRecoverLine } = icons;
 
 const TableStory = (props) => {
-  var iconsChange;
-  if (props.text === "pendingstory") {
-    iconsChange = ''
-  } else if (props.text === "trashcanstory") {
-    iconsChange = (
-      <span>
-        <RiDeviceRecoverLine size={24} />
-      </span>
-    );
-  }  else {
-    iconsChange = (
-      <span>
-        <BiEditAlt size={24} />
-      </span>
-    );
-  }
+  const dispatch = useDispatch();
+  const { data } = useSelector((state) => state.story);
   const columns = [
-    { field: "STT", headerName: "STT", type:'number',width: 50 },
-    { field: "firstName", headerName: "Tên truyện", width: 480 },
-    { field: "lastName", headerName: "Số chương", width: 130 },
+    { field: "STT", headerName: "STT", type: "number", width: 50 },
     {
-      field: "age",
+      field: "name",
+      headerName: "Tên truyện",
+      width: 450,
+      renderCell: (params) => callDetail(params, params.row.name),
+    },
+    {
+      field: "total_chapper",
+      headerName: "Số chương",
+      type: "number",
+      width: 160,
+    },
+    {
+      field: "status_approve",
       headerName: "Trạng thái",
       type: "number",
       width: 130,
+      valueGetter: (params) => (params.row.status_approve ? "Full" : "Đang ra"),
     },
     {
       field: "tacvu",
@@ -38,9 +38,9 @@ const TableStory = (props) => {
       sortable: false,
       type: "number",
       width: 200,
-      renderCell: () => (
+      renderCell: (params) => (
         <div className="flex gap-4 items-center">
-          {iconsChange}
+          {iconsChange(params)}
           <span>
             <MdOutlineDelete size={24} />
           </span>
@@ -48,48 +48,52 @@ const TableStory = (props) => {
       ),
     },
   ];
-  var rows;
-  if (props.text === "trashcanstory") {
-    rows = [
-      { id: 1, lastName: "Snow", firstName: "Jon", age: 35 },
-      { id: 2, lastName: "Lannister", firstName: "Cersei", age: 42 },
-      { id: 3, lastName: "Lannister", firstName: "Jaime", age: 45 },
-      { id: 4, lastName: "Stark", firstName: "Arya", age: 16 },
-    ];
-  } else if (props.text === "liststory") {
-    rows = [
-      { id: 1, lastName: "Snow", firstName: "Jon", age: 35 },
-      { id: 2, lastName: "Lannister", firstName: "Cersei", age: 42 },
-      { id: 3, lastName: "Lannister", firstName: "Jaime", age: 45 },
-      { id: 4, lastName: "Stark", firstName: "Arya", age: 16 },
-      { id: 5, lastName: "Targaryen", firstName: "Daenerys", age: null },
-      { id: 6, lastName: "Melisandre", firstName: null, age: 150 },
-      { id: 7, lastName: "Clifford", firstName: "Ferrara", age: 44 },
-      { id: 8, lastName: "Frances", firstName: "Rossini", age: 36 },
-      { id: 9, lastName: "Roxie", firstName: "Harvey", age: 65 },
-    ];
-  } else if (props.text === "needupdate") {
-    rows = [
-      { id: 1, lastName: "Snow", firstName: "Jon", age: 35 },
-      { id: 2, lastName: "Lannister", firstName: "Cersei", age: 42 },
-      { id: 3, lastName: "Lannister", firstName: "Jaime", age: 45 },
-      { id: 4, lastName: "Stark", firstName: "Arya", age: 16 },
-      { id: 5, lastName: "Targaryen", firstName: "Daenerys", age: null },
-      { id: 6, lastName: "Melisandre", firstName: null, age: 150 },
-      { id: 7, lastName: "Clifford", firstName: "Ferrara", age: 44 },
-      { id: 8, lastName: "Frances", firstName: "Rossini", age: 36 },
-      { id: 9, lastName: "Roxie", firstName: "Harvey", age: 65 },
-    ];
-  }else if (props.text === "pendingstory") {
-    rows = [
-      { id: 1, lastName: "Snow", firstName: "Jon", age: 35 },
-      { id: 2, lastName: "Lannister", firstName: "Cersei", age: 42 },
-      { id: 3, lastName: "Lannister", firstName: "Jaime", age: 45 },
-      { id: 4, lastName: "Stark", firstName: "Arya", age: 16 }
-    ];
+
+  useEffect(() => {
+    if (props.text === "trashcanstory") {
+    } else if (props.text === "liststory") {
+      dispatch(actions.getStories());
+    } else if (props.text === "needupdate") {
+      // Xử lý logic cho trường hợp "needupdate" ở đây
+    } else if (props.text === "pendingstory") {
+      // Xử lý logic cho trường hợp "pendingstory" ở đây
+    }
+  }, []);
+  const [rowsWithSTT, setRowsWithSTT] = useState([]);
+  useEffect(() => {
+    if (props.text === "trashcanstory") {
+    } else if (props.text === "liststory") {
+      if (data) {
+        const updatedData = data.map((data, index) => ({
+          ...data,
+          STT: index + 1,
+        }));
+        setRowsWithSTT(updatedData);
+      }
+    } else if (props.text === "needupdate") {
+    } else if (props.text === "pendingstory") {
+      // Xử lý logic cho trường hợp "pendingstory" ở đây
+    }
+  }, [data, props.text]);
+  var iconsChange;
+  if (props.text === "pendingstory") {
+    iconsChange = "";
+  } else if (props.text === "trashcanstory") {
+    iconsChange = (params) => (
+      <span>
+        <RiDeviceRecoverLine size={24} />
+      </span>
+    );
+  } else {
+    iconsChange = (params) =>
+      callDetail(
+        params,
+        <span>
+          <BiEditAlt size={24} />
+        </span>
+      );
   }
 
-  const rowsWithSTT = rows.map((row, index) => ({ ...row, STT: index + 1 }));
   return (
     <div className="pt-[35px]">
       <div style={{ height: 420, width: "100%" }}>

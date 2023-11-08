@@ -1,4 +1,4 @@
-import {Category} from '../models/index.js';
+import {Category} from '../../models/index.js';
 const getCategory = async (req, res) => {
   try {
     console.log('hih');
