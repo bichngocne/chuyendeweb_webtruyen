@@ -1,5 +1,5 @@
 import React from "react";
-import { ButtonSave, DropdownCategory, Upload } from "./index.js";
+import { ButtonSave, DropdownCategory, Upload } from "../index.js";
 class FormStory extends React.Component {
   constructor(props) {
     super(props);

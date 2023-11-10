@@ -5,6 +5,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import icons from "../../../ultis/icons";
 import table from "../../../assets/css/table.css";
 import { Title, Arrange, Search } from "../../../components/poster";
+import { Outlet } from "react-router-dom";
 
 const { BiEditAlt } = icons;
 const columns = [

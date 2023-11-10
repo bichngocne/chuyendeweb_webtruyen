@@ -1,5 +1,15 @@
 // import { useSelector,useDispatch } from "react-redux";
-import { Home, PostStory,ListStory,Category,TrashcanStory,UpdateStory,PendingStory,Story } from "./container/system/poster";
+import {
+  Home,
+  PostStory,
+  ListStory,
+  Category,
+  TrashcanStory,
+  UpdateStory,
+  PendingStory,
+  Story,
+  Chapper,
+} from "./container/system/poster";
 import { Public } from "./container/public";
 import { Route, Routes } from "react-router-dom";
 import path from "./ultis/path";
@@ -15,16 +25,19 @@ function App() {
             {/* Tuyến đường của poster */}
             <Route path={path.HOME_FOR_POSTER} element={<HomePoster />}>
               <Route path={path.POST_STORY} element={<PostStory />} />
-              <Route path={path.STORY__NAME__ID_UPDATE} element={<PostStory />} />
+              <Route
+                path={path.STORY__NAME__ID_UPDATE}
+                element={<PostStory />}
+              />
               <Route path={path.LIST_STORY} element={<ListStory />} />
               <Route path={path.CHO_DUYET} element={<PendingStory />} />
               <Route path={path.CATEGORY_STORY_POSTER} element={<Category />} />
               <Route path={path.STORY_NEED_UPDATE} element={<UpdateStory />} />
               <Route path={path.THUNG_RAC} element={<TrashcanStory />} />
               <Route path={path.STORY__NAME__ID} element={<Story />} />
-              <Route path={path.CHAPPER__NAME__ID} element={<Story />} />
+              <Route path={path.CHAPPER__NAME__ID} element={<Chapper />} />
             </Route>
-              {/* Tuyến đường của reader */}
+            {/* Tuyến đường của reader */}
             <Route>
               <Route path={path.HOME_FOR_READER} element={<HomeReader />} />
             </Route>

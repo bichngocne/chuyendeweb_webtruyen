@@ -26,7 +26,7 @@ story.init(
       type: DataTypes.STRING, 
       unique: true 
     },
-    description: DataTypes.STRING,
+    description: DataTypes.TEXT,
     total_chapper: DataTypes.INTEGER,
     author: DataTypes.STRING,
     status_approve: DataTypes.BOOLEAN,
