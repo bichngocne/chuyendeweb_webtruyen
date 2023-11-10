@@ -1,4 +1,4 @@
-import { story, Category } from "../../models/index.js";
+import { story, Category, story_category } from "../../models/index.js";
 import { decryptData } from "../../utils/function.js";
 const index = async (req, res) => {
   try {
@@ -29,14 +29,16 @@ async function getCategoryOfStoryById(req, res) {
     const decryptedStoryID = decryptData(
       id,
       process.env.SEVER_SECRET_KEY_ID_STORY
-      );
-    const foundStory = await story.findOne({
-      where: { id: decryptedStoryID },
-      include: [{
-        model:Category,
-        as:'categories'
-      }
-      
+    );
+    const foundStory = await story_category.findAll({
+      where: { id_story: decryptedStoryID },
+      include: [
+        {
+          model: Category,
+        },
+        {
+          model: story,
+        },
       ], // Kết hợp câu chuyện với danh mục
     });
     console.log(foundStory);
@@ -44,7 +46,7 @@ async function getCategoryOfStoryById(req, res) {
     //   // Tìm thấy câu chuyện
     //   console.log("Story:");
     //   console.log(foundStory.dataValues);
-      
+
     //   if (foundStory.Categories) {
     //     // Danh sách các danh mục liên quan
     //     console.log("\nCategories:");
@@ -60,6 +62,5 @@ async function getCategoryOfStoryById(req, res) {
     res.status(500).json({ error: "Internal Server Error" });
   }
 }
-
 
 export default { index, show, getCategoryOfStoryById };

@@ -52,7 +52,7 @@ module.exports = {
         author: "Nhĩ Nhã",
         status_approve: false,
         status_chapter: false,
-        classifi: 0,
+        classifi: 1,
         image: `image44.png`,
         view: 0,
         id_user: 2,
