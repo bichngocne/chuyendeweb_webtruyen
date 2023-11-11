@@ -12,7 +12,7 @@ const Home = () => {
           <div className="w-[260px] flex-none border-r border-b-slate-50">
             <SidebarLeft />
           </div>
-          <div className="mx-[80px] flex-auto h-screen w-full rounded-lg overflow-y-scroll scrollbar-thin" style={{ scrollbarWidth: 'none' }}>
+          <div className="mx-[80px] flex-auto w-full rounded-lg overflow-y-scroll scrollbar-thin" style={{ scrollbarWidth: 'none' }}>
             <Outlet />
           </div>
         </div>
