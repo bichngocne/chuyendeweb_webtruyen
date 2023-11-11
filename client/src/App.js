@@ -1,5 +1,11 @@
 // import { useSelector,useDispatch } from "react-redux";
-import { Home, PostStory,ListStory,Category,TrashcanStory, Story, Chapper, UpdateStory, PendingStory } from "./container/system/poster";
+import {
+  PostStory,
+  ListStory,
+  Category,
+  TrashcanStory,
+} from "./container/system/poster";
+import{ DetailStory, TypeStory}from"./container/system/reader";
 import { Public } from "./container/public";
 
 import { Route, Routes } from "react-router-dom";
@@ -8,7 +14,6 @@ import path from "./ultis/path";
 import React, { Suspense } from "react";
 const HomePoster = React.lazy(() => import("./container/system/poster/Home"));
 const HomeReader = React.lazy(() => import("./container/system/reader/Home"));
-
 function App() {
   return (
     <>
@@ -34,6 +39,10 @@ function App() {
             <Route>
               <Route path={path.HOME_FOR_READER} element={<HomeReader />} />
             </Route>
+              {/* Tuyến đường của reader */}
+            <Route path={path.HOME_FOR_READER} element={<HomeReader />}/>
+              <Route path={path.TYPE_STORY} element={<TypeStory />} />
+              <Route path={path.DETAIL_STORY} element={<DetailStory />} />
           </Routes>
         </Suspense>
       </div>

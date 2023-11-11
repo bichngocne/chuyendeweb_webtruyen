@@ -3,6 +3,7 @@ import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../database/connect.js";
 import { story_category } from "./story_category.js";
 import { Category } from "./Category.js";
+import { user } from "./user.js";
 class story extends Model {
   /**
    * Helper method for defining associations.
@@ -39,6 +40,6 @@ story.init(
   {
     sequelize,
     modelName: "stories",
-  }
-);
+  });
+story.belongsTo(user, { foreignKey: 'id_user' }); // Định nghĩa mối quan hệ
 export { story };
