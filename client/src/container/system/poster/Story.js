@@ -14,6 +14,7 @@ const { AiOutlineStar, AiFillStar } = icons;
 const Story = () => {
   const { data } = useSelector((state) => state.story);
   const [detailStory, setDetailStory] = useState(null);
+  const [categoryStory, setCategoryStory] = useState(null);
   const { name, sid } = useParams();
   const storyId = sid;
   useEffect(() => {
@@ -24,6 +25,14 @@ const Story = () => {
       }
     };
     fetchDetailStory();
+    const fetchCategoryStory = async () =>{
+       const responseCategory = await apis.apiGetCategoryOfStoryById(storyId);
+       console.log(responseCategory.data);
+       if (responseCategory.status === 200) {
+        setCategoryStory(responseCategory.data);
+      }
+    }
+    fetchCategoryStory();
   }, [data]);
 
   var tmp = [];
@@ -42,7 +51,7 @@ const Story = () => {
             />
             
           </div>
-          <InforStory detailStory={detailStory} />
+          <InforStory detailStory={detailStory} categoryStory={categoryStory} />
         </div>
         <Title text="Danh sách chương"></Title>
         <Arrange text="Bộ lọc" />

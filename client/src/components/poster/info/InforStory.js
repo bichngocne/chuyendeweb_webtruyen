@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { ButtonSave } from "../../../components/poster";
+import { useSelector } from "react-redux";
 
-const InforStory = ({ detailStory }) => {
+const InforStory = ({ detailStory, categoryStory }) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const description = detailStory?.storyById.description;
-
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
   };
@@ -37,7 +36,11 @@ const InforStory = ({ detailStory }) => {
       </div>
       <div className="text-[15px] mt-3 [font-family:'Inter-Medium',Helvetica] flex gap-5">
         <span>Thể loại :</span>
-        <span>Ngôn tình, kiếm hiệp</span>
+        <span>
+          {categoryStory?.foundStory.map((element) => {
+            return element.Category.name + " ";
+          })}
+        </span>
       </div>
       <div className="text-[15px] mt-3 [font-family:'Inter-Medium',Helvetica] flex flex-col gap-2">
         <p className="w-full">Nội dung :</p>
