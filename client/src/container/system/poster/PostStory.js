@@ -1,11 +1,16 @@
-import React from 'react'
-
+import React from "react";
+import { Title,FormStory } from "../../../components/poster";
 const PostStory = () => {
   return (
-    <div className=''>
-        Đăng truyện
-    </div>
-  )
-}
+    <>
+      <div className="flex flex-col">
+        <Title text="Đăng truyện"></Title>
+        <div className="flex justify-between items-center">
+          <FormStory/>
+        </div>
+      </div>
+    </>
+  );
+};
 
-export default PostStory
+export default PostStory;
