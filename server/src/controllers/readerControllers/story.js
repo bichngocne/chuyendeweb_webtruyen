@@ -1,15 +1,4 @@
 import { story, Category, story_category, user, chapper } from "../../models/index.js";
-const getStories = async (req, res) => {
-  try {
-    console.log("hih");
-    const stories = await story.findAll();
-    console.log(stories);
-    return res.json({ stories });
-  } catch (error) {
-    console.error("Error retrieving story:", error);
-    return res.status(500).json({ error: "Internal Server Error" });
-  }
-};
 const getStoryById = async (req, res) => {
   console.log("getStoryById");
   const storyId = req.params.id; // Lấy giá trị id từ đường dẫn URL
@@ -93,7 +82,6 @@ const getChapperOfStory = async(req, res)=>{
   }
 }
 export default {
-  getStories,
   getStoryCategories,
   getStoryOfCategory,
   getStoryById,

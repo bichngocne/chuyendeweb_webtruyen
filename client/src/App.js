@@ -4,6 +4,10 @@ import {
   ListStory,
   Category,
   TrashcanStory,
+  PendingStory,
+  UpdateStory,
+  Story,
+  Chapper
 } from "./container/system/poster";
 import{ DetailStory, TypeStory}from"./container/system/reader";
 import { Public } from "./container/public";

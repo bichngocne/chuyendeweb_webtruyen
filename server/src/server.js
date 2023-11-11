@@ -3,7 +3,7 @@ import express from "express";
 import {createProxyMiddleware} from "http-proxy-middleware";
 import {sequelize } from "./database/connect.js";
 import {categoryP,storyP} from './routes/index.js'
-import {category, story, story_category, Comment} from './routes/index.js';
+import {category, Story, story_category, Comment} from './routes/index.js';
 import cors from "cors"
 dotenv.config();
 const app = express();
@@ -18,9 +18,8 @@ sequelize.sync()
 // call api
 app.use('/api',cors({ origin: '*' }),categoryP)
 app.use('/api',cors({ origin: '*' }),storyP)
-
 app.use('/api',cors({ origin: '*' }),category)
-app.use('/api',cors({ origin: '*' }),story)
+app.use('/api',cors({ origin: '*' }),Story)
 app.use('/api',cors({ origin: '*' }),story_category)
 app.use('/api',cors({ origin: '*' }),Comment)
 // Cấu hình proxy middleware
