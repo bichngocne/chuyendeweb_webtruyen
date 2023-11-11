@@ -1,7 +1,7 @@
 import React from "react";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
-import icon from "../../ultis/icons";
+import icon from "../../../ultis/icons";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link , useNavigate  } from "react-router-dom";

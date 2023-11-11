@@ -1,8 +1,9 @@
 'use strict';
 import { DataTypes, Model } from "sequelize";
 import {sequelize} from "../database/connect.js";
-import { story } from "./story.js";
-  class chapper extends Model {
+import { user } from "./user.js";
+import { story } from "./Story.js";
+  class Comment extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -12,15 +13,15 @@ import { story } from "./story.js";
       // define association here
     }
   }
-  chapper.init({
-    title: DataTypes.STRING,
-    id_story: DataTypes.INTEGER,
-    number_chapper: DataTypes.INTEGER,
-    image: DataTypes.STRING,
-    content: DataTypes.STRING
+  Comment.init({
+    content: DataTypes.STRING,
+    id_story:DataTypes.INTEGER,
+    id_user:DataTypes.INTEGER,
+    star:DataTypes.INTEGER,
   }, {
     sequelize,
-    modelName: 'chapper',
+    modelName: 'Comments',
   });
-  chapper.belongsTo(story, { foreignKey: 'id_story' }); // Định nghĩa mối quan hệ
-export{chapper}
+  Comment.belongsTo(user, { foreignKey: 'id_user' }); 
+  Comment.belongsTo(story, { foreignKey: 'id_story' }); 
+  export {Comment};

@@ -4,7 +4,7 @@ import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import icons from "../../ultis/icons";
+import icons from "../../../ultis/icons";
 const StoryUpdating = () => {
   const { BiSolidHot, MdOutlineNavigateNext } = icons;
   const [categories, setCategories] = useState([]);

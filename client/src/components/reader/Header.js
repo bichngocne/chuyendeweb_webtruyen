@@ -7,7 +7,7 @@ import Setup from "./Setup";
 import Search from "./Search";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import ListType from "./ListType";
+import ListType from "./Story/ListType";
 import { Link } from "react-router-dom";
 
 const Header = () => {

@@ -1,10 +1,9 @@
 import React from "react";
-import icons from "../../ultis/icons";
+import icons from "../../../ultis/icons";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import bia from "../../assets/images";
 import { useParams } from "react-router-dom";
 import StoryUpdating from "./StoryUpdating";
 const ContentHome = () => {
@@ -25,7 +24,7 @@ const ContentHome = () => {
       .catch((err) => console.log(err));
   }, []);
   return (
-    <div className="bg-slate-400">
+    <div className="bg-[#f0f8ff]">
       <div className="max-w-[1280px] mx-auto">
         {/* truyện hot */}
         <div className=" py-[20px]">
@@ -61,7 +60,7 @@ const ContentHome = () => {
                   <div className="relative " key={story.id}>
                     <img
                       className=""
-                      src={require(`../../assets/images/${story.image}`)}
+                      src={require(`../../../assets/images/${story.image}`)}
                     />
                     <div className="absolute bottom-0 left-0 right-0 py-1 px-[2px] bg-slate-300 opacity-80 z-1 ">
                       <p className="font-medium text-sm text-center">
@@ -95,7 +94,7 @@ const ContentHome = () => {
                   <div className=" " key={story.id}>
                     <img
                       className="w-[150px] h-[230px]"
-                      src={require(`../../assets/images/${story.image}`)}
+                      src={require(`../../../assets/images/${story.image}`)}
                     />
                     <div className=" py-1 px-[2px] flex flex-col items-center">
                       <a

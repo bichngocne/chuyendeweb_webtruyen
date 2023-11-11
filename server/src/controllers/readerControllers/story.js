@@ -1,4 +1,4 @@
-import { story, Category, story_category, user } from "../models/index.js";
+import { story, Category, story_category, user, chapper } from "../../models/index.js";
 const getStories = async (req, res) => {
   try {
     console.log("hih");
@@ -77,10 +77,26 @@ const getUsePost = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+const getChapperOfStory = async(req, res)=>{
+  try {
+   console.log("chapper of story") ;
+   const { id_story } = req.params;
+   // Thực hiện truy vấn để lấy các thể loại của câu chuyện với storyId
+   const chappers = await chapper.findAll({
+    where: { id_story },
+  });
+  // Gửi danh sách tên thể loại như phản hồi JSON
+  res.json({ chappers: chappers });
+  } catch (error) {
+    console.error("Error retrieving chapper:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+}
 export default {
   getStories,
   getStoryCategories,
   getStoryOfCategory,
   getStoryById,
-  getUsePost
+  getUsePost,
+  getChapperOfStory
 };
