@@ -41,7 +41,7 @@ const callDetail = (params,text) => {
   return (<Link
     to={`/management-story/story/${createSlug(params.row.name)}/${encryptData(
       params.row.id,
-      process.env.REACT_APP_SECRET_KEY_ID_STORY
+      process.env.REACT_APP_SECRET_KEY_ID_STORY || 'secret'
     )}`}
   >
     {text}

@@ -28,8 +28,9 @@ async function getCategoryOfStoryById(req, res) {
     const id = decodeURIComponent(req.params.id);
     const decryptedStoryID = decryptData(
       id,
-      process.env.SEVER_SECRET_KEY_ID_STORY
+      process.env.SEVER_SECRET_KEY_ID_STORY || 'secret'
       );
+      console.log(decryptedStoryID);
     const foundStory = await story_category.findAll({
       where: { id_story: decryptedStoryID },
       include: [
