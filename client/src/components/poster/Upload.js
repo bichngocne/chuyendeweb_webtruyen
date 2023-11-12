@@ -14,7 +14,7 @@ const Upload = (props) => {
           aria-describedby="file_input_help"
           id={props.text}
           type="file"
-          {...(props.text !== "imgmain" ? {} : { multiple: "multiple" })}
+          {...(props.text === "imgmain" ? {} : { multiple: "multiple" })}
           accept=".jpg, .png, .svg"
           onChange={(event) => {
             setImages(event.target.files);

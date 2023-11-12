@@ -14,7 +14,7 @@ async function show(req, res) {
     const id = decodeURIComponent(req.params.id);
     const decryptedStoryID = decryptData(
       id,
-      process.env.SEVER_SECRET_KEY_ID_STORY
+      process.env.SEVER_SECRET_KEY_ID_STORY || 'this is secret'
     );
     const storyById = await story.findOne({ where: { id: decryptedStoryID } });
     res.json({ storyById });
@@ -28,7 +28,7 @@ async function getCategoryOfStoryById(req, res) {
     const id = decodeURIComponent(req.params.id);
     const decryptedStoryID = decryptData(
       id,
-      process.env.SEVER_SECRET_KEY_ID_STORY
+      process.env.SEVER_SECRET_KEY_ID_STORY || 'this is secret'
       );
     const foundStory = await story_category.findAll({
       where: { id_story: decryptedStoryID },
