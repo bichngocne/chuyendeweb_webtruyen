@@ -333,7 +333,9 @@ class FormStory extends React.Component {
                   type="text"
                   value={this.state.authorValue} // Sử dụng giá trị cho Tác giả
                   onChange={this.handleAuthorChange} // Sử dụng phương thức để cập nhật giá trị
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5"
+                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 ${
+                    errors?.authorValue ? "border-red-500 text-red-900" : ""
+                  }`}
                   id="nameAuthor"
                   placeholder="Nhập Tác giả ..."
                   required
@@ -362,7 +364,9 @@ class FormStory extends React.Component {
                   type="number"
                   value={this.state.totalChapValue} // Sử dụng giá trị cho Tổng số chương
                   onChange={this.handleTotalChaChange} // Sử dụng phương thức để cập nhật giá trị
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5"
+                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 ${
+                    errors?.totalChapValue ? "border-red-500 text-red-900" : ""
+                  }`}
                   id="totalChap"
                   placeholder="Nhập tổng số chương ..."
                   min="0"
