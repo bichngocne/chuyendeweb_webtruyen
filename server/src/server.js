@@ -4,6 +4,8 @@ import {createProxyMiddleware} from "http-proxy-middleware";
 import {sequelize } from "./database/connect.js";
 import {categoryP,storyP} from './routes/index.js'
 import cors from "cors"
+import methodOverride  from 'method-override';
+import bodyparser from 'body-parser';
 dotenv.config();
 const app = express();
 // Initialize Sequelize
@@ -14,6 +16,13 @@ sequelize.sync()
   .catch((err) => {
     console.error('Error syncing database:', err);
   });
+
+// override with POST having ?_method=DELETE
+app.use(methodOverride('_method'))
+
+app.use(bodyparser.urlencoded({ extended: true }));
+app.use(bodyparser.json());
+
 // call api
 app.use('/api',cors({ origin: '*' }),categoryP)
 app.use('/api',cors({ origin: '*' }),storyP)

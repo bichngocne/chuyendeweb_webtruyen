@@ -25,7 +25,7 @@ class FormStory extends React.Component {
     };
     const isImgValue = () => {
       const imgs = this.state.imgValue;
-      return Object.keys(imgs).length === 0;
+      return Object.keys(imgs).length === 1;
     };
     const isNameValueValid = (value, field, state) => {
       // Kiểm tra không có 3 khoảng trắng ở đầu chuỗi
@@ -44,10 +44,10 @@ class FormStory extends React.Component {
       {
         field: "nameValue",
         method: "isLength",
-        args: [{ min: 5, max: 255 }],
+        args: [{ min: 3, max: 50 }],
         validWhen: true,
         message:
-          "The name must be at least 5 characters and maximum 255 characters.",
+          "The name must be at least 3 characters and maximum 50 characters.",
       },
       {
         field: "nameValue",
@@ -65,9 +65,9 @@ class FormStory extends React.Component {
       {
         field: "descriptionValue",
         method: "isLength",
-        args: [{ min: 5 }],
+        args: [{ min: 3 }],
         validWhen: true,
-        message: "The description must be at least 5 characters.",
+        message: "The description must be at least 3 characters.",
       },
       {
         field: "descriptionValue",
@@ -85,7 +85,7 @@ class FormStory extends React.Component {
       {
         field: "imgValue",
         method: isImgValue,
-        validWhen: false,
+        validWhen: true,
         message: "Choose a photo.",
       },
       {
@@ -196,7 +196,7 @@ class FormStory extends React.Component {
         category: encryptedCategory,
         img: this.state.imgValue,
         author: this.state.authorValue,
-        totalChap: this.state.totalChapValue,
+        totalChap: Number(this.state.totalChapValue),
         classifi: this.state.classifiValue,
       };
       console.log(dataToSubmit);
