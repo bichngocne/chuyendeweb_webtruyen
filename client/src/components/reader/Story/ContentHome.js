@@ -4,25 +4,32 @@ import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
+import * as apis from "../../../apis";
 import StoryUpdating from "./StoryUpdating";
 const ContentHome = () => {
   const { BiSolidHot, MdOutlineNavigateNext } = icons;
   const [categories, setCategories] = useState([]);
   const [stories, setStories] = useState([]);
-  
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/api/categories")
-      .then((res) => setCategories(res.data.categories))
-      .catch((err) => console.log(err));
+    const fetchData = async () => {
+      try {
+        // Lấy danh sách categories
+        const categoriesResponse = await apis.getAllCategories();
+        setCategories(categoriesResponse.data.categories);
+
+        // Lấy danh sách stories
+        const storiesResponse = await apis.getAllStories();
+        setStories(storiesResponse.data.stories);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    // Gọi fetchData khi component được mount
+    fetchData();
   }, []);
-  useEffect(() => {
-    axios
-      .get("http://localhost:5000/api/stories")
-      .then((res) =>setStories(res.data.stories))
-      .catch((err) => console.log(err));
-  }, []);
+
   return (
     <div className="bg-[#f0f8ff]">
       <div className="max-w-[1280px] mx-auto">
@@ -55,27 +62,30 @@ const ContentHome = () => {
           {/* show truyện */}
           <div className="">
             <div className="grid grid-cols-8 gap-4 mt-[10px]">
-              {stories && stories.slice(0, 16).map((story) => {
-                return (
-                  <div className="relative " key={story.id}>
-                    <img
-                      className=""
-                      src={require(`../../../assets/images/${story.image}`)}
-                    />
-                    <div className="absolute bottom-0 left-0 right-0 py-1 px-[2px] bg-slate-300 opacity-80 z-1 ">
-                      <p className="font-medium text-sm text-center">
-                        {story.name}
-                      </p>
+              {stories &&
+                stories.slice(0, 16).map((story) => {
+                  return (
+                    <div className="relative " key={story.id}>
+                      <img
+                        className=""
+                        src={require(`../../../assets/images/${story.image}`)}
+                      />
+                      <div className="absolute bottom-0 left-0 right-0 py-1 px-[2px] bg-slate-300 opacity-80 z-1 ">
+                        <p className="font-medium text-sm text-center">
+                          {story.name}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
             </div>
           </div>
         </div>
 
         {/* truyện mới cập nhập */}
-       <div><StoryUpdating/></div>
+        <div>
+          <StoryUpdating />
+        </div>
 
         {/* truyện đã hoàn thành */}
         <div className="mt-10 pb-20">
@@ -89,27 +99,28 @@ const ContentHome = () => {
           {/* show truyện */}
           <div className="">
             <div className="grid grid-cols-8 gap-4 mt-[20px]">
-              {stories && stories.slice(0, 16).map((story) => {
-                return (
-                  <div className=" " key={story.id}>
-                    <img
-                      className="w-[150px] h-[230px]"
-                      src={require(`../../../assets/images/${story.image}`)}
-                    />
-                    <div className=" py-1 px-[2px] flex flex-col items-center">
-                      <a
-                        className="font-medium text-sm text-center truncate  w-[130px]"
-                        href="#"
-                      >
-                        {story.name}
-                      </a>
-                      <p className="font-medium text-sm rounded-[5px] bg-[#3868E3] w-fit">
-                        full - {story.total_chapper} chương
-                      </p>
+              {stories &&
+                stories.slice(0, 16).map((story) => {
+                  return (
+                    <div className=" " key={story.id}>
+                      <img
+                        className="w-[150px] h-[230px]"
+                        src={require(`../../../assets/images/${story.image}`)}
+                      />
+                      <div className=" py-1 px-[2px] flex flex-col items-center">
+                        <a
+                          className="font-medium text-sm text-center truncate  w-[130px]"
+                          href="#"
+                        >
+                          {story.name}
+                        </a>
+                        <p className="font-medium text-sm rounded-[5px] bg-[#3868E3] w-fit">
+                          full - {story.total_chapper} chương
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
             </div>
           </div>
         </div>

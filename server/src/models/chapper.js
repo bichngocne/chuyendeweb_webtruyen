@@ -1,6 +1,7 @@
 'use strict';
 import { DataTypes, Model } from "sequelize";
 import {sequelize} from "../database/connect.js";
+import { story } from "./Story.js";
   class chapper extends Model {
     /**
      * Helper method for defining associations.
@@ -21,4 +22,5 @@ import {sequelize} from "../database/connect.js";
     sequelize,
     modelName: 'chapper',
   });
+  chapper.belongsTo(story, { foreignKey: 'id_story' }); 
 export{chapper}

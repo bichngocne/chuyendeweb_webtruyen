@@ -1,7 +1,7 @@
-import actionTypes from "../actionTypes";
-import * as apis from "../../../apis";
+import actionTypes from "./actionTypes";
+import * as apis from "../../apis";
 
-export const getCategories = () => async (dispatch) => {
+export const getAllCategories = () => async (dispatch) => {
     try {
         const response = await apis.getAllCategories();
         console.log(response);
@@ -10,15 +10,15 @@ export const getCategories = () => async (dispatch) => {
                 type : actionTypes.GET_CATEGORIES_SUCCESS,
                 categoriesData: response?.data.categories
             })
-        } else {
+        }else{
             dispatch({
-                type : actionTypes.GET_CATEGORIES_FAILURE,
+                type : actionTypes.GET_CATEGORIES_SUCCESS,
                 categoriesData: null
             })
         }
     } catch (error) {
         dispatch({
-            type : actionTypes.GET_CATEGORIES_FAILURE,
+            type : actionTypes.GET_CATEGORIES_SUCCESS,
             data: null
         })
     }

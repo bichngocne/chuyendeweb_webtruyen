@@ -5,6 +5,7 @@ import "react-dropdown/style.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import icons from "../../../ultis/icons";
+import * as apis from "../../../apis"
 const StoryUpdating = () => {
   const { BiSolidHot, MdOutlineNavigateNext } = icons;
   const [categories, setCategories] = useState([]);
@@ -13,17 +14,24 @@ const StoryUpdating = () => {
   const [selectedCategory, setSelectedCategory] = useState("Tất cả"); // Trạng thái thể loại được chọn
 
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/api/categories")
-      .then((res) => setCategories(res.data.categories))
-      .catch((err) => console.log(err));
+    const fetchData = async () => {
+      try {
+        // Lấy danh sách categories
+        const categoriesResponse = await apis.getAllCategories();
+        setCategories(categoriesResponse.data.categories);
+
+        // Lấy danh sách stories
+        const storiesResponse = await apis.getAllStories();
+        setStories(storiesResponse.data.stories);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    // Gọi fetchData khi component được mount
+    fetchData();
   }, []);
-  useEffect(() => {
-    axios
-      .get("http://localhost:5000/api/stories")
-      .then((res) => setStories(res.data.stories))
-      .catch((err) => console.log(err));
-  }, []);
+  
 
   useEffect(() => {
     if (stories.length > 0) {

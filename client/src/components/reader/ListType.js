@@ -1,24 +1,32 @@
 import React from "react";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
-import icon from "../../../ultis/icons";
+import icon from "../../ultis/icons";
 import { useState, useEffect } from "react";
-import axios from "axios";
-import { Link , useNavigate  } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import * as apis from "../../apis";
 const ListType = () => {
   const { AiOutlineMenuUnfold } = icon;
+  const [selectedCategory, setSelectedCategory] = useState([]);
   const [categories, setCategories] = useState([]);
-  const navigation = useNavigate(); // Lấy đối tượng history từ React Router
-
+  const navigation = useNavigate();
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/api/categories")
-      .then((res) => setCategories(res.data.categories))
-      .catch((err) => console.log(err));
-  }, []);
+    // Gọi hàm getAllCategories thay vì axios
+    apis
+      .getAllCategories()
+      .then((response) => {
+        setCategories(response.data.categories);
+        console.log(response.data.categories);
+      })
+      .catch((error) => {
+        console.error("Error fetching categories:", error);
+      });
+  }, []); // Chạy một lần sau khi mount component
+
   // Hàm xử lý khi thay đổi dropdown
   const handleCategoryChange = (selectedOption) => {
-    const selectedCategory = selectedOption.value; // Lấy giá trị của thể loại đã chọn
+    setSelectedCategory(selectedOption);
+    const selectedCategoryID = selectedOption.value; // Lấy giá trị của thể loại đã chọn
     navigation(`/type-story/${selectedCategory}`); // Chuyển đến trang thể loại tương ứng
   };
   return (
@@ -27,12 +35,11 @@ const ListType = () => {
       <div className="flex items-center relative">
         <AiOutlineMenuUnfold size={24} color="white" />
         <Dropdown
-        options={categories.map((category) => ({
+          options={categories.map((category) => ({
             value: category.id,
             label: category.name.split(",")[0],
           }))}
           onChange={handleCategoryChange}
-          // onChange={this._onSelect}
           value={"Thể loại truyện"}
           placeholder="Select an option"
           className="!static"

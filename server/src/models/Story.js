@@ -1,8 +1,6 @@
 "use strict";
 import { DataTypes, Model } from "sequelize";
-import { sequelize } from "../database/connect.js";
-import { story_category } from "./story_category.js";
-import { Category } from "./Category.js";
+import {sequelize} from "../database/connect.js";
 import { user } from "./user.js";
 class story extends Model {
   /**
@@ -11,12 +9,6 @@ class story extends Model {
    * The `models/index` file will call this method automatically.
    */
   static associate(models) {
-    // define association here
-    story.belongsToMany(Category, {
-      through: story_category, // Tên bảng liên kết
-      foreignKey: "id_story", // Khóa ngoại của bảng Story
-      otherKey: "id_category", // Khóa ngoại của bảng Category
-    });
   }
 }
 story.init(

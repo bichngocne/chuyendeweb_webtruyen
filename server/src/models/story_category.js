@@ -1,7 +1,7 @@
 "use strict";
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../database/connect.js";
-import { story } from "./story.js";
+import { story } from "./Story.js";
 import { Category } from "./Category.js";
 
 class story_category extends Model {
@@ -25,7 +25,7 @@ story_category.init(
   }
 );
 
-story_category.belongsTo(story, { foreignKey: "id_story", targetKey: "id" });
-// story_category.belongsTo(Category, { foreignKey: "id_category", targetKey: "id" });
+story_category.belongsTo(story, { foreignKey: 'id_story', targetKey: 'id' });
+story_category.belongsTo(Category, { foreignKey: "id_category", targetKey: "id" });
 
 export { story_category };

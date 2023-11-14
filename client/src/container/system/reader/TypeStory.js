@@ -6,13 +6,14 @@ import { Link, useParams } from "react-router-dom";
 import bia from "../../../assets/images";
 import axios from "axios";
 import icons from "../../../ultis/icons";
+import * as apis from "../../../apis";
 const TypeStory = () => {
   const [categories, setCategories] = useState([]);
   const [categoryName, setCategoryName] = useState(""); // Sử dụng state để lưu tên thể loại
 const{BsFillPenFill,BiSolidBookBookmark} = icons
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/api/categories")
+    apis
+      .getAllCategories()
       .then((res) => setCategories(res.data.categories))
       .catch((err) => console.log(err));
   }, []);
@@ -21,8 +22,8 @@ const{BsFillPenFill,BiSolidBookBookmark} = icons
 
   // Gọi API để lấy tên thể loại dựa trên categoryId
   useEffect(() => {
-    axios
-      .get(`http://localhost:5000/api/categories/${categoryId}`)
+    apis
+      .getCategoryById(categoryId)
       .then((res) => {
         setCategoryName(res.data.category.name); // Lưu tên thể loại vào state
       })

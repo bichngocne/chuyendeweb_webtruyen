@@ -5,6 +5,7 @@ import "react-dropdown/style.css";
 import icon from "../../ultis/icons";
 import Setup from "./Setup";
 import Search from "./Search";
+import ListType from "./ListType";
 const Header = () => {
   const { AiOutlineMenuUnfold } = icon;
   const { BsFillImageFill } = icon;
@@ -25,19 +26,7 @@ const Header = () => {
       {/* select */}
       <div className="flex items-center">
         {/* thể loại */}
-        <div className="flex items-center">
-          <AiOutlineMenuUnfold size={24} color="white" />
-          <Dropdown
-            options={danhSach}
-            value={"Thể loại truyện"}
-            placeholder="Select an option"
-            className=""
-            controlClassName="!text-white !border-none !outline-none !bg-transparent !pl-[3px] !pr-[15px]"
-            arrowClassName="!hidden"
-            menuClassName="!bg-[#14425d]  !w-[100%] !text-white !max-h-[300px] !overflow-hidden !border-none"
-            optionClassName="!text-white !hover:bg-gray-200 !hover:text-black !hover:!text-white !hover:!bg-[#14425d] !hover:!font-semibold !hover:!font-bold"
-          />
-        </div>
+       <ListType/>
         {/* Phân loại theo chương */}
         <div className="flex items-center">
           <AiOutlineMenuUnfold size={24} color="white" />
