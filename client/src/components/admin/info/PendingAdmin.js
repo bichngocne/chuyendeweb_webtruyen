@@ -1,15 +1,35 @@
-import React, { useState } from "react";
-
-const PendingAdmin = (props) => {
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import * as apis from "../../../apis";
+const PendingAdmin = ({ detailStory, categoryStory }) => {
   const [showMore, setShowMore] = useState(false);
-
+  const [UserStory, setUserStory] = useState(null);
   const toggleShowMore = () => {
     setShowMore(!showMore);
   };
+  const { data } = useSelector((state) => state.storyAdmin);
+  useEffect(() => {
+    const fetchUserStory = async () => {
+      try {
+        const userId = detailStory?.storyById.id_user;
+        if (userId) {
+          const responseUser = await apis.apiGetUserOfStoryById(userId);
 
-  const limitedText =
-    "Đi đến giao lộ, liền thấy một chiếc xe buýt đang dừng lại đón khách, là đến thành phố S kế bên, nhìn nhìn đồng hồ, bốn giờ rưỡi… Lên xe ngủ một tiếng, vậy khoảng sáu giờ là tới thành phố S đi, ít nhất ở trên xe cũng không ai có thể đánh lén hắn. Chủ ý đã định, chó hoang đem áo khoác cởi ra che đi cánh tay bị thương của mình, Đi đến giao lộ, liền thấy một chiếc xe buýt đang dừng lại đón khách, là đến thành phố S kế bên, nhìn nhìn đồng hồ, bốn giờ rưỡi… Lên xe ngủ một tiếng, vậy khoảng sáu giờ là tới thành phố S đi, ít nhất ở trên xe cũng không ai có thể đánh lén hắn. Chủ ý đã định, chó hoang đem áo khoác cởi ra che đi cánh tay bị thương của mình, Đi đến giao lộ, liền thấy một chiếc xe buýt đang dừng lại đón khách, là đến thành phố S kế bên, nhìn nhìn đồng hồ, bốn giờ rưỡi… Lên xe ngủ một tiếng, vậy khoảng sáu giờ là tới thành phố S đi, ít nhất ở trên xe cũng không ai có thể đánh lén hắn. Chủ ý đã định, chó hoang đem áo khoác cởi ra che đi cánh tay bị thương của mình, Đi đến giao lộ, liền thấy một chiếc xe buýt đang dừng lại đón khách, là đến thành phố S kế bên, nhìn nhìn đồng hồ, bốn giờ rưỡi… Lên xe ngủ một tiếng, vậy khoảng sáu giờ là tới thành phố S đi, ít nhất ở trên xe cũng không ai có thể đánh lén hắn. Chủ ý đã định, chó hoang đem áo khoác cởi ra che đi cánh tay bị thương của mình, Đi đến giao lộ, liền thấy một chiếc xe buýt đang dừng lại đón khách, là đến thành phố S kế bên, nhìn nhìn đồng hồ, bốn giờ rưỡi… Lên xe ngủ một tiếng, vậy khoảng sáu giờ là tới thành phố S đi, ít nhất ở trên xe cũng không ai có thể đánh lén hắn. Chủ ý đã định, chó hoang đem áo khoác cởi ra che đi cánh tay bị thương của mình, Đi đến giao lộ, liền thấy một chiếc xe buýt đang dừng lại đón khách, là đến thành phố S kế bên, nhìn nhìn đồng hồ, bốn giờ rưỡi… Lên xe ngủ một tiếng, vậy khoảng sáu giờ là tới thành phố S đi, ít nhất ở trên xe cũng không ai có thể đánh lén hắn. Chủ ý đã định, chó hoang đem áo khoác cởi ra che đi cánh tay bị thương của mình, Đi đến giao lộ, liền thấy một chiếc xe buýt đang dừng lại đón khách, là đến thành phố S kế bên, nhìn nhìn đồng hồ, bốn giờ rưỡi… Lên xe ngủ một tiếng, vậy khoảng sáu giờ là tới thành phố S đi, ít nhất ở trên xe cũng không ai có thể đánh lén hắn. Chủ ý đã định, chó hoang đem áo khoác cởi ra che đi cánh tay bị thương của mình, ";
+          if (responseUser.status === 200 && responseUser.data.foundUser) {
+            setUserStory(responseUser.data.foundUser.name);
+          } else {
+            console.error("Invalid or missing data in API response:", responseUser);
+            // Handle the case where the data is not as expected
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching user story:", error);
+        // Handle the error condition
+      }
 
+    }
+    fetchUserStory();});
+  const limitedText =String(detailStory?.storyById?.description);
   return (
     <div
       className={`mx-[35px] my-[15px] bg-[#d9d9d9] rounded-xl ${
@@ -21,11 +41,13 @@ const PendingAdmin = (props) => {
           <img className="w-[150px] h-[185px] mr-[40px]" />
           <div className=" w-full flex justify-between">
             <div className="[font-family:'Roboto-Regular',Helvetica] font-normal text-black text-[14px]">
-              <div className="pb-2.5">Tên truyện:</div>
-              <div className="py-2.5">Thể loại:</div>
-              <div className="py-2.5">Tác giả:</div>
-              <div className="py-2.5">Người đăng:</div>
-              <div className="pt-2.5">Số chương:</div>
+              <div className="pb-2.5">Tên truyện:{detailStory?.storyById.name}</div>
+              <div className="py-2.5">Thể loại:{categoryStory?.foundStory.map((element) => {
+            return element.Category.name;
+          })}</div>
+              <div className="py-2.5">Tác giả:{detailStory?.storyById.author}</div>
+              <div className="py-2.5">Người đăng:{UserStory}</div>
+              <div className="pt-2.5">Số chương:{detailStory?.storyById.total_chapper}</div>
             </div>
             <div className=" pr-[90px] ![font-family:'Inika-Regular',Helvetica] font-normal text-black text-[14px]">
               <div>

@@ -1,6 +1,7 @@
-import React from "react";
-import { TitleAdmin, ArrangeAdmin,SearchAdmin,TableAdmin } from "../../../components/admin";
+import React, { useEffect } from "react";
+import { TitleAdmin, ArrangeAdmin,SearchAdmin,TablePendingAdmin } from "../../../components/admin";
 const ListPendingAdmin = () => {
+
   return (
     <>
       <div>
@@ -12,7 +13,7 @@ const ListPendingAdmin = () => {
           </div>
         </div>
         <div>
-          <TableAdmin text="listpendingadmin" />
+        <TablePendingAdmin/>
         </div>
       </div>
     </>

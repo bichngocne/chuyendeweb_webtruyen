@@ -9,6 +9,11 @@ class Category extends Model {
    */
   static associate(models) {
     // define association here
+    Category.belongsToMany(story, {
+      through: story_category, // Tên bảng liên kết
+      foreignKey: "id_category", // Khóa ngoại của bảng Story
+      otherKey: "id_story", // Khóa ngoại của bảng Category
+    });
   }
 }
 Category.init(

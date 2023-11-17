@@ -1,5 +1,5 @@
 import React from "react";
-import { TitleAdmin, ArrangeAdmin,SearchAdmin,TableAdmin } from "../../../components/admin";
+import { TitleAdmin, ArrangeAdmin,SearchAdmin,TableCategoryAdmin } from "../../../components/admin";
 const ListCategoryAdmin = () => {
   return (
     <>
@@ -12,7 +12,7 @@ const ListCategoryAdmin = () => {
         </div>
       </div>
       <div>
-        <TableAdmin text="listcategoryadmin"/>
+      <TableCategoryAdmin />
       </div>
       </div>
     </>

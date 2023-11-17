@@ -1,12 +1,15 @@
 import React from "react";
-import icons from "../../ultis/icons";
 
-const SearchAdmin = () => {
+const SearchAdmin = ({ setSearchTerm }) => {
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+  };
   return (
     <div className="flex w-[300px] h-[30px] border border-solid rounded-[15px] mr-[30px]">
       <div className="flex-none w-[250px]  items-center flex px-3 [font-family:'Inika-Regular',Helvetica] font-normal text-[#0000008a] text-[15px] tracking-[0] leading-[normal] whitespace-nowrap ">
         <input
           placeholder="Nhập tìm kiếm ..."
+          onChange={handleSearch}
           className="border-transparent focus:border-transparent !outline-none focus:ring-0 w-full"
         />
       </div>

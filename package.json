@@ -1,6 +1,7 @@
 {
   "dependencies": {
-    "concurrently": "^8.2.2"
+    "concurrently": "^8.2.2",
+    "crypto-js": "^4.2.0"
   },
   "scripts": {
     "start": "concurrently \"npm run server\" \"npm run client\"",

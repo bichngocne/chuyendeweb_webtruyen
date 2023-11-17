@@ -12,6 +12,30 @@ const getStories = () =>
       reject(error);
     }
   });
+  const getStoriesApproved = () =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const response = await axios({
+        url: "/storiesapproved",
+        method: "get",
+      });
+      resolve(response);
+    } catch (error) {
+      reject(error);
+    }
+  });
+  const getStoriesPending = () =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const response = await axios({
+        url: "/storiespending",
+        method: "get",
+      });
+      resolve(response);
+    } catch (error) {
+      reject(error);
+    }
+  });
 
 //api get story by id
 
@@ -41,4 +65,17 @@ const apiGetCategoryOfStoryById = (id) =>
       reject(error);
     }
   });
-export { getStories, apiGetStoryById,apiGetCategoryOfStoryById };
+
+  const apiGetUserOfStoryById = (id) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const response = await axios({
+        url: `/story/user/${id}`,
+        method: "get",
+      });
+      resolve(response);
+    } catch (error) {
+      reject(error);
+    }
+  });
+export { getStories,getStoriesApproved,getStoriesPending,apiGetUserOfStoryById, apiGetStoryById,apiGetCategoryOfStoryById };
