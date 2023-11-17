@@ -16,7 +16,7 @@ const ListType = () => {
       .getAllCategories()
       .then((response) => {
         setCategories(response.data.categories);
-        console.log(response.data.categories);
+        // console.log(response.data.categories);
       })
       .catch((error) => {
         console.error("Error fetching categories:", error);
@@ -26,8 +26,8 @@ const ListType = () => {
   // Hàm xử lý khi thay đổi dropdown
   const handleCategoryChange = (selectedOption) => {
     setSelectedCategory(selectedOption);
-    const selectedCategoryID = selectedOption.value; // Lấy giá trị của thể loại đã chọn
-    navigation(`/type-story/${selectedCategory}`); // Chuyển đến trang thể loại tương ứng
+  const selectedCategoryID = selectedOption.value; // Lấy giá trị của thể loại đã chọn
+  navigation(`/type-story/${selectedCategoryID}`); // Chuyển đến trang thể loại tương ứng
   };
   return (
     <div>
@@ -46,7 +46,7 @@ const ListType = () => {
           controlClassName="!text-white !border-none !outline-none !bg-transparent !pl-[3px] !pr-[15px] "
           arrowClassName="!hidden"
           menuClassName="!left-0 !bg-[#14425d]  !w-[100%] !text-white !max-h-[400px] !overflow-hidden !border-none !w-[400px] grid grid-cols-3 "
-          DropdownoptionClassName="text-white !hover:bg-gray-200 !hover:text-black !hover:!text-white !hover:!bg-[#14425d] !hover:!font-semibold !hover:!font-bold"
+          optionsClassName="text-white !hover:bg-gray-200 !hover:text-black !hover:!text-white !hover:!bg-[#14425d] !hover:!font-semibold !hover:!font-bold"
         />
       </div>
     </div>

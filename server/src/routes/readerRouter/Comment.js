@@ -4,7 +4,8 @@ const router = Router();
 import {Comment} from '../../controllers/index.js';
 //[GET] class
 router.get('/comments', Comment.getAllComment);
-router.get('/comments/:id', Comment.getCommentById);
+router.get('/commentByid/:id', Comment.getCommentById);
 router.get('/userComment/:id_user', Comment.getUserComment);
+router.get('/comments/sorted', Comment.getCommentBySort);
 
 export default router;

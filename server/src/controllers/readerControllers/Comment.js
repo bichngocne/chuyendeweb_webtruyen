@@ -1,4 +1,4 @@
-import { user,Comment  } from "../../models/index.js";
+import { user,Comment, story  } from "../../models/index.js";
 const getAllComment = async (req, res) => {
     try {
       console.log("hih");
@@ -42,4 +42,20 @@ const getAllComment = async (req, res) => {
       return res.status(500).json({ error: "Internal Server Error" });
     }
   }
-  export default {getAllComment, getCommentById, getUserComment}
+  const getCommentBySort = async(req, res)=>{
+    try {
+      console.log("getCommentBySort");
+      const sortBy = req.query.sortBy || 'createdAt'; // Mặc định sắp xếp theo createdAt
+      const sortOrder = req.query.sortOrder === 'asc' ? 'asc' : 'desc'; // Kiểm tra nếu là 'asc' thì sắp xếp tăng dần, ngược lại giảm dần  
+  
+      const sortedComments = await Comment.findAll({
+        order: [[sortBy, sortOrder]],
+      });
+  
+      res.json({ comments: sortedComments });
+    } catch (error) {
+      console.error("Error retrieving user comment:", error);
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
+  }
+  export default {getAllComment, getCommentById, getUserComment,getCommentBySort}

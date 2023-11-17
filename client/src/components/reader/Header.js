@@ -6,9 +6,9 @@ import icon from "../../ultis/icons";
 import Setup from "./Setup";
 import Search from "./Search";
 import ListType from "./ListType";
+import { Link } from "react-router-dom";
 const Header = () => {
-  const { AiOutlineMenuUnfold } = icon;
-  const { BsFillImageFill } = icon;
+  const { AiOutlineMenuUnfold,IoHome ,BsFillImageFill} = icon;
   const danhSach = [
     "Truyện mới cập nhập",
     "Truyện full",
@@ -24,7 +24,8 @@ const Header = () => {
         <img src={logoWebTruyen} />
       </div>
       {/* select */}
-      <div className="flex items-center">
+      <div className="flex items-center gap-2">
+        <Link to={`/reader`} className="flex gap-2 text-white pr-3" ><IoHome size={24}/> Home</Link>
         {/* thể loại */}
        <ListType/>
         {/* Phân loại theo chương */}
@@ -37,7 +38,7 @@ const Header = () => {
             className=""
             controlClassName="!text-white !border-none !outline-none !bg-transparent !pl-[3px] !pr-[15px]"
             arrowClassName="!hidden"
-            menuClassName="!bg-[#14425d]  !w-[100%] !text-white !max-h-[300px] !overflow-hidden !border-none"
+            menuClassName="!bg-[#14425d]  !w-[200px] !text-white !max-h-[300px] !overflow-hidden !border-none"
             optionClassName="!text-white !hover:bg-gray-200 !hover:text-black !hover:!text-white !hover:!bg-[#14425d] !hover:!font-semibold !hover:!font-bold"
           />
         </div>

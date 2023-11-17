@@ -7,9 +7,11 @@ import bia from "../../../assets/images";
 import axios from "axios";
 import icons from "../../../ultis/icons";
 import * as apis from "../../../apis";
+import { useTheme } from '../../../components/reader/ThemeContext';
 const TypeStory = () => {
   const [categories, setCategories] = useState([]);
   const [categoryName, setCategoryName] = useState(""); // Sử dụng state để lưu tên thể loại
+  const { theme } = useTheme();
 const{BsFillPenFill,BiSolidBookBookmark} = icons
   useEffect(() => {
     apis
@@ -19,21 +21,8 @@ const{BsFillPenFill,BiSolidBookBookmark} = icons
   }, []);
   const { categoryId } = useParams();
   const [stories, setStories] = useState([]);
-
-  // Gọi API để lấy tên thể loại dựa trên categoryId
   useEffect(() => {
-    apis
-      .getCategoryById(categoryId)
-      .then((res) => {
-        setCategoryName(res.data.category.name); // Lưu tên thể loại vào state
-      })
-      .catch((err) => console.error(err));
-  }, [categoryId]);
-
-  useEffect(() => {
-    // Gọi API để lấy danh sách truyện thuộc thể loại categoryId
-    axios
-      .get(`http://localhost:5000/api/typeOfStory/${categoryId}`)
+   apis.getStoryOfCategory(categoryId)
       .then((res) => {
         setStories(res.data.stories);
         console.log(res.data.stories); // In ra dữ liệu truyện
@@ -43,11 +32,12 @@ const{BsFillPenFill,BiSolidBookBookmark} = icons
 
   return (
     <div>
-      <div>
+      <div className="bg-[#0e2234]">
         <Header />
       </div>
-      <div className="max-w-[1280px] mx-auto mt-9 ">
-        <div className="mx-[50px] flex gap-6">
+      <div style={{ backgroundColor: theme.bgColor, color: theme.textColor }}>
+       <div className="max-w-[1280px] mx-auto pt-9 "  >
+       <div className="mx-[50px] flex gap-6">
           {/* left */}
           <div className="grow ">
             <div className="flex">
@@ -88,6 +78,7 @@ const{BsFillPenFill,BiSolidBookBookmark} = icons
             </ul>
           </div>
         </div>
+       </div>
       </div>
     </div>
   );

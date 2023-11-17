@@ -4,6 +4,8 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import hinh from "../../../assets/images";
 import icons from "../../../ultis/icons";
+import * as apis from "../../../apis";
+import { useTheme } from '../../../components/reader/ThemeContext';
 const DetailStory = () => {
   const [detailStory, setDetailStory] = useState([]);
   const navigation = useNavigate(); // Lấy đối tượng history từ React Router
@@ -11,45 +13,50 @@ const DetailStory = () => {
   const [categoryNames, setCategoryNames] = useState([]);
   const [stories, setStories] = useState([]);
   const [chappers, setChappers] = useState([]);
-
+  const { theme } = useTheme();
   const { FaStarOfLife } = icons;
-  // lấy story
+
   useEffect(() => {
-    fetch(`http://localhost:5000/api/story/${storyId}`)
-      .then((response) => response.json())
-      .then((detailStory) => {
-        setDetailStory(detailStory.stories);
-        // Sau đó, tôi sẽ lấy thông tin người đăng
-        const id_user = detailStory.stories.id_user;
-        fetch(`http://localhost:5000/api/usePost/${id_user}`)
-          .then((response) => response.json())
-          .then((userData) => {
-            // Đặt tên người đăng vào trạng thái
-            setDetailStory((prevDetailStory) => ({
-              ...prevDetailStory,
-              authorName: userData.userInfo.name,
-            }));
-          });
-      });
-  }, [storyId]);
-  // lấy thế loại
-  useEffect(() => {
-    fetch(`http://localhost:5000/api/story_categories/${storyId}`)
-      .then((response) => response.json())
-      .then((data) => {
-        const categoryNames = data.storyCategory.map(
+    const fetchData = async () => {
+      try {
+        // Lấy thông tin về câu chuyện
+        const detailStoryResponse = await apis.getStoryByIdR(storyId);
+        const storyData = detailStoryResponse.data.stories;
+        console.log(storyData);
+
+        // Lấy thông tin người đăng
+        const id_user = storyData.id_user;
+        const userDataResponse = await apis.getUserPost(id_user);
+        const userData = userDataResponse.data.userInfo;
+
+        // Đặt dữ liệu vào state
+        setDetailStory({
+          ...storyData,
+          authorName: userData.name,
+        });
+
+        // Lấy thể loại của câu chuyện
+        const categoryResponse = await apis.getCategoryofStory(storyId);
+        const categoryNames = categoryResponse.data.storyCategory.map(
           (item) => item.Category.name
         );
         setCategoryNames(categoryNames);
-      });
+
+        // Lấy danh sách tất cả câu chuyện
+        const allStoryResponse = await apis.getAllStoryR();
+        setStories(allStoryResponse.data.stories);
+
+        // Lấy danh sách chương truyện
+        const chapperResponse = await apis.getAllChapperOfStory(storyId);
+        setChappers(chapperResponse.data.chappers);
+        console.log(chapperResponse.data.chappers);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
   }, [storyId]);
-  // lấy danh sách story
-  useEffect(() => {
-    axios
-      .get("http://localhost:5000/api/stories")
-      .then((res) => setStories(res.data.stories))
-      .catch((err) => console.log(err));
-  }, []);
 
   // màu nền cho stt truyện hot
   const getBackgroundColor = (index) => {
@@ -63,22 +70,12 @@ const DetailStory = () => {
     return ""; // Mặc định không có màu nền
   };
 
-  // lấy danh sách chương truyện
-  useEffect(() => {
-    axios
-      .get(`http://localhost:5000/api/chapper/${storyId}`)
-      .then((res) => {
-        setChappers(res.data.chappers);
-        console.log(chappers);
-      })
-      .catch((err) => console.log(err));
-  }, [storyId]);
   return (
     <div className="">
-      <div>
+      <div className="bg-[#0e2234]">
         <Header />
       </div>
-      <div className="bg-[#f0f8ff]">
+      <div className="bg-[#f0f8ff]" style={{ backgroundColor: theme.bgColor, color: theme.textColor }}>
         <div className="max-w-[1280px] mx-auto pt-9">
           {/* thông tin truyện */}
           <div>
@@ -87,9 +84,9 @@ const DetailStory = () => {
                 THÔNG TIN TRUYỆN
               </h3>
             </div>
-            <div className="flex justify-between">
+            <div className="flex justify-between w-[100%]">
               {/* xem detail, chương  */}
-              <div>
+              <div className="w-[100%]">
                 {/* chi tiết truyện */}
                 <div className="flex w-[100%]">
                   <div>
@@ -141,11 +138,11 @@ const DetailStory = () => {
                         <p key={index}>{categoryName}</p>
                       ))}
                     </div>
-                    <div className="flex ">
-                      <p className="font-medium  pr-2 w-[130px] text-start basis-1/5">
+                    <div className="flex">
+                      <p className="font-medium  pr-2 text-start basis-1/6">
                         Mô tả :
                       </p>
-                      <p className="text-start"> {detailStory.description}</p>
+                      <p className="text-start "> {detailStory.description}</p>
                     </div>
                   </div>
                 </div>

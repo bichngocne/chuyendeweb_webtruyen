@@ -5,7 +5,9 @@ import "react-dropdown/style.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import icons from "../../../ultis/icons";
-import * as apis from "../../../apis"
+import * as apis from "../../../apis";
+import { formatDistanceToNow } from "date-fns";
+import { vi } from "date-fns/locale";
 const StoryUpdating = () => {
   const { BiSolidHot, MdOutlineNavigateNext } = icons;
   const [categories, setCategories] = useState([]);
@@ -58,14 +60,14 @@ const StoryUpdating = () => {
     setSelectedCategory(selected.value); // Cập nhật trạng thái thể loại được chọn
   };
       // Lọc danh sách truyện dựa trên thể loại được chọn
-  const filteredStories = selectedCategory === "Tất cả"
-  ? stories
-  : stories.filter((story) => {
-      const storyCategoriesForStory = storyCategories
-        .filter((category) => category.id_story === story.id)
-        .map((category) => category.Category.name);
-      return storyCategoriesForStory.includes(selectedCategory);
-    });
+
+  
+    const getTimeDistance = (createdAt) => {
+      return formatDistanceToNow(new Date(createdAt), {
+        locale: vi,
+        addSuffix: true,
+      });
+    };
   return (
     <div>
       <div className="flex items-start justify-between mt-10">
@@ -102,24 +104,7 @@ const StoryUpdating = () => {
                     const storyCategoriesForStory = storyCategories
                       .filter((category) => category.id_story === story.id)
                       .map((category) => category.Category.name);
-                      const updatedAt = new Date(story.updatedAt); // Chuyển updatedAt sang đối tượng Date
-                      const currentTime = new Date(); // Lấy thời gian hiện tại
-                      
-                      const timeDifference = currentTime - updatedAt; // Tính khoảng thời gian giữa updatedAt và hiện tại (đơn vị miligiây)
-                      
-                      const secondsDifference = Math.floor(timeDifference / 1000); // Đổi đơn vị sang giây
-                      const minutesDifference = Math.floor(secondsDifference / 60); // Đổi đơn vị sang phút
-                      const hoursDifference = Math.floor(minutesDifference / 60); // Đổi đơn vị sang giờ
-                      const daysDifference = Math.floor(hoursDifference / 24); // Đổi đơn vị sang ngày
-                      
-                      let timeAgo;
-                      if (daysDifference > 1) {
-                        timeAgo = `${daysDifference} ngày trước`;
-                      } else if (hoursDifference > 1) {
-                        timeAgo = `${hoursDifference} giờ trước`;
-                      } else {
-                        timeAgo = `${minutesDifference} phút trước`;
-                      }
+                    
                     return (
                       <tr key={story.id}>
                         <td className="border border-black border-l-0 border-t-0 border-dashed pr-3 flex items-center">
@@ -132,7 +117,7 @@ const StoryUpdating = () => {
                           Chương {story.total_chapper}
                         </td>
                         <td className="border border-black border-t-0 border-dashed px-3">
-                        {timeAgo}
+                        {getTimeDistance(story.createdAt)}
                         </td>
                       </tr>
                     );

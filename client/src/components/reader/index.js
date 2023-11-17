@@ -5,5 +5,7 @@ export {default as Search } from './Search';
 export {default as ContentHome } from './Story/ContentHome';
 export {default as ListType } from './ListType';
 export {default as StoryUpdating } from './Story/StoryUpdating';
+export {default as HotStories } from './Story/HotStories';
+export {default as FullStories } from './Story/FullStories';
 export {default as Comments } from './Comment/Comments';
 export {default as FormComment } from './Comment/FormComment';
