@@ -41,10 +41,17 @@ const callDetail = (params,text) => {
   return (<Link
     to={`/management-story/story/${createSlug(params.row.name)}/${encryptData(
       params.row.id,
-      process.env.REACT_APP_SECRET_KEY_ID_STORY || 'secret'
+      process.env.REACT_APP_SECRET_KEY_ID_STORY || 'this is secret'
     )}`}
   >
     {text}
   </Link>);
 };
-export { createSlug, encryptData,callDetail };
+
+const isNumber = (value) => {
+  const parsedValue = parseFloat(value);
+  return !isNaN(parsedValue) && parsedValue > -1;
+};
+
+
+export { createSlug, encryptData,callDetail,isNumber };

@@ -39,4 +39,20 @@ const apiGetCategoryOfStoryById = (id) =>
       reject(error);
     }
   });
-export { getStories, apiGetStoryById,apiGetCategoryOfStoryById };
+
+const apiPostStory = (data) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const response = await axios({
+        url: "story/create",
+        method: "post",
+        data: data,
+        headers: { "Content-Type": "multipart/form-data" }, 
+      });
+      resolve(response);
+    } catch (error) {
+      reject(error);
+    }
+  });
+
+export { getStories, apiGetStoryById, apiGetCategoryOfStoryById, apiPostStory };
