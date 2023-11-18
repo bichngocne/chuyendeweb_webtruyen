@@ -19,7 +19,7 @@ const TableAdmin = (props) => {
           data.map(async (row, index) => {
             try {
               const userId = row.id_user;
-              const response = await apis.apiGetUserOfStoryById(userId);
+              const response = await apis.apiGetUserOfStoryByIdAdmin(userId);
               const userName = response.data.foundUser.name; // Thay "name" bằng trường tên người dùng của bạn
               return { ...row, STT: index + 1, user_name: userName };
             } catch (error) {
@@ -133,7 +133,7 @@ const TableAdmin = (props) => {
   ];
 
   useEffect(() => {
-    dispatch(actions.getStoriesPending());
+    dispatch(actions.getStoriesPendingAdmin());
   }, []);
 
   const [rowsWithSTT, setRowsWithSTT] = useState([]);

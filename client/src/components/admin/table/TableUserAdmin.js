@@ -74,7 +74,7 @@ const TableAdmin = (props) => {
 
   useEffect(() => {
     //gọi hàm get
-    dispatch(actions.getUsers());
+    dispatch(actions.getUsersAdmin());
   }, []);
 
   const [rowsWithSTT, setRowsWithSTT] = useState([]);

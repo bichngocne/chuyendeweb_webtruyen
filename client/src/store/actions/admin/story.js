@@ -1,9 +1,9 @@
 import actionTypes from "../actionTypes";
 import * as apis from "../../../apis";
 
-const getStories = () => async (dispatch) => {
+const getStoriesAdmin = () => async (dispatch) => {
   try {
-    const response = await apis.getStories();
+    const response = await apis.getStoriesAdmin();
     if (response?.status === 200) {
       dispatch({
         type: actionTypes.GET_STORIES_FOR_ADMIN,
@@ -22,9 +22,9 @@ const getStories = () => async (dispatch) => {
     });
   }
 };
-const getStoriesApproved = () => async (dispatch) => {
+const getStoriesApprovedAdmin = () => async (dispatch) => {
   try {
-    const response = await apis.getStoriesApproved();
+    const response = await apis.getStoriesApprovedAdmin();
     if (response?.status === 200) {
       dispatch({
         type: actionTypes.GET_STORIES_APPROVED_FOR_ADMIN,
@@ -43,9 +43,9 @@ const getStoriesApproved = () => async (dispatch) => {
     });
   }
 };
-const getStoriesPending = () => async (dispatch) => {
+const getStoriesPendingAdmin = () => async (dispatch) => {
   try {
-    const response = await apis.getStoriesPending();
+    const response = await apis.getStoriesPendingAdmin();
     if (response?.status === 200) {
       dispatch({
         type: actionTypes.GET_STORIES_PENDING_FOR_ADMIN,
@@ -64,9 +64,9 @@ const getStoriesPending = () => async (dispatch) => {
     });
   }
 };
-const apiGetStoryById = (id) => async (dispatch) => {
+const apiGetStoryByIdAdmin = (id) => async (dispatch) => {
   try {
-    const response = await apis.apiGetStoryById(id);
+    const response = await apis.apiGetStoryByIdAdmin(id);
     if (response?.status === 200) {
       dispatch({
         type: actionTypes.GET_STORY_DETAIL_ADMIN,
@@ -85,9 +85,9 @@ const apiGetStoryById = (id) => async (dispatch) => {
     });
   }
 };
-const apiGetUserOfStoryById = (id) => async (dispatch) => {
+const apiGetUserOfStoryByIdAdmin = (id) => async (dispatch) => {
   try {
-    const response = await apis.apiGetUserOfStoryById(id);
+    const response = await apis.apiGetUserOfStoryByIdAdmin(id);
     if (response?.status === 200) {
       dispatch({
         type: actionTypes.GET_USER_ID_ADMIN,
@@ -107,9 +107,9 @@ const apiGetUserOfStoryById = (id) => async (dispatch) => {
   }
 };
 export {
-  getStories,
-  getStoriesApproved,
-  getStoriesPending,
-  apiGetStoryById,
-  apiGetUserOfStoryById,
+  getStoriesAdmin,
+  getStoriesApprovedAdmin,
+  getStoriesPendingAdmin,
+  apiGetStoryByIdAdmin,
+  apiGetUserOfStoryByIdAdmin,
 };

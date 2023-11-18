@@ -74,7 +74,7 @@ const TableAdmin = (props) => {
     ];
 
   useEffect(() => {
-      dispatch(actions.getCategories());
+      dispatch(actions.getCategoriesAdmin());
   }, []);
 
   const [rowsWithSTT, setRowsWithSTT] = useState([]);

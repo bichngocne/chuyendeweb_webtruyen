@@ -1,6 +1,6 @@
 import axios from "../../axios";
 
-const getCategories = () => new Promise(async(resolve,reject) => {
+const getCategoriesAdmin = () => new Promise(async(resolve,reject) => {
     try {
         const response = await axios({
             url:'/categories',
@@ -11,4 +11,4 @@ const getCategories = () => new Promise(async(resolve,reject) => {
         reject(error)
     }
 })
-export {getCategories}
+export {getCategoriesAdmin}

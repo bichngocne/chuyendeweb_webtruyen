@@ -18,7 +18,6 @@ import { ThemeProvider } from "./components/reader/ThemeContext";
 import React, { Suspense } from "react";
 const HomePoster = React.lazy(() => import("./container/system/poster/Home"));
 const HomeReader = React.lazy(() => import("./container/system/reader/Home"));
-import React, {Suspense } from "react";
 const HomeAdmin=React.lazy(()=>import("./container/system/admin/HomeAdmin"));
 function App() {
   return (

@@ -8,9 +8,9 @@ import { validationResult } from 'express-validator';
 router.get("/stories", storyA.index);
 router.get("/storiesapproved", storyA.showStoryApproved);
 router.get("/storiespending", storyA.showStoryPending);
-router.get("/story/:id", storyA.show);
-router.get("/story/category/:id", storyA.getCategoryOfStoryById);
-router.get("/story/user/:id", storyA.getUserOfStoryById);
+router.get("/storyAdmin/:id", storyA.showAdmin);
+router.get("/storyAdmin/category/:id", storyA.getCategoryOfStoryByIdAdmin);
+router.get("/storyAdmin/user/:id", storyA.getUserOfStoryByIdAdmin);
 router.post(
   "/story/create",validatePostStory(),
   (req, res, next) => {

@@ -29,7 +29,7 @@ const showStoryPending = async (req, res) => {
     return res.status(500).json({ error: "Internal Server Error" });
   }
 };
-async function show(req, res) {
+async function showAdmin(req, res) {
   try {
     // const id = decodeURIComponent(req.params.id);
     const decryptedStoryID = req.params.id;//decryptData(id,process.env.SEVER_SECRET_KEY_ID_STORY || 'this is secret');
@@ -40,7 +40,7 @@ async function show(req, res) {
     res.status(500).json({ error: "Internal Server Error" });
   }
 }
-async function getCategoryOfStoryById(req, res) {
+async function getCategoryOfStoryByIdAdmin(req, res) {
   try {
     // const id = decodeURIComponent(req.params.id);
     const decryptedStoryID = req.params.id;//decryptData(id,process.env.SEVER_SECRET_KEY_ID_STORY || 'this is secret');
@@ -56,7 +56,7 @@ async function getCategoryOfStoryById(req, res) {
     res.status(500).json({ error: "Internal Server Error" });
   }
 }
-async function getUserOfStoryById(req, res) {
+async function getUserOfStoryByIdAdmin(req, res) {
   try {
     // const id = decodeURIComponent(req.params.id);
     const decryptedStoryID = req.params.id;//decryptData(id,process.env.SEVER_SECRET_KEY_ID_STORY || 'this is secret');
@@ -72,4 +72,4 @@ async function getUserOfStoryById(req, res) {
 }
 
 
-export default { index,showStoryApproved,showStoryPending , show, getCategoryOfStoryById,getUserOfStoryById};
+export default { index,showStoryApproved,showStoryPending , showAdmin, getCategoryOfStoryByIdAdmin,getUserOfStoryByIdAdmin};

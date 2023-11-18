@@ -1,9 +1,9 @@
 import actionTypes from "../actionTypes";
 import * as apis from "../../../apis";
 
-export const getCategories = () => async (dispatch) => {
+export const getCategoriesAdmin = () => async (dispatch) => {
     try {
-        const response = await apis.getCategories();
+        const response = await apis.getCategoriesAdmin();
         if(response?.status === 200){
             dispatch({
                 type : actionTypes.GET_CATEGORIES_FOR_ADMIN,
