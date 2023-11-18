@@ -5,6 +5,7 @@ const Upload = (props) => {
   const maxNumber = 69;
   useEffect(() => {
     props.onChange(images);
+    console.log(images);
   }, [images]);
   return (
     <>
@@ -17,7 +18,8 @@ const Upload = (props) => {
           {...(props.text !== "imgmain" ? {} : { multiple: "multiple" })}
           accept=".jpg, .png, .svg"
           onChange={(event) => {
-            setImages(event.target.files);
+            const selectedFiles = Array.from(event.target.files);
+            setImages(selectedFiles);
           }}
         />
         <p className="mt-1 text-sm text-gray-500" id="file_input_help">
