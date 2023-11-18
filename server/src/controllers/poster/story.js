@@ -34,6 +34,7 @@ async function getCategoryOfStoryById(req, res) {
       where: { id_story: decryptedStoryID },
       include: [Category],
     });
+    console.log(foundStory);
     res.json({ foundStory });
   } catch (error) {
     console.error("Lỗi khi truy vấn dữ liệu:", error);
