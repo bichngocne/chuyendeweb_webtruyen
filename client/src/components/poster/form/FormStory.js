@@ -1,10 +1,7 @@
 import React, { useEffect } from "react";
 import { ButtonSave, DropdownCategory, Upload } from "../index.js";
 import Validator from "./../../../ultis/validator";
-import {
-  encryptData,
-  isNumber,
-} from "../../../ultis/function.js";
+import { encryptData, isNumber } from "../../../ultis/function.js";
 
 class FormStory extends React.Component {
   constructor(props) {
@@ -25,7 +22,7 @@ class FormStory extends React.Component {
     };
     const isImgValue = () => {
       const imgs = this.state.imgValue;
-      return Object.keys(imgs).length === 1;
+      return imgs.length === 1;
     };
     const isNameValueValid = (value, field, state) => {
       // Kiểm tra không có 3 khoảng trắng ở đầu chuỗi
@@ -34,6 +31,9 @@ class FormStory extends React.Component {
       }
       return true;
     };
+    function isZeroOrOne(value) {
+      return value === 0 || value === 1 || value === "0" || value === "1";
+    }
     const rules = [
       {
         field: "nameValue",
@@ -107,12 +107,18 @@ class FormStory extends React.Component {
         message:
           "The total chapter must be a number and greater than or equal to -1.",
       },
+      {
+        field: "classifiValue",
+        method: isZeroOrOne,
+        validWhen: false,
+        message: "Value have to 0 or 1 please don't change value",
+      },
     ];
     this.validator = new Validator(rules);
     this.handleNameChange = this.handleNameChange.bind(this);
     this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
     this.handleCategoryChange = this.handleCategoryChange.bind(this);
-    this.handleImgChange = this.handleImgChange.bind(this);
+    this.handleImageSelection = this.handleImageSelection.bind(this);
     this.handleAuthorChange = this.handleAuthorChange.bind(this);
     this.handleTotalChaChange = this.handleTotalChaChange.bind(this);
     this.handleClassifiChange = this.handleClassifiChange.bind(this);
@@ -142,15 +148,8 @@ class FormStory extends React.Component {
       });
     });
   }
-  //xử lí giá trị hình ảnh truyện
-  handleImgChange(event) {
-    this.setState({ imgValue: event.target.value }, () => {
-      this.setState({
-        errors: this.validator.validate(this.state),
-      });
-    });
-  }
   handleImageSelection = (imageNames) => {
+    console.log(imageNames);
     this.setState({ imgValue: imageNames }, () => {
       this.setState({
         errors: this.validator.validate(this.state),
@@ -188,18 +187,27 @@ class FormStory extends React.Component {
     });
     if (Object.keys(this.state.errors).length === 0) {
       const encryptedCategory = this.state.categoryValue.map((category) => {
-        return encryptData(category, process.env.REACT_APP_SECRET_KEY_CATEGORY || 'this is secret');
+        return encryptData(
+          category,
+          process.env.REACT_APP_SECRET_KEY_CATEGORY || "this is secret"
+        );
       });
-      const dataToSubmit = {
-        name: this.state.nameValue,
-        description: this.state.descriptionValue,
-        category: encryptedCategory,
-        img: this.state.imgValue,
-        author: this.state.authorValue,
-        totalChap: Number(this.state.totalChapValue),
-        classifi: this.state.classifiValue,
-      };
-      console.log(dataToSubmit);
+      console.log(this.state.imgValue.length);
+      console.log(encryptedCategory);
+      const formData = new FormData();
+      formData.append("name", this.state.nameValue);
+      formData.append("description", this.state.descriptionValue);
+      encryptedCategory.forEach((category) => {
+        formData.append("category[]", category);
+      });
+      this.state.imgValue.forEach((file) => {
+        console.log(file);
+        formData.append("img", file);
+      });
+      formData.append("author", this.state.authorValue);
+      formData.append("totalChap", Number(this.state.totalChapValue));
+      formData.append("classifi", this.state.classifiValue);
+      this.props.onSubmit(formData);
       alert("Dữ liệu đã được gửi đi.");
     } else {
       // Xử lý khi có lỗi
@@ -305,9 +313,9 @@ class FormStory extends React.Component {
               </label>
               <div className="block w-full">
                 <Upload
+                  name="img"
                   text="imgmain"
-                  value={this.state.imgValue}
-                  onChange={this.handleImageSelection.bind(this)}
+                  onChange={this.handleImageSelection}
                 />
                 {errors.imgValue && (
                   <div
@@ -396,11 +404,7 @@ class FormStory extends React.Component {
                       onChange={this.handleClassifiChange}
                       id="wordsoty"
                       type="radio"
-                      value={encryptData(
-                        0,
-                        process.env.REACT_APP_SECRET_KEY_ID_STORY ||
-                          "this is secret"
-                      )}
+                      value="0"
                       name="classifiName"
                       className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600"
                     />
@@ -416,11 +420,7 @@ class FormStory extends React.Component {
                       onChange={this.handleClassifiChange}
                       id="picturestory"
                       type="radio"
-                      value={encryptData(
-                        1,
-                        process.env.REACT_APP_SECRET_KEY_ID_STORY ||
-                          "this is secret"
-                      )}
+                      value="1"
                       name="classifiName"
                       className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600"
                     />
@@ -431,6 +431,14 @@ class FormStory extends React.Component {
                       Truyện tranh
                     </label>
                   </div>
+                    {errors.classifiValue && (
+                      <div
+                        className="validation text-red-600"
+                        style={{ display: "block" }}
+                      >
+                        {errors.classifiValue}
+                      </div>
+                    )}
                 </div>
                 <div className="h-[35px]">
                   <ButtonSave text="Lưu" onClick={this.handleSubmit} />
