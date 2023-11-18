@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Footer, Header, Comments } from "../../../components/reader";
+import {  Header, Comments } from "../../../components/reader";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import hinh from "../../../assets/images";
@@ -210,9 +210,7 @@ const DetailStory = () => {
             <Comments />
           </div>
 
-          <div>
-            <Footer />
-          </div>
+         
         </div>
       </div>
     </div>

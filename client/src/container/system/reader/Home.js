@@ -1,6 +1,6 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import { ContentHome, Footer, Header } from "../../../components/reader";
+import { ContentHome,  Header } from "../../../components/reader";
 import { LanguageProvider } from "../../../components/reader/updateLanguege/LanguageContext";
 
 const Home = () => {
@@ -13,9 +13,6 @@ const Home = () => {
         {/* content */}
         <div>
           <ContentHome />
-        </div>
-        <div>
-          <Footer />
         </div>
       </div>
     </LanguageProvider>

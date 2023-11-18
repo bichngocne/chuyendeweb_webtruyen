@@ -1,6 +1,7 @@
 "use strict";
 import { DataTypes, Model } from "sequelize";
 import {sequelize} from "../database/connect.js";
+import { story, Category } from "../models/index.js";
   class story_category extends Model {
     /**
      * Helper method for defining associations.
@@ -18,4 +19,6 @@ import {sequelize} from "../database/connect.js";
     sequelize,
     modelName: 'story_category',
   });
+  story_category.belongsTo(story, { foreignKey: 'id_story', targetKey: 'id' });
+story_category.belongsTo(Category, { foreignKey: "id_category", targetKey: "id" });
 export {story_category}

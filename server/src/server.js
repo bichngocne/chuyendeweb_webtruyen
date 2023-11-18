@@ -2,8 +2,7 @@ import dotenv from "dotenv";
 import express from "express";
 import {createProxyMiddleware} from "http-proxy-middleware";
 import {sequelize } from "./database/connect.js";
-import {categoryP,storyP} from './routes/index.js'
-import {category, Story, story_categoryR, Comment , categoryReader, storyReader} from './routes/index.js';
+import { Story, story_categoryR, Comment , categoryReader, storyReader} from './routes/index.js';
 import cors from "cors"
 import {categoryA, storyA, userA } from './routes/index.js'
 dotenv.config();
@@ -17,14 +16,14 @@ sequelize.sync()
     console.error('Error syncing database:', err);
   });
 // call api
-app.use('/api',cors({ origin: '*' }),categoryP)
-app.use('/api',cors({ origin: '*' }),storyP)
-app.use('/api',cors({ origin: '*' }),category)
 app.use('/api',cors({ origin: '*' }),categoryReader)
 app.use('/api',cors({ origin: '*' }),storyReader)
 app.use('/api',cors({ origin: '*' }),Story)
 app.use('/api',cors({ origin: '*' }),story_categoryR)
 app.use('/api',cors({ origin: '*' }),Comment)
+app.use('/api',cors({ origin: '*' }),categoryA)
+app.use('/api',cors({ origin: '*' }),storyA)
+app.use('/api',cors({ origin: '*' }),userA)
 // Cấu hình proxy middleware
 var options = {
   target: "http://localhost:5000", // Địa chỉ máy chủ hoặc API bạn muốn proxy đến
