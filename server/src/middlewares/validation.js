@@ -1,12 +1,10 @@
 import { body } from "express-validator";
 
-// const isImgValue = (imgs) => {
-//   console.log(imgs);
-//   return imgs.length === 1;
-// };
-const isCategoryValueValid = (value) => {
-  console.log(value.length);
-  return value.length >= 1 && value.length <= 3;
+const isImgValue = (imgs) => {
+  return Object.keys(imgs).length === 1;
+};
+const isCategoryValueValid = (categoryArray) => {
+  return categoryArray.length >= 1 && categoryArray.length <= 3;
 };
 
 const validatePostStory = () => {
@@ -36,10 +34,11 @@ const validatePostStory = () => {
       .matches(/^(?!(\s.*){3}).*/),
     body("classifi", "The classifi field is number").isInt(),
     body("totalChap", "The classifi field is number").isInt(),
-    // body("img", "Must choose a photo.").custom(isImgValue),
-    body("category")
-    .custom(isCategoryValueValid)
-    .withMessage("Choose at least 1 category and at most 3 categories."),
+    body("img", "Must choose a photo.").custom(isImgValue),
+    body(
+      "category",
+      "Choose at least 1 category and at most 3 categories."
+    ).custom(isCategoryValueValid),
   ];
 };
 

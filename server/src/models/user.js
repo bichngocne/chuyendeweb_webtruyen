@@ -1,6 +1,7 @@
 'use strict';
 import { DataTypes, Model } from "sequelize";
 import {sequelize} from "../database/connect.js";
+import { Role } from "./role.js";
   class user extends Model {
     /**
      * Helper method for defining associations.
@@ -9,6 +10,9 @@ import {sequelize} from "../database/connect.js";
      */
     static associate(models) {
       // define association here
+      user.belongsTo(models.Role, {
+        foreignKey: "id_role", // Khóa ngoại của bảng Story trỏ đến khóa chính của bảng User
+      });
     }
   }
   user.init({

@@ -9,6 +9,7 @@ import methodOverride  from 'method-override';
 import bodyparser from 'body-parser';
 import { fileURLToPath } from 'url'
 import path from 'path'
+import {categoryA, storyA, userA } from './routes/index.js'
 dotenv.config();
 const app = express();
 // Initialize Sequelize
@@ -39,6 +40,11 @@ app.use('/api',cors({ origin: '*' }),storyReader)
 app.use('/api',cors({ origin: '*' }),Story)
 app.use('/api',cors({ origin: '*' }),story_categoryR)
 app.use('/api',cors({ origin: '*' }),Comment)
+
+app.use('/api',cors({ origin: '*' }),categoryA)
+app.use('/api',cors({ origin: '*' }),storyA)
+app.use('/api',cors({ origin: '*' }),userA)
+console.log("hello");
 // Cấu hình proxy middleware
 var options = {
   target: "http://localhost:5000", // Địa chỉ máy chủ hoặc API bạn muốn proxy đến

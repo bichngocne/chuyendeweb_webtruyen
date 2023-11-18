@@ -71,9 +71,7 @@
     ]
   },
   "devDependencies": {
-    "@babel/core": "^7.23.2",
     "@babel/plugin-proposal-private-property-in-object": "x.y.z",
-    "@babel/preset-env": "^7.23.2",
     "@babel/preset-react": "^7.22.15",
     "autoprefixer": "^10.4.16",
     "babel-loader": "^9.1.3",
