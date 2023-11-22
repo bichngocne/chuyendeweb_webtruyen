@@ -33,6 +33,7 @@ router.post(
     }
     console.log("Upload thành công", req.file);
     console.log(req.body);
+    req.body.img = Array(req.file.filename);
     next();
   },
   validatePostStory(),

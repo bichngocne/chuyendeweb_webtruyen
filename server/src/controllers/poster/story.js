@@ -32,7 +32,7 @@ async function getCategoryOfStoryById(req, res) {
     );
     const foundStory = await story_category.findAll({
       where: { id_story: decryptedStoryID },
-      include: [Category],
+      include: [Category,story],
     });
     console.log(foundStory);
     res.json({ foundStory });
@@ -58,6 +58,7 @@ async function store(req, res, next) {
         total_chapper: data.totalChap,
         author: data.author,
         status_approve: false,
+        status_chapper: false,
         classifi: data.classifi,
         image: data.img,
         view: 0,
@@ -67,7 +68,7 @@ async function store(req, res, next) {
         updatedAt: new Date(),
       })
     data.category.map(async (item) => {
-      const story_categoryPost = await story_category({
+      const story_categoryPost = await story_category.create({
         id_story: storyPost.id,
         id_category: decryptData(
           item,
