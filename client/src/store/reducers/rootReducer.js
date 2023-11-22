@@ -1,5 +1,6 @@
-import appReducer from "./appReducer";
 import { combineReducers } from "redux";
+import appReducer from "./appReducer";
+import {storyAdminReducer,categoryAdminReducer, userAdminReducer} from './admin';
 // import { persistStore, persistReducer } from 'redux-persist'
 // import storage from 'redux-persist/lib/storage'
 // import autoMergeLevel2 from "redux-persist/es/stateReconciler/autoMergeLevel2";
@@ -12,7 +13,10 @@ import storyReducer from './poster/story.js'
 
 const rootReducer = combineReducers({
     app:appReducer,
-    story:storyReducer
+    story:storyReducer,
+    categoryAdmin:categoryAdminReducer,
+    storyAdmin:storyAdminReducer,
+    userAdmin:userAdminReducer,
 })
 
 export default rootReducer

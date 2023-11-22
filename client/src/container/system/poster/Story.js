@@ -14,6 +14,8 @@ const { AiOutlineStar, AiFillStar } = icons;
 const Story = () => {
   const { data } = useSelector((state) => state.story);
   const [detailStory, setDetailStory] = useState(null);
+  const [categoryStory, setCategoryStory] = useState(null);
+  const [imgStory, setImgStory] = useState([]);
   const { name, sid } = useParams();
   const storyId = sid;
   useEffect(() => {
@@ -24,8 +26,15 @@ const Story = () => {
       }
     };
     fetchDetailStory();
+    const fetchCategoryStory = async () => {
+      const responseCategory = await apis.apiGetCategoryOfStoryById(storyId);
+      console.log(responseCategory.data);
+      if (responseCategory.status === 200) {
+        setCategoryStory(responseCategory.data);
+      }
+    };
+    fetchCategoryStory();
   }, [data]);
-
   var tmp = [];
   for (var i = 1; i <= detailStory?.storyById.total_chapper; i++) {
     tmp.push(i);
@@ -37,12 +46,12 @@ const Story = () => {
         <div className="flex gap-10">
           <div className="flex-none w-auto">
             <img
-              src="https://tsxx.info/wp-content/uploads/2023/10/IMG_8687.jpg"
               className="object-contain h-[375px]"
+              src={`http://localhost:5000/api/static/uploads/${detailStory?.storyById.image}`}
+              alt="Story Image"
             />
-            
           </div>
-          <InforStory detailStory={detailStory} />
+          <InforStory detailStory={detailStory} categoryStory={categoryStory} />
         </div>
         <Title text="Danh sách chương"></Title>
         <Arrange text="Bộ lọc" />

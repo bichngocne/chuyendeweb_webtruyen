@@ -1,2 +1,7 @@
 export * from './poster/category'
 export * from './poster/story'
+export * from './Story'
+export * from './Category'
+export * from './admin/story'
+export * from './admin/category'
+export * from './admin/user'

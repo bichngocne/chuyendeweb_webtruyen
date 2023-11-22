@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
-import * as actions from "../../../store/actions";
+import * as apis from "../../../apis";
 import { useDispatch, useSelector } from "react-redux";
 import { DataGrid } from "@mui/x-data-grid";
 import icons from "../../../ultis/icons";
 import table from "../../../assets/css/table.css";
 import { Title, Arrange, Search } from "../../../components/poster";
 import { Outlet } from "react-router-dom";
-
 const { BiEditAlt } = icons;
 const columns = [
   { field: "STT", headerName: "STT", width: 100 },
@@ -31,21 +30,28 @@ const columns = [
 const Category = () => {
   const dispatch = useDispatch();
   const [rowsWithSTT, setRowsWithSTT] = useState([]);
-  const { data } = useSelector((state) => state.app);
+  // const { data } = useSelector((state) => state.app);
   useEffect(() => {
-    dispatch(actions.getCategories());
+    const fetchCategory = async () => {
+      const response = await apis.getAllCategories();
+      console.log(response);
+      if (response.status === 200) {
+        setRowsWithSTT(response.data.categories);
+      }
+    };
+    fetchCategory();
   }, []);
   // console.log(data);
   // console.log(text);
   useEffect(() => {
-    if (data) {
-      const updatedData = data.map((row, index) => ({
+    if (rowsWithSTT) {
+      const updatedData = rowsWithSTT.map((row, index) => ({
         ...row,
         STT: index + 1,
       }));
       setRowsWithSTT(updatedData);
     }
-  }, [data]);
+  }, [rowsWithSTT]);
   return (
     <>
       <div className="flex flex-col">

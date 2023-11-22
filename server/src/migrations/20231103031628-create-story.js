@@ -8,10 +8,10 @@ module.exports = {
       type: Sequelize.INTEGER
     },
     name: {
-      type: Sequelize.TEXT
+      type: Sequelize.STRING
     },
     description: {
-      type: Sequelize.STRING
+      type: Sequelize.TEXT
     },
     total_chapper: {
       type: Sequelize.INTEGER

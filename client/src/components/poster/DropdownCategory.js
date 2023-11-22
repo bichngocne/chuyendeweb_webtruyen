@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../store/actions";
+import { encryptData } from "../../ultis/function";
+import * as apis from '../../apis'
 const DropdownCategory = ({ value, onChange }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState([]);
@@ -10,26 +12,23 @@ const DropdownCategory = ({ value, onChange }) => {
 
   const dispatch = useDispatch();
   const [rowsWithSTT, setRowsWithSTT] = useState([]);
-  const { data } = useSelector((state) => state.app);
   const [text, setText] = useState("");
   //get categories
   useEffect(() => {
-    dispatch(actions.getCategories());
+    const fetchCategory = async () => {
+      const response = await apis.getAllCategories();
+      console.log(response);
+      if (response.status === 200) {
+        setRowsWithSTT(response.data.categories);
+      }
+    };
+    fetchCategory();
   }, []);
-  useEffect(() => {
-    if (data) {
-      const updatedData = data.map((row, index) => ({
-        ...row,
-        STT: index + 1,
-      }));
-      setRowsWithSTT(updatedData);
-    }
-  }, [data]);
   // create on change when search
   const handleChange = (value) => {
     setText(value);
     setRowsWithSTT(
-      data.filter((item) => {
+      rowsWithSTT.filter((item) => {
         return Object.keys(item).some((key) => {
           if (typeof item[key] === 'string') {
             return item[key].toLowerCase().includes(value.toLowerCase());
@@ -122,13 +121,13 @@ const DropdownCategory = ({ value, onChange }) => {
                     id={item.name}
                     type="checkbox"
                     key={item.name}
-                    value={item.id}
+                    value={encryptData(item.id,process.env.REACT_APP_SECRET_KEY_CATEGORY || 'this is secret')}
                     className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
                     checked={selectedValue.includes(item.id)}
                     onChange={() => handleCheckboxChange(item.id)}
                  />
                   <label
-                    key={item.id}
+                    key={encryptData(item.id,process.env.REACT_APP_SECRET_KEY_CATEGORY || 'this is secret')}
                     htmlFor={item.name}
                     className="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300"
                   >
