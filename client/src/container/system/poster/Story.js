@@ -28,9 +28,9 @@ const Story = () => {
     fetchDetailStory();
     const fetchCategoryStory = async () => {
       const responseCategory = await apis.apiGetCategoryOfStoryById(storyId);
-      console.log(responseCategory.data);
+      console.log(responseCategory.data.foundStory[0]);
       if (responseCategory.status === 200) {
-        setCategoryStory(responseCategory.data);
+        setCategoryStory(responseCategory.data.foundStory);
       }
     };
     fetchCategoryStory();

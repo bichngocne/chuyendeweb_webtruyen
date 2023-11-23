@@ -2,7 +2,7 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../database/connect.js";
 import { story_category } from "./story_category.js";
-import { Category } from "./Category.js";
+import { Category } from "./category.js";
 class story extends Model {
   /**
    * Helper method for defining associations.

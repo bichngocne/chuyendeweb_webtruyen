@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import { ButtonSave, DropdownCategory, Upload } from "../index.js";
 import Validator from "./../../../ultis/validator";
 import { encryptData, isNumber } from "../../../ultis/function.js";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 class FormStory extends React.Component {
   constructor(props) {
     super(props);
@@ -32,6 +33,7 @@ class FormStory extends React.Component {
       return true;
     };
     function isZeroOrOne(value) {
+      value = 0;
       return value === 0 || value === 1 || value === "0" || value === "1";
     }
     const rules = [
@@ -110,7 +112,7 @@ class FormStory extends React.Component {
       {
         field: "classifiValue",
         method: isZeroOrOne,
-        validWhen: false,
+        validWhen: true,
         message: "Value have to 0 or 1 please don't change value",
       },
     ];
@@ -174,7 +176,9 @@ class FormStory extends React.Component {
   }
   //xử lí giá trị phân loại truyện
   handleClassifiChange(event) {
+    console.log(event.target.value);
     this.setState({ classifiValue: event.target.value }, () => {
+      console.log(this.state.classifiValue);
       this.setState({
         errors: this.validator.validate(this.state),
       });
@@ -182,6 +186,7 @@ class FormStory extends React.Component {
   }
   //submit
   handleSubmit(event) {
+    event.preventDefault();
     this.setState({
       errors: this.validator.validate(this.state),
     });
@@ -208,10 +213,17 @@ class FormStory extends React.Component {
       formData.append("totalChap", Number(this.state.totalChapValue));
       formData.append("classifi", this.state.classifiValue);
       this.props.onSubmit(formData);
-      alert("Dữ liệu đã được gửi đi.");
     } else {
-      // Xử lý khi có lỗi
-      alert("Có lỗi xảy ra. Vui lòng kiểm tra lại các trường.");
+      toast.warn('Vui lòng nhập dữ liệu đúng theo format!', {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        });
     }
   }
 
@@ -400,7 +412,7 @@ class FormStory extends React.Component {
                 <div>
                   <div className="flex items-center mb-4">
                     <input
-                      checked
+                      defaultChecked
                       onChange={this.handleClassifiChange}
                       id="wordsoty"
                       type="radio"
@@ -431,14 +443,14 @@ class FormStory extends React.Component {
                       Truyện tranh
                     </label>
                   </div>
-                    {errors.classifiValue && (
-                      <div
-                        className="validation text-red-600"
-                        style={{ display: "block" }}
-                      >
-                        {errors.classifiValue}
-                      </div>
-                    )}
+                  {errors.classifiValue && (
+                    <div
+                      className="validation text-red-600"
+                      style={{ display: "block" }}
+                    >
+                      {errors.classifiValue}
+                    </div>
+                  )}
                 </div>
                 <div className="h-[35px]">
                   <ButtonSave text="Lưu" onClick={this.handleSubmit} />

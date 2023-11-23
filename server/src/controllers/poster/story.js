@@ -12,6 +12,7 @@ const index = async (req, res) => {
 async function show(req, res) {
   try {
     const id = decodeURIComponent(req.params.id);
+    console.log(id);
     const decryptedStoryID = decryptData(
       id,
       process.env.SEVER_SECRET_KEY_ID_STORY || "this is secret"
@@ -32,7 +33,7 @@ async function getCategoryOfStoryById(req, res) {
     );
     const foundStory = await story_category.findAll({
       where: { id_story: decryptedStoryID },
-      include: [Category,story],
+      include: [Category],
     });
     console.log(foundStory);
     res.json({ foundStory });
@@ -45,34 +46,33 @@ async function getCategoryOfStoryById(req, res) {
 //[STORE] submit story screen
 async function store(req, res, next) {
   try {
-    
     var data = req.body;
     data.totalChap = Number(data.totalChap);
     data.classifi = Number(data.classifi);
     data.img = req.file.filename;
     console.log(data);
-    const storyPost = await story
-      .create({
-        name: data.name,
-        description: data.description,
-        total_chapper: data.totalChap,
-        author: data.author,
-        status_approve: false,
-        status_chapper: false,
-        classifi: data.classifi,
-        image: data.img,
-        view: 0,
-        id_user: 2,
-        deleted: 0,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      })
-    data.category.map(async (item) => {
-      const story_categoryPost = await story_category.create({
+    const storyPost = await story.create({
+      name: data.name,
+      description: data.description,
+      total_chapper: data.totalChap,
+      author: data.author,
+      status_approve: false,
+      classifi: data.classifi,
+      image: data.img,
+      view: 0,
+      id_user: 2,
+      deleted: 0,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
+    console.log(storyPost.id);
+    data.category.forEach(async (item) => {
+      console.log(item);
+      await story_category.create({
         id_story: storyPost.id,
         id_category: decryptData(
           item,
-          process.env.SEVER_SECRET_KEY_ID_STORY || "this is secret"
+          process.env.SEVER_SECRET_KEY_CATEGORY || "this is secret"
         ),
       });
     });
@@ -84,6 +84,7 @@ async function store(req, res, next) {
     res.status(400).json({
       success: false,
       message: "Đăng truyện không thành công",
+      error
     });
   }
   // Thêm mảng images vào đối tượng data
