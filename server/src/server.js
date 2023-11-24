@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 import express from "express";
 import {createProxyMiddleware} from "http-proxy-middleware";
 import {sequelize } from "./database/connect.js";
-import {categoryP,storyP} from './routes/index.js'
+import {categoryP,chapperP,storyP} from './routes/index.js'
 import {category, Story, story_categoryR, Comment , categoryReader, storyReader} from './routes/index.js';
 import cors from "cors"
 import methodOverride  from 'method-override';
@@ -28,12 +28,13 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 app.use('/api/static', express.static(path.join(__dirname, 'public')));
 
-app.use(bodyparser.urlencoded({ extended: true, limit: "10mb" }));
+app.use(bodyparser.urlencoded({ extended: true, limit: "100mb" }));
 app.use(bodyparser.json());
 
 // call api
 app.use('/api',cors({ origin: '*' }),categoryP)
 app.use('/api',cors({ origin: '*' }),storyP)
+app.use('/api',cors({ origin: '*' }),chapperP)
 app.use('/api',cors({ origin: '*' }),category)
 app.use('/api',cors({ origin: '*' }),categoryReader)
 app.use('/api',cors({ origin: '*' }),storyReader)

@@ -1,12 +1,14 @@
 import { body } from "express-validator";
 
+//check img
 const isImgValue = (imgs) => {
   return Object.keys(imgs).length === 1;
 };
+//check category
 const isCategoryValueValid = (categoryArray) => {
   return categoryArray.length >= 1 && categoryArray.length <= 3;
 };
-
+// validate for post story
 const validatePostStory = () => {
   return [
     body("name", "The name field is required").not().isEmpty(),
@@ -41,5 +43,43 @@ const validatePostStory = () => {
     ).custom(isCategoryValueValid),
   ];
 };
+// validate for post chapper (truyện chữ)
+const validatePostChapper1 = () => {
+  return [
+    body("name", "The name field is required").not().isEmpty(),
+    body("description", "The description field is required").not().isEmpty(),
+    body(
+      "name",
+      "The name must be at least 3 characters, maximum 50 characters and cannot start with 3 spaces."
+    )
+      .isLength({ min: 3, max: 50 })
+      .matches(/^(?!(\s.*){3}).*/),
+    body(
+      "description",
+      "The description must be at least 3 characters and cannot start with 3 spaces."
+    )
+      .isLength({ min: 3 })
+      .matches(/^(?!(\s.*){3}).*/),
+    body("id_story", "The id story field is required").not().isEmpty(),
+    body("numberChapper", "The numberChapper field is required").not().isEmpty(),
+    body("numberChapper", "The numberChapper field is number").isInt(),
+  ];
+};
+// validate for post chapper (truyện tranh)
+const validatePostChapper2 = () => {
+  return [
+    body("name", "The name field is required").not().isEmpty(),
+    body(
+      "name",
+      "The name must be at least 3 characters, maximum 50 characters and cannot start with 3 spaces."
+    )
+      .isLength({ min: 3, max: 50 })
+      .matches(/^(?!(\s.*){3}).*/),
+    body("img", "Must choose a photo.").custom(isImgValue),
+    body("id_story", "The id story field is required").not().isEmpty(),
+    body("numberChapper", "The numberChapper field is required").not().isEmpty(),
+    body("numberChapper", "The numberChapper field is number").isInt(),
+  ];
+};
 
-export { validatePostStory };
+export { validatePostStory, validatePostChapper1, validatePostChapper2 };
