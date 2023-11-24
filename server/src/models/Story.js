@@ -4,6 +4,7 @@ import { sequelize } from "../database/connect.js";
 import { story_category } from "./story_category.js";
 import { Category } from "./Category.js";
 import { user } from "./user.js";
+import { chapper } from "./chapper.js";
 class story extends Model {
   /**
    * Helper method for defining associations.
@@ -20,6 +21,10 @@ class story extends Model {
     story.belongsTo(models.user, {
       foreignKey: "id_user", // Khóa ngoại của bảng Story trỏ đến khóa chính của bảng User
     });
+    story.hasMany(models.chapper, {
+      foreignKey: "id_story",
+    });
+    
   }
 }
 story.init(
@@ -45,4 +50,5 @@ story.init(
     modelName: "stories",
   });
 story.belongsTo(user, { foreignKey: 'id_user' }); // Định nghĩa mối quan hệ
+// story.hasMany(chapper, { as: 'chapper', foreignKey: 'id_story' });
 export { story };

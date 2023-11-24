@@ -177,27 +177,16 @@ const getStoriesUpdating = async (req, res) => {
       include: [
         {
           model: chapper,
-          as: "chapper",
-          attributes: ["id"],
+          as: 'chappers',
           attributes: ["number_chapper", "updatedAt"],
         },
       ],
       order: [["updatedAt", "DESC"]],
       limit: 20,
     });
-
-    const formattedStories = latestUpdatedStories.map((story) => {
-      console.log(story.Chapters);
-      const latestChapter = story.Chapters.length > 0 ? story.Chapters[0] : null;
-
-      return {
-        name: story.name,
-        latestChapter: latestChapter ? latestChapter.title : null,
-        updatedAt: latestChapter ? latestChapter.updatedAt : null,
-      };
-    });
-
-    res.json({ LatestUpdatedStories: formattedStories });
+  
+    console.log("Latest Updated Stories:", latestUpdatedStories);
+    res.json({ LatestUpdatedStories: latestUpdatedStories });
   } catch (error) {
     console.error("Error retrieving latest updated stories:", error);
     res.status(500).json({ error: "Internal Server Error" });

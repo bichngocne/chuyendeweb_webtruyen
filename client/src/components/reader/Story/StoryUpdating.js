@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 import { useEffect, useState } from "react";
@@ -9,12 +9,15 @@ import * as apis from "../../../apis";
 import { formatDistanceToNow } from "date-fns";
 import { vi } from "date-fns/locale";
 const StoryUpdating = () => {
+  console.log("Component rendered");
+
+
   const { BiSolidHot, MdOutlineNavigateNext } = icons;
   const [categories, setCategories] = useState([]);
   const [stories, setStories] = useState([]);
   const [storyCategories, setStoryCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("Tất cả"); // Trạng thái thể loại được chọn
-
+  const [storyCategoriesMap, setStoryCategoriesMap] = useState({});
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -24,7 +27,30 @@ const StoryUpdating = () => {
 
         // Lấy danh sách stories
         const storiesResponse = await apis.getAllStories();
+        const dataStories = storiesResponse.data.stories;
         setStories(storiesResponse.data.stories);
+
+        const storyIds = dataStories.map((story) => story.id);
+        const storyCategoriesMap = {};
+        for (const storyId of storyIds) {
+          // Gọi API getCategoryofStory với id_story
+          const storyCategoriesResponse = await apis.getCategoryofStory(
+            storyId
+          );
+          const storyCategories = storyCategoriesResponse.data.storyCategory;
+          // console.log(storyCategories[0].Category);
+
+          // Kiểm tra xem storyCategories có dữ liệu hay không
+          if (storyCategories.length > 0) {
+            storyCategoriesMap[storyId] = storyCategories.map(
+              (category) => category.Category.name
+            );
+            //  console.log(storyCategoriesMap[storyId]);
+          } else {
+            storyCategoriesMap[storyId] = [];
+          }
+        }
+        setStoryCategoriesMap(storyCategoriesMap);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -33,41 +59,17 @@ const StoryUpdating = () => {
     // Gọi fetchData khi component được mount
     fetchData();
   }, []);
-  
 
-  useEffect(() => {
-    if (stories.length > 0) {
-      // Lấy danh sách storyIds từ danh sách truyện
-      const storyIds = stories.map((story) => story.id);
-
-      // Tạo mảng chứa tất cả các truy vấn thể loại
-      const categoryRequests = storyIds.map((storyId) => {
-        return axios
-          .get(`http://localhost:5000/api/story_categories/${storyId}`)
-          .then((res) => res.data.storyCategory);
-      });
-
-      // Thực hiện tất cả các truy vấn bằng Promise.all
-      Promise.all(categoryRequests)
-        .then((results) => {
-          // results là một mảng chứa danh sách thể loại của từng truyện
-          setStoryCategories(results);
-        })
-        .catch((err) => console.error(err));
-    }
-  }, [stories]);
   const handleCategoryChange = (selected) => {
     setSelectedCategory(selected.value); // Cập nhật trạng thái thể loại được chọn
   };
-      // Lọc danh sách truyện dựa trên thể loại được chọn
-
-  
-    const getTimeDistance = (createdAt) => {
-      return formatDistanceToNow(new Date(createdAt), {
-        locale: vi,
-        addSuffix: true,
-      });
-    };
+  // Lọc tg danh sách truyện dựa trên thể loại được chọn
+  const getTimeDistance = (createdAt) => {
+    return formatDistanceToNow(new Date(createdAt), {
+      locale: vi,
+      addSuffix: true,
+    });
+  };
   return (
     <div>
       <div className="flex items-start justify-between mt-10">
@@ -98,26 +100,29 @@ const StoryUpdating = () => {
           <div>
             <div className=" mt-[10px]">
               <table className="border-t border-black w-[100%]">
-                <tbody>
-                  {stories.slice(0, 16).map((story) => {
+                <tbody >
+                  {stories.slice(0,16).map((story) => {
                     // Lọc danh sách thể loại cho truyện cụ thể
-                    const storyCategoriesForStory = storyCategories
-                      .filter((category) => category.id_story === story.id)
-                      .map((category) => category.Category.name);
-                    
+                    const storyId = story.id;
+                    console.log(storyId);
+                    const storyCategoriesForStory=storyCategoriesMap[storyId] || [];
+                    console.log("storyCategoriesForStory",storyCategoriesForStory);
+
                     return (
-                      <tr key={story.id}>
-                        <td className="border border-black border-l-0 border-t-0 border-dashed pr-3 flex items-center">
+                      <tr key={storyId}>
+                        <Link  to={`/story/${story.id}`} className="border border-black border-l-0 border-t-0 border-dashed pr-3 flex items-center">
                           <MdOutlineNavigateNext size={24} /> {story.name}
-                        </td>
+                        </Link>
                         <td className="border border-black border-l-0 border-t-0 border-dashed px-3 ">
-                          {storyCategoriesForStory==true ? storyCategoriesForStory.join(", "):"Không hiển thị thể loại "}
+                          {storyCategoriesForStory.length > 0
+                            ? storyCategoriesForStory.join(", ")
+                            : "Không hiển thị thể loại"}
                         </td>
                         <td className="border border-black border-t-0 border-dashed px-3">
                           Chương {story.total_chapper}
                         </td>
                         <td className="border border-black border-t-0 border-dashed px-3">
-                        {getTimeDistance(story.createdAt)}
+                          {getTimeDistance(story.createdAt)}
                         </td>
                       </tr>
                     );
