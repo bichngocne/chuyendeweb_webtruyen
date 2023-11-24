@@ -27,7 +27,7 @@ class FormStory extends React.Component {
     };
     const isNameValueValid = (value, field, state) => {
       // Kiểm tra không có 3 khoảng trắng ở đầu chuỗi
-      if (/^\s{3}/.test(value)) {
+      if (/^\s{3}|^\s*\n/.test(value)) {
         return false;
       }
       return true;
@@ -75,7 +75,7 @@ class FormStory extends React.Component {
         field: "descriptionValue",
         method: isNameValueValid,
         validWhen: true,
-        message: "The description cannot start with 3 spaces.",
+        message: "The description cannot start with 3 spaces and don't down line.",
       },
 
       {
@@ -178,7 +178,6 @@ class FormStory extends React.Component {
   handleClassifiChange(event) {
     console.log(event.target.value);
     this.setState({ classifiValue: event.target.value }, () => {
-      console.log(this.state.classifiValue);
       this.setState({
         errors: this.validator.validate(this.state),
       });
@@ -197,8 +196,6 @@ class FormStory extends React.Component {
           process.env.REACT_APP_SECRET_KEY_CATEGORY || "this is secret"
         );
       });
-      console.log(this.state.imgValue.length);
-      console.log(encryptedCategory);
       const formData = new FormData();
       formData.append("name", this.state.nameValue);
       formData.append("description", this.state.descriptionValue);
@@ -206,7 +203,6 @@ class FormStory extends React.Component {
         formData.append("category[]", category);
       });
       this.state.imgValue.forEach((file) => {
-        console.log(file);
         formData.append("img", file);
       });
       formData.append("author", this.state.authorValue);

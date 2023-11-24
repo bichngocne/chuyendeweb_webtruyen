@@ -3,7 +3,8 @@ import icons from "./../../../ultis/icons";
 import ButtonSave from "../ButtonSave";
 import Upload from "../Upload";
 import Validator from "./../../../ultis/validator";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const { BsTypeBold, BsTypeItalic, BsTypeUnderline } = icons;
 class FormChapper extends React.Component {
   constructor(props) {
@@ -16,15 +17,15 @@ class FormChapper extends React.Component {
     };
     const isImgValue = () => {
       const imgs = this.state.imgValue;
-      return Object.keys(imgs).length === 0 ;
+      return Object.keys(imgs).length === 0;
     };
     const numberOfImgValue = () => {
       const imgs = this.state.imgValue;
-      return Object.keys(imgs).length <= 50 ;
+      return Object.keys(imgs).length <= 50;
     };
     const isNameValueValid = (value, field, state) => {
       // Kiểm tra không có 3 khoảng trắng ở đầu chuỗi
-      if (/^\s{3}/.test(value)) {
+      if (/^\s{3}|^\s*\n/.test(value)) {
         return false;
       }
       return true;
@@ -48,7 +49,8 @@ class FormChapper extends React.Component {
         field: "nameValue",
         method: isNameValueValid,
         validWhen: true,
-        message: "The title chapper cannot start with 3 spaces.",
+        message:
+          "The title chapper cannot start with 3 spaces and don't down line.",
       },
 
       {
@@ -86,7 +88,7 @@ class FormChapper extends React.Component {
     this.validator = new Validator(rules);
     this.handleNameChange = this.handleNameChange.bind(this);
     this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
-    this.handleImgChange = this.handleImgChange.bind(this);
+    this.handleImageSelection = this.handleImageSelection.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -106,14 +108,8 @@ class FormChapper extends React.Component {
     });
   }
   //xử lí giá trị hình ảnh chương
-  handleImgChange(event) {
-    this.setState({ imgValue: event.target.value }, () => {
-      this.setState({
-        errors: this.validator.validate(this.state),
-      });
-    });
-  }
   handleImageSelection = (imageNames) => {
+    console.log(imageNames);
     this.setState({ imgValue: imageNames }, () => {
       this.setState({
         errors: this.validator.validate(this.state),
@@ -122,20 +118,33 @@ class FormChapper extends React.Component {
   };
 
   handleSubmit(event) {
+    event.preventDefault();
     this.setState({
       errors: this.validator.validate(this.state),
     });
     if (Object.keys(this.state.errors).length === 1) {
-      const dataToSubmit = {
-        name: this.state.nameValue,
-        description: this.state.descriptionValue,
-        img: this.state.imgValue,
-      };
-      console.log(dataToSubmit);
-      alert("Dữ liệu đã được gửi đi.");
+      const formData = new FormData();
+      if (Object.keys(this.state.imgValue).length === 0) {
+        formData.append("name", this.state.nameValue);
+        formData.append("description", this.state.descriptionValue);
+      } else {
+        formData.append("name", this.state.nameValue);
+        this.state.imgValue.forEach((file) => {
+          formData.append("img", file);
+        });
+      }
+      this.props.onSubmit(formData);
     } else {
-      // Xử lý khi có lỗi
-      alert("Có lỗi xảy ra. Vui lòng kiểm tra lại các trường.");
+      toast.warn('Vui lòng nhập dữ liệu đúng theo format!', {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        });
     }
   }
 
@@ -279,9 +288,9 @@ class FormChapper extends React.Component {
                 </label>
                 <div className="block w-full">
                   <Upload
+                    name="img"
                     text="imgs"
-                    value={this.state.imgValue}
-                    onChange={this.handleImageSelection.bind(this)}
+                    onChange={this.handleImageSelection}
                   />
                   {errors.imgValue && (
                     <div
