@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import * as actions from "../../store/actions";
+import * as apis from "../../apis";
 import { encryptData } from "../../ultis/function";
 const DropdownCategory = ({ value, onChange }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,23 +15,20 @@ const DropdownCategory = ({ value, onChange }) => {
   const [text, setText] = useState("");
   //get categories
   useEffect(() => {
-    dispatch(actions.getCategories());
+    const fetchCategory = async () => {
+      const response = await apis.getAllCategories();
+      console.log(response);
+      if (response.status === 200) {
+        setRowsWithSTT(response.data.categories);
+      }
+    };
+    fetchCategory();
   }, []);
-  useEffect(() => {
-    if (data) {
-      const updatedData = data.map((row, index) => ({
-        ...row,
-        STT: index + 1,
-      }));
-      setRowsWithSTT(updatedData);
-    }
-  }, [data]);
-  console.log(rowsWithSTT);
   // create on change when search
   const handleChange = (value) => {
     setText(value);
     setRowsWithSTT(
-      data.filter((item) => {
+      rowsWithSTT.filter((item) => {
         return Object.keys(item).some((key) => {
           if (typeof item[key] === 'string') {
             return item[key].toLowerCase().includes(value.toLowerCase());
