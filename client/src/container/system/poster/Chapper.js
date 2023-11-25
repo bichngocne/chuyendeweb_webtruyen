@@ -25,40 +25,55 @@ const Chapper = () => {
   // Hàm callback để nhận dữ liệu từ child
   const handleFormSubmit = (data) => {
     console.log(data);
+    data = {
+      ...data,
+      id_story:storyId,
+      numberChapper:number
+    }
     setSubmittedData(data);
   };
   useEffect(() => {
     if (submittedData) {
       const fetchPostStory = async () => {
         try {
-          // const response = await apis.apiPostStory(submittedData);
-          // console.log(response);
-          // if (response.data.success) {
-          //   setResponsePost(response.data);
-          //   toast.success(response.data.message, {
-          //     position: "bottom-right",
-          //     autoClose: 5000,
-          //     hideProgressBar: false,
-          //     closeOnClick: true,
-          //     pauseOnHover: true,
-          //     draggable: true,
-          //     progress: undefined,
-          //     theme: "dark",
-          //     });
-          // }else{
-          //   toast.error(response.data.message, {
-          //     position: "bottom-right",
-          //     autoClose: 5000,
-          //     hideProgressBar: false,
-          //     closeOnClick: true,
-          //     pauseOnHover: true,
-          //     draggable: true,
-          //     progress: undefined,
-          //     theme: "dark",
-          //     });
-          // }
+          const response = await apis.apiPostChapper(submittedData);
+          console.log(response);
+          if (response.data.success) {
+            setResponsePost(response.data);
+            toast.success(response.data.message, {
+              position: "bottom-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+              });
+          }else{
+            toast.error(response.data.message, {
+              position: "bottom-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+              });
+          }
         } catch (error) {
           console.error("Error posting story:", error);
+          toast.error('Ôi lỗi !!Không thêm được chương', {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            });
         }
       };
 

@@ -28,8 +28,8 @@ const PostStory = () => {
               draggable: true,
               progress: undefined,
               theme: "dark",
-              });
-          }else{
+            });
+          } else {
             toast.error(response.data.message, {
               position: "bottom-right",
               autoClose: 5000,
@@ -39,10 +39,20 @@ const PostStory = () => {
               draggable: true,
               progress: undefined,
               theme: "dark",
-              });
+            });
           }
         } catch (error) {
           console.error("Error posting story:", error);
+          toast.error("Ôi lỗi !!Không thêm được truyện", {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
         }
       };
 
@@ -57,7 +67,7 @@ const PostStory = () => {
           <FormStory onSubmit={handleFormSubmit} />
         </div>
       </div>
-      <ToastContainer/>
+      <ToastContainer />
     </>
   );
 };

@@ -123,19 +123,21 @@ class FormChapper extends React.Component {
       errors: this.validator.validate(this.state),
     });
     if (Object.keys(this.state.errors).length === 1) {
-      const formData = new FormData();
+      var data = {};
       if (Object.keys(this.state.imgValue).length === 0) {
-        formData.append("name", this.state.nameValue);
-        formData.append("description", this.state.descriptionValue);
+        data = {
+          name: this.state.nameValue,
+          description: this.state.descriptionValue,
+        };
       } else {
-        formData.append("name", this.state.nameValue);
-        this.state.imgValue.forEach((file) => {
-          formData.append("img", file);
-        });
+        data = {
+          name: this.state.nameValue,
+          img: this.state.imgValue.map((file) => file),
+        };
       }
-      this.props.onSubmit(formData);
+      this.props.onSubmit(data);
     } else {
-      toast.warn('Vui lòng nhập dữ liệu đúng theo format!', {
+      toast.warn("Vui lòng nhập dữ liệu đúng theo format!", {
         position: "bottom-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -144,7 +146,7 @@ class FormChapper extends React.Component {
         draggable: true,
         progress: undefined,
         theme: "dark",
-        });
+      });
     }
   }
 
