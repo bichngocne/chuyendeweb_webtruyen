@@ -8,15 +8,11 @@ import { decryptData } from "../../utils/function.js";
 
 //[STORE] submit chapper
 async function store(req, res, next) {
-  var data = req.body;
-  console.log(data);
   const id = req.body.id_story;
-  console.log(id);
   const decryptedStoryID = decryptData(
     id,
     process.env.SEVER_SECRET_KEY_ID_STORY || "this is secret"
   );
-  console.log(decryptedStoryID);
   const storyById = await story.findOne({ where: { id: decryptedStoryID } });
   // check number chapper belong story ?
   const numberChapperStory = storyById.total_chapper;
@@ -24,7 +20,6 @@ async function store(req, res, next) {
     0 < req.body.numberChapper && req.body.numberChapper <= numberChapperStory
       ? true
       : false;
-  console.log(checkNumberChapper);
   if (checkNumberChapper) {
     await chapper
       .create({
@@ -53,4 +48,41 @@ async function store(req, res, next) {
     });
   }
 }
-export default { store };
+
+//[GET] get detail chapper of story for truyện chữ
+
+async function show1(req, res) {
+  const id = decodeURIComponent(req.params.id_story);
+  console.log(id);
+  const decryptedStoryID = decryptData(
+    id,
+    process.env.SEVER_SECRET_KEY_ID_STORY || "this is secret"
+  );
+  const numberChapper = req.params.number;
+  const storyById = await story.findOne({ where: { id: decryptedStoryID } });
+  // check number chapper belong story ?
+  const numberChapperStory = storyById.total_chapper;
+  const checkNumberChapper =
+    0 < numberChapper && numberChapper <= numberChapperStory ? true : false;
+  if (checkNumberChapper) {
+    await chapper
+      .findOne({
+        where: { id_story: decryptedStoryID, number_chapper: numberChapper },
+      })
+      .then((chapper) => {
+        return res.status(200).json({ chapper });
+      })
+      .catch((error) => {
+        console.error("Error retrieving chapper:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+      });
+  } else {
+    return res.status(400).json({
+      success: false,
+      message:
+        "Ôi!!Số chương không tồn tại không truyện!!vui lòng kiểm tra lại",
+    });
+  }
+}
+
+export default { store, show1 };

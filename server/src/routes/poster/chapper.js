@@ -21,5 +21,7 @@ router.post(
   },
   chapperP.store
 );
+//[GET] chapper
+router.get('/chapper0/:id_story/:number',chapperP.show1)
 
 export default router;
