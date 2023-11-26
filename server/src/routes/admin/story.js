@@ -6,11 +6,12 @@ import { validatePostStory } from "../../middlewares/validation.js";
 import { validationResult } from 'express-validator';
 //[GET] class
 router.get("/stories", storyA.index);
-router.get("/storiesapproved", storyA.showStoryApproved);
-router.get("/storiespending", storyA.showStoryPending);
-router.get("/story/:id", storyA.show);
-router.get("/story/category/:id", storyA.getCategoryOfStoryById);
-router.get("/story/user/:id", storyA.getUserOfStoryById);
+router.get("/storiesapproved", storyA.showStoryApprovedAdmin);
+router.get("/storiespending", storyA.showStoryPendingAdmin);
+router.get("/story/:id", storyA.showAdmin);
+router.get("/story/category/:id", storyA.getCategoryOfStoryByIdAdmin);
+router.get("/story/user/:id", storyA.getUserOfStoryByIdAdmin);
+router.get("/story/item/:id", storyA.findByIdAndDeleteAdmin);
 router.post(
   "/story/create",validatePostStory(),
   (req, res, next) => {

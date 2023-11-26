@@ -9,16 +9,23 @@ import {sequelize} from "../database/connect.js";
      */
     static associate(models) {
       // define association here
+      chapper.belongsTo(models.story, {
+        foreignKey: "id_story", // Khóa ngoại của bảng Story trỏ đến khóa chính của bảng User
+        onDelete: 'CASCADE'
+      });
     }
   }
-  chapper.init({
-    title: DataTypes.STRING,
-    id_story: DataTypes.INTEGER,
-    number_chapper: DataTypes.INTEGER,
-    image: DataTypes.STRING,
-    content: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'chapper',
-  });
+  chapper.init(
+    {
+      title: DataTypes.STRING,
+      id_story: DataTypes.INTEGER,
+      number_chapper: DataTypes.INTEGER,
+      image: DataTypes.STRING,
+      content: DataTypes.STRING,
+    },
+    {
+      sequelize,
+      modelName: 'chapper',
+    }
+  );
 export{chapper}

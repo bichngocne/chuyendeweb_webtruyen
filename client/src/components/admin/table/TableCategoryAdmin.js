@@ -6,7 +6,7 @@ import * as actions from "../../../store/actions";
 import { Link } from "react-router-dom";
 
 const { MdOutlineDelete } = icons;
-const TableAdmin = (props) => {
+const TableAdmin = ({ searchTerm }) => {
   var iconsChange;
   var columns;
   const dispatch = useDispatch();
@@ -77,6 +77,7 @@ const TableAdmin = (props) => {
       dispatch(actions.getCategories());
   }, []);
 
+  const [filteredData, setFilteredData] = useState([]);
   const [rowsWithSTT, setRowsWithSTT] = useState([]);
     useEffect(() => {
       if (data) {
@@ -88,11 +89,28 @@ const TableAdmin = (props) => {
       }
     }, [data]);
 
+    function removeDiacritics(str) {
+      const withoutDiacritics = str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    return withoutDiacritics.replace(/[^\w\s]/gi, "");
+  }
+      useEffect(() => {
+        // Lọc dữ liệu khi giá trị tìm kiếm thay đổi
+        const updatedFilteredData = rowsWithSTT.filter((data) =>
+          Object.values(data).some(
+            (value) =>
+              value &&
+              typeof value === "string" &&
+              removeDiacritics(value.toLowerCase()).includes(removeDiacritics(searchTerm.toLowerCase()))
+          )
+          
+        );
+        setFilteredData(updatedFilteredData);
+      }, [searchTerm, rowsWithSTT]);
     return (
       <div className="px-[35px] py-[15px] [font-family:'Roboto-Regular',Helvetica]">
         <div className="h-[605px] w-full flex items-center bg-[#d9d9d9] rounded-lg">
           <DataGrid
-            rows={rowsWithSTT}
+          rows={filteredData}
             rowHeight={38}
             columns={columns}
             initialState={{
