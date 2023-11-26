@@ -167,10 +167,10 @@ const TableAdmin = ({ searchTerm }) => {
             columns={columns}
             initialState={{
               pagination: {
-                paginationModel: { page: 0, pageSize: 5 },
+                paginationModel: { page: 0, pageSize: 13 },
               },
             }}
-            pageSizeOptions={[5]}
+            pageSizeOptions={[13]}
           />
         </div>
       </div>

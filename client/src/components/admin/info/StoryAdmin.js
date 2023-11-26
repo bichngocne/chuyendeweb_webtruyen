@@ -49,7 +49,7 @@ const StoryAdmin = ({ detailStory, categoryStory }) => {
     >
       <div className="p-[40px]">
         <div className="flex">
-          <img className="w-[150px] h-[185px] mr-[40px]" />
+          <img className="w-[150px] h-[185px] mr-[40px]" src={`http://localhost:5000/api/static/uploads/${detailStory?.storyById?.image}`}  />
           {/* src={`http://localhost:5000/static/uploads/${detailStory?.storyById?.image}`} */}
           <div className="[font-family:'Roboto-Regular',Helvetica] font-normal text-black text-[14px]">
             <div className="pb-2.5">
