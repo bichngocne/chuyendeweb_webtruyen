@@ -1,6 +1,6 @@
 import React from "react";
-import { Title, Arrange,Search,TableStory } from "../../../components/poster";
-import path from "../../../ultis/path";
+import { Title, Arrange,Search,TableStory } from "../../../../components/poster";
+import path from "../../../../ultis/path";
 const ListStory = () => {
   return (
     <>

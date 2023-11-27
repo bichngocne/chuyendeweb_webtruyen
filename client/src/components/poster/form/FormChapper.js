@@ -9,12 +9,22 @@ const { BsTypeBold, BsTypeItalic, BsTypeUnderline } = icons;
 class FormChapper extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      nameValue: "",
-      descriptionValue: "",
-      imgValue: {},
-      errors: {},
-    };
+    if (this.props.chapper) {
+      this.state = {
+        nameValue: this.props.chapper.title || "",
+        descriptionValue: this.props.chapper.content || "",
+        imgValue: {},
+        errors: {},
+      };
+    } else {
+      this.state = {
+        nameValue: "",
+        descriptionValue: "",
+        imgValue: {},
+        errors: {},
+      };
+    }
+    
     const isImgValue = () => {
       const imgs = this.state.imgValue;
       return Object.keys(imgs).length === 0;
@@ -30,6 +40,7 @@ class FormChapper extends React.Component {
       }
       return true;
     };
+    
     const rules = [
       {
         field: "nameValue",
@@ -91,7 +102,17 @@ class FormChapper extends React.Component {
     this.handleImageSelection = this.handleImageSelection.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-
+  componentDidUpdate(prevProps) {
+    if (prevProps.chapper !== this.props.chapper) {
+      // Handle changes in this.props.chapper
+      if (this.props.chapper) {
+        this.setState({
+          nameValue: this.props.chapper.title || "",
+          descriptionValue: this.props.chapper.content || "",
+        });
+      }
+    }
+  }
   handleNameChange(event) {
     this.setState({ nameValue: event.target.value }, () => {
       this.setState({
@@ -135,7 +156,11 @@ class FormChapper extends React.Component {
           img: this.state.imgValue.map((file) => file),
         };
       }
-      this.props.onSubmit(data);
+      if(this.props.chapper){
+        this.props.onSubmitChapper(data);
+      }else{
+        this.props.onSubmit(data);
+      }
     } else {
       toast.warn("Vui lòng nhập dữ liệu đúng theo format!", {
         position: "bottom-right",
@@ -149,7 +174,6 @@ class FormChapper extends React.Component {
       });
     }
   }
-
   render() {
     const { errors } = this.state;
     return (
@@ -257,7 +281,7 @@ class FormChapper extends React.Component {
                     <textarea
                       id="description"
                       rows="8"
-                      value={this.state.descriptionValue}
+                      value={ this.state.descriptionValue}
                       onChange={this.handleDescriptionChange}
                       className={`block w-full px-0 text-sm text-gray-800 bg-white border-0 outline-none ${
                         errors?.descriptionValue

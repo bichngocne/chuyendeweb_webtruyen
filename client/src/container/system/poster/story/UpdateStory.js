@@ -1,5 +1,5 @@
 import React from 'react'
-import { Title, Arrange,Search,TableStory } from "../../../components/poster";
+import { Title, Arrange,Search,TableStory } from "../../../../components/poster";
 const UpdateStory = () => {
   return (
     <>

@@ -8,6 +8,7 @@ import {
   UpdateStory,
   Story,
   Chapper,
+  EditChapper,
 } from "./container/system/poster";
 import { DetailStory, TypeStory } from "./container/system/reader";
 import { Public } from "./container/public";
@@ -55,8 +56,11 @@ function App() {
                 <Route path={path.THUNG_RAC} element={<TrashcanStory />} />
                 <Route path={path.STORY__NAME__ID} element={<Story />} />
                 <Route path={path.CHAPPER__NAME__ID} element={<Chapper />} />
+                <Route
+                  path={path.CHAPPER__NAME__ID_EDIT}
+                  element={<EditChapper />}
+                />
               </Route>
-
               {/* Tuyến đường của reader */}
 
               <Route path={path.HOME_FOR_READER} element={<HomeReader />} />

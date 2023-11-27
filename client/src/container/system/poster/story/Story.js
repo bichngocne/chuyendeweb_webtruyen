@@ -4,11 +4,11 @@ import {
   ButtonSave,
   Title,
   InforStory,
-} from "../../../components/poster";
-import * as apis from "../../../apis";
+} from "../../../../components/poster";
+import * as apis from "../../../../apis";
 import { useSelector } from "react-redux";
 import { NavLink, Outlet, useParams } from "react-router-dom";
-import icons from "../../../ultis/icons";
+import icons from "../../../../ultis/icons";
 const { AiOutlineStar, AiFillStar } = icons;
 
 const Story = () => {

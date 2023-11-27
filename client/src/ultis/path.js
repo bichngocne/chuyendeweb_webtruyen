@@ -11,6 +11,7 @@ const path = {
     STORY__NAME__ID_UPDATE:'edit',
     STORY__NAME__ID:'story/:name/:sid',
     CHAPPER__NAME__ID:'story/:name/:sid/chapper/:number',
+    CHAPPER__NAME__ID_EDIT:'story/:name/:sid/chapper/:number/edit',
 
     // đường dẫn của reader
     HOME_FOR_READER:'reader',

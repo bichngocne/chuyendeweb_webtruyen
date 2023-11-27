@@ -6,8 +6,11 @@ module.exports = {
     return queryInterface.bulkInsert("stories", [
       {
         name: "TỘI ÁI AN CÁCH NHĨ – ÁM DẠ THIÊN",
-        description:
-          "Là câu chuyện về chó hoang bị vứt bỏ cùng trinh thám kiêm nghệ thuật gia đã thu nhận con chó hoang đó",
+        description: `Lăng Hàn - Một Đan Đế đại danh đỉnh định mang trong thân mình tuyệt thế công pháp vì truy cầu bước cuối, xé bỏ tấm màn thành thần nhưng thất bại đã phải bỏ mình. Thế nhưng ông trời dường như không muốn tuyệt dường người, Lăng Hàn đã được trọng sinh vào một thiếu niên cùng tên và điều may mắn nhất là "Bất Diệt Thiên Kinh" ấn ký vẫn còn nằm nguyên trong tâm thức hắn.
+
+Từ nay về sau sóng gió cuộn trào nổi lên, Đan Đế ngày xưa bây giờ phải cùng tranh phong với vô số thiên tài trẻ tuổi, lại bắt đầu một truyền thuyết mới như để chứng minh với trời đất: Ta, là người mạnh nhất!
+Phân chia cảnh giới: Luyện Thể, Tụ Nguyên, Dũng Tuyền, Linh Hải, Thần Thai, Sinh Hoa, Linh Anh, Hóa Thần cùng Thiên Nhân Cảnh.....
+Mỗi cảnh giới chia làm chín tầng: tầng một đến ba là tiền kỳ, tầng bốn đến sáu gọi là trung kỳ và tầng bảy đến chín gọi là hậu kỳ và đỉnh`,
         total_chapper: 4,
         author: "Nhĩ Nhã",
         status_approve: false,
@@ -17,12 +20,17 @@ module.exports = {
         view: 50,
         id_user: 2,
         deleted: 0,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
-      },{
+      },
+      {
         name: "TỘI ÁI",
-        description:
-          "Là câu chuyện về chó hoang bị vứt bỏ cùng trinh thám kiêm nghệ thuật gia đã thu nhận con chó hoang đó",
+        description: `Lăng Hàn - Một Đan Đế đại danh đỉnh định mang trong thân mình tuyệt thế công pháp vì truy cầu bước cuối, xé bỏ tấm màn thành thần nhưng thất bại đã phải bỏ mình. Thế nhưng ông trời dường như không muốn tuyệt dường người, Lăng Hàn đã được trọng sinh vào một thiếu niên cùng tên và điều may mắn nhất là "Bất Diệt Thiên Kinh" ấn ký vẫn còn nằm nguyên trong tâm thức hắn.
+
+Từ nay về sau sóng gió cuộn trào nổi lên, Đan Đế ngày xưa bây giờ phải cùng tranh phong với vô số thiên tài trẻ tuổi, lại bắt đầu một truyền thuyết mới như để chứng minh với trời đất: Ta, là người mạnh nhất!
+Phân chia cảnh giới: Luyện Thể, Tụ Nguyên, Dũng Tuyền, Linh Hải, Thần Thai, Sinh Hoa, Linh Anh, Hóa Thần cùng Thiên Nhân Cảnh.....
+Mỗi cảnh giới chia làm chín tầng: tầng một đến ba là tiền kỳ, tầng bốn đến sáu gọi là trung kỳ và tầng bảy đến chín gọi là hậu kỳ và đỉnh`,
         total_chapper: 40,
         author: "Nhĩ Nhã",
         status_approve: true,
@@ -32,12 +40,17 @@ module.exports = {
         view: 0,
         id_user: 2,
         deleted: 0,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
-      },{
+      },
+      {
         name: "ÁM DẠ THIÊN",
-        description:
-          "Là câu chuyện về chó hoang bị vứt bỏ cùng trinh thám kiêm nghệ thuật gia đã thu nhận con chó hoang đó",
+        description: `Lăng Hàn - Một Đan Đế đại danh đỉnh định mang trong thân mình tuyệt thế công pháp vì truy cầu bước cuối, xé bỏ tấm màn thành thần nhưng thất bại đã phải bỏ mình. Thế nhưng ông trời dường như không muốn tuyệt dường người, Lăng Hàn đã được trọng sinh vào một thiếu niên cùng tên và điều may mắn nhất là "Bất Diệt Thiên Kinh" ấn ký vẫn còn nằm nguyên trong tâm thức hắn.
+
+Từ nay về sau sóng gió cuộn trào nổi lên, Đan Đế ngày xưa bây giờ phải cùng tranh phong với vô số thiên tài trẻ tuổi, lại bắt đầu một truyền thuyết mới như để chứng minh với trời đất: Ta, là người mạnh nhất!
+Phân chia cảnh giới: Luyện Thể, Tụ Nguyên, Dũng Tuyền, Linh Hải, Thần Thai, Sinh Hoa, Linh Anh, Hóa Thần cùng Thiên Nhân Cảnh.....
+Mỗi cảnh giới chia làm chín tầng: tầng một đến ba là tiền kỳ, tầng bốn đến sáu gọi là trung kỳ và tầng bảy đến chín gọi là hậu kỳ và đỉnh`,
         total_chapper: 40,
         author: "Nhĩ Nhã",
         status_approve: true,
@@ -47,6 +60,7 @@ module.exports = {
         view: 0,
         id_user: 2,
         deleted: 0,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -63,6 +77,7 @@ module.exports = {
         view: 10,
         id_user: 2,
         deleted: 0,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -87,13 +102,17 @@ module.exports = {
         view: 22,
         id_user: 2,
         deleted: 0,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
         name: "Quân Lâm Binh Vương",
-        description:
-          "Là câu chuyện về chó hoang bị vứt bỏ cùng trinh thám kiêm nghệ thuật gia đã thu nhận con chó hoang đó",
+        description: `Lăng Hàn - Một Đan Đế đại danh đỉnh định mang trong thân mình tuyệt thế công pháp vì truy cầu bước cuối, xé bỏ tấm màn thành thần nhưng thất bại đã phải bỏ mình. Thế nhưng ông trời dường như không muốn tuyệt dường người, Lăng Hàn đã được trọng sinh vào một thiếu niên cùng tên và điều may mắn nhất là "Bất Diệt Thiên Kinh" ấn ký vẫn còn nằm nguyên trong tâm thức hắn.
+
+Từ nay về sau sóng gió cuộn trào nổi lên, Đan Đế ngày xưa bây giờ phải cùng tranh phong với vô số thiên tài trẻ tuổi, lại bắt đầu một truyền thuyết mới như để chứng minh với trời đất: Ta, là người mạnh nhất!
+Phân chia cảnh giới: Luyện Thể, Tụ Nguyên, Dũng Tuyền, Linh Hải, Thần Thai, Sinh Hoa, Linh Anh, Hóa Thần cùng Thiên Nhân Cảnh.....
+Mỗi cảnh giới chia làm chín tầng: tầng một đến ba là tiền kỳ, tầng bốn đến sáu gọi là trung kỳ và tầng bảy đến chín gọi là hậu kỳ và đỉnh`,
         total_chapper: 4,
         author: "Nhĩ Nhã",
         status_approve: false,
@@ -103,6 +122,7 @@ module.exports = {
         view: 24,
         id_user: 2,
         deleted: 0,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -119,6 +139,7 @@ module.exports = {
         view: 25,
         id_user: 2,
         deleted: 0,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -143,13 +164,17 @@ module.exports = {
         view: 26,
         id_user: 2,
         deleted: 0,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
         name: " Cô Vợ Câm Mang Con Bỏ Chạy",
-        description:
-          "Là câu chuyện về chó hoang bị vứt bỏ cùng trinh thám kiêm nghệ thuật gia đã thu nhận con chó hoang đó",
+        description: `Lăng Hàn - Một Đan Đế đại danh đỉnh định mang trong thân mình tuyệt thế công pháp vì truy cầu bước cuối, xé bỏ tấm màn thành thần nhưng thất bại đã phải bỏ mình. Thế nhưng ông trời dường như không muốn tuyệt dường người, Lăng Hàn đã được trọng sinh vào một thiếu niên cùng tên và điều may mắn nhất là "Bất Diệt Thiên Kinh" ấn ký vẫn còn nằm nguyên trong tâm thức hắn.
+
+Từ nay về sau sóng gió cuộn trào nổi lên, Đan Đế ngày xưa bây giờ phải cùng tranh phong với vô số thiên tài trẻ tuổi, lại bắt đầu một truyền thuyết mới như để chứng minh với trời đất: Ta, là người mạnh nhất!
+Phân chia cảnh giới: Luyện Thể, Tụ Nguyên, Dũng Tuyền, Linh Hải, Thần Thai, Sinh Hoa, Linh Anh, Hóa Thần cùng Thiên Nhân Cảnh.....
+Mỗi cảnh giới chia làm chín tầng: tầng một đến ba là tiền kỳ, tầng bốn đến sáu gọi là trung kỳ và tầng bảy đến chín gọi là hậu kỳ và đỉnh`,
         total_chapper: 5,
         author: "Nhĩ Nhã",
         status_approve: false,
@@ -159,6 +184,7 @@ module.exports = {
         view: 27,
         id_user: 2,
         deleted: 0,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -175,6 +201,7 @@ module.exports = {
         view: 30,
         id_user: 2,
         deleted: 0,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -199,13 +226,17 @@ module.exports = {
         view: 40,
         id_user: 2,
         deleted: 0,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
         name: "Nhạc Tiên Sinh Đang Không Vui",
-        description:
-          "Là câu chuyện về chó hoang bị vứt bỏ cùng trinh thám kiêm nghệ thuật gia đã thu nhận con chó hoang đó",
+        description: `Lăng Hàn - Một Đan Đế đại danh đỉnh định mang trong thân mình tuyệt thế công pháp vì truy cầu bước cuối, xé bỏ tấm màn thành thần nhưng thất bại đã phải bỏ mình. Thế nhưng ông trời dường như không muốn tuyệt dường người, Lăng Hàn đã được trọng sinh vào một thiếu niên cùng tên và điều may mắn nhất là "Bất Diệt Thiên Kinh" ấn ký vẫn còn nằm nguyên trong tâm thức hắn.
+
+Từ nay về sau sóng gió cuộn trào nổi lên, Đan Đế ngày xưa bây giờ phải cùng tranh phong với vô số thiên tài trẻ tuổi, lại bắt đầu một truyền thuyết mới như để chứng minh với trời đất: Ta, là người mạnh nhất!
+Phân chia cảnh giới: Luyện Thể, Tụ Nguyên, Dũng Tuyền, Linh Hải, Thần Thai, Sinh Hoa, Linh Anh, Hóa Thần cùng Thiên Nhân Cảnh.....
+Mỗi cảnh giới chia làm chín tầng: tầng một đến ba là tiền kỳ, tầng bốn đến sáu gọi là trung kỳ và tầng bảy đến chín gọi là hậu kỳ và đỉnh`,
         total_chapper: 4,
         author: "Nhĩ Nhã",
         status_approve: false,
@@ -215,6 +246,7 @@ module.exports = {
         view: 31,
         id_user: 2,
         deleted: 0,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -231,6 +263,7 @@ module.exports = {
         view: 31,
         id_user: 2,
         deleted: 0,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -255,13 +288,17 @@ module.exports = {
         view: 29,
         id_user: 2,
         deleted: 0,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
         name: " Phản Hồi Sau Hôn Nhân",
-        description:
-          "Là câu chuyện về chó hoang bị vứt bỏ cùng trinh thám kiêm nghệ thuật gia đã thu nhận con chó hoang đó",
+        description: `Lăng Hàn - Một Đan Đế đại danh đỉnh định mang trong thân mình tuyệt thế công pháp vì truy cầu bước cuối, xé bỏ tấm màn thành thần nhưng thất bại đã phải bỏ mình. Thế nhưng ông trời dường như không muốn tuyệt dường người, Lăng Hàn đã được trọng sinh vào một thiếu niên cùng tên và điều may mắn nhất là "Bất Diệt Thiên Kinh" ấn ký vẫn còn nằm nguyên trong tâm thức hắn.
+
+Từ nay về sau sóng gió cuộn trào nổi lên, Đan Đế ngày xưa bây giờ phải cùng tranh phong với vô số thiên tài trẻ tuổi, lại bắt đầu một truyền thuyết mới như để chứng minh với trời đất: Ta, là người mạnh nhất!
+Phân chia cảnh giới: Luyện Thể, Tụ Nguyên, Dũng Tuyền, Linh Hải, Thần Thai, Sinh Hoa, Linh Anh, Hóa Thần cùng Thiên Nhân Cảnh.....
+Mỗi cảnh giới chia làm chín tầng: tầng một đến ba là tiền kỳ, tầng bốn đến sáu gọi là trung kỳ và tầng bảy đến chín gọi là hậu kỳ và đỉnh`,
         total_chapper: 4,
         author: "Nhĩ Nhã",
         status_approve: false,
@@ -271,6 +308,7 @@ module.exports = {
         view: 33,
         id_user: 2,
         deleted: 0,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -287,6 +325,7 @@ module.exports = {
         view: 21,
         id_user: 2,
         deleted: 0,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -311,13 +350,17 @@ module.exports = {
         view: 43,
         id_user: 2,
         deleted: 0,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
         name: "Khôn Ninh",
-        description:
-          "Là câu chuyện về chó hoang bị vứt bỏ cùng trinh thám kiêm nghệ thuật gia đã thu nhận con chó hoang đó",
+        description: `Lăng Hàn - Một Đan Đế đại danh đỉnh định mang trong thân mình tuyệt thế công pháp vì truy cầu bước cuối, xé bỏ tấm màn thành thần nhưng thất bại đã phải bỏ mình. Thế nhưng ông trời dường như không muốn tuyệt dường người, Lăng Hàn đã được trọng sinh vào một thiếu niên cùng tên và điều may mắn nhất là "Bất Diệt Thiên Kinh" ấn ký vẫn còn nằm nguyên trong tâm thức hắn.
+
+Từ nay về sau sóng gió cuộn trào nổi lên, Đan Đế ngày xưa bây giờ phải cùng tranh phong với vô số thiên tài trẻ tuổi, lại bắt đầu một truyền thuyết mới như để chứng minh với trời đất: Ta, là người mạnh nhất!
+Phân chia cảnh giới: Luyện Thể, Tụ Nguyên, Dũng Tuyền, Linh Hải, Thần Thai, Sinh Hoa, Linh Anh, Hóa Thần cùng Thiên Nhân Cảnh.....
+Mỗi cảnh giới chia làm chín tầng: tầng một đến ba là tiền kỳ, tầng bốn đến sáu gọi là trung kỳ và tầng bảy đến chín gọi là hậu kỳ và đỉnh`,
         total_chapper: 4,
         author: "Nhĩ Nhã",
         status_approve: false,
@@ -327,6 +370,7 @@ module.exports = {
         view: 45,
         id_user: 2,
         deleted: 0,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -343,6 +387,7 @@ module.exports = {
         view: 52,
         id_user: 2,
         deleted: 0,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -367,13 +412,17 @@ module.exports = {
         view: 35,
         id_user: 2,
         deleted: 0,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
         name: "Tiêu Tổng, Xin Tha Cho Tôi",
-        description:
-          "Là câu chuyện về chó hoang bị vứt bỏ cùng trinh thám kiêm nghệ thuật gia đã thu nhận con chó hoang đó",
+        description: `Lăng Hàn - Một Đan Đế đại danh đỉnh định mang trong thân mình tuyệt thế công pháp vì truy cầu bước cuối, xé bỏ tấm màn thành thần nhưng thất bại đã phải bỏ mình. Thế nhưng ông trời dường như không muốn tuyệt dường người, Lăng Hàn đã được trọng sinh vào một thiếu niên cùng tên và điều may mắn nhất là "Bất Diệt Thiên Kinh" ấn ký vẫn còn nằm nguyên trong tâm thức hắn.
+
+Từ nay về sau sóng gió cuộn trào nổi lên, Đan Đế ngày xưa bây giờ phải cùng tranh phong với vô số thiên tài trẻ tuổi, lại bắt đầu một truyền thuyết mới như để chứng minh với trời đất: Ta, là người mạnh nhất!
+Phân chia cảnh giới: Luyện Thể, Tụ Nguyên, Dũng Tuyền, Linh Hải, Thần Thai, Sinh Hoa, Linh Anh, Hóa Thần cùng Thiên Nhân Cảnh.....
+Mỗi cảnh giới chia làm chín tầng: tầng một đến ba là tiền kỳ, tầng bốn đến sáu gọi là trung kỳ và tầng bảy đến chín gọi là hậu kỳ và đỉnh`,
         total_chapper: 4,
         author: "Nhĩ Nhã",
         status_approve: false,
@@ -383,6 +432,7 @@ module.exports = {
         view: 15,
         id_user: 2,
         deleted: 0,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -399,6 +449,7 @@ module.exports = {
         view: 33,
         id_user: 2,
         deleted: 0,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -423,13 +474,17 @@ module.exports = {
         view: 35,
         id_user: 2,
         deleted: 0,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
         name: " Báo Đen",
-        description:
-          "Là câu chuyện về chó hoang bị vứt bỏ cùng trinh thám kiêm nghệ thuật gia đã thu nhận con chó hoang đó",
+        description: `Lăng Hàn - Một Đan Đế đại danh đỉnh định mang trong thân mình tuyệt thế công pháp vì truy cầu bước cuối, xé bỏ tấm màn thành thần nhưng thất bại đã phải bỏ mình. Thế nhưng ông trời dường như không muốn tuyệt dường người, Lăng Hàn đã được trọng sinh vào một thiếu niên cùng tên và điều may mắn nhất là "Bất Diệt Thiên Kinh" ấn ký vẫn còn nằm nguyên trong tâm thức hắn.
+
+Từ nay về sau sóng gió cuộn trào nổi lên, Đan Đế ngày xưa bây giờ phải cùng tranh phong với vô số thiên tài trẻ tuổi, lại bắt đầu một truyền thuyết mới như để chứng minh với trời đất: Ta, là người mạnh nhất!
+Phân chia cảnh giới: Luyện Thể, Tụ Nguyên, Dũng Tuyền, Linh Hải, Thần Thai, Sinh Hoa, Linh Anh, Hóa Thần cùng Thiên Nhân Cảnh.....
+Mỗi cảnh giới chia làm chín tầng: tầng một đến ba là tiền kỳ, tầng bốn đến sáu gọi là trung kỳ và tầng bảy đến chín gọi là hậu kỳ và đỉnh`,
         total_chapper: 4,
         author: "Nhĩ Nhã",
         status_approve: false,
@@ -439,6 +494,7 @@ module.exports = {
         view: 15,
         id_user: 2,
         deleted: 0,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -455,6 +511,7 @@ module.exports = {
         view: 33,
         id_user: 2,
         deleted: 0,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -479,13 +536,17 @@ module.exports = {
         view: 35,
         id_user: 2,
         deleted: 0,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
         name: "TỘI ÁI AN CÁCH NHĨ – ÁM DẠ THIÊN",
-        description:
-          "Là câu chuyện về chó hoang bị vứt bỏ cùng trinh thám kiêm nghệ thuật gia đã thu nhận con chó hoang đó",
+        description: `Lăng Hàn - Một Đan Đế đại danh đỉnh định mang trong thân mình tuyệt thế công pháp vì truy cầu bước cuối, xé bỏ tấm màn thành thần nhưng thất bại đã phải bỏ mình. Thế nhưng ông trời dường như không muốn tuyệt dường người, Lăng Hàn đã được trọng sinh vào một thiếu niên cùng tên và điều may mắn nhất là "Bất Diệt Thiên Kinh" ấn ký vẫn còn nằm nguyên trong tâm thức hắn.
+
+Từ nay về sau sóng gió cuộn trào nổi lên, Đan Đế ngày xưa bây giờ phải cùng tranh phong với vô số thiên tài trẻ tuổi, lại bắt đầu một truyền thuyết mới như để chứng minh với trời đất: Ta, là người mạnh nhất!
+Phân chia cảnh giới: Luyện Thể, Tụ Nguyên, Dũng Tuyền, Linh Hải, Thần Thai, Sinh Hoa, Linh Anh, Hóa Thần cùng Thiên Nhân Cảnh.....
+Mỗi cảnh giới chia làm chín tầng: tầng một đến ba là tiền kỳ, tầng bốn đến sáu gọi là trung kỳ và tầng bảy đến chín gọi là hậu kỳ và đỉnh`,
         total_chapper: 4,
         author: "Nhĩ Nhã",
         status_approve: false,
@@ -495,6 +556,7 @@ module.exports = {
         view: 15,
         id_user: 2,
         deleted: 0,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -511,6 +573,7 @@ module.exports = {
         view: 33,
         id_user: 2,
         deleted: 0,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -535,13 +598,17 @@ module.exports = {
         view: 35,
         id_user: 2,
         deleted: 0,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
         name: "TỘI ÁI AN CÁCH NHĨ – ÁM DẠ THIÊN",
-        description:
-          "Là câu chuyện về chó hoang bị vứt bỏ cùng trinh thám kiêm nghệ thuật gia đã thu nhận con chó hoang đó",
+        description: `Lăng Hàn - Một Đan Đế đại danh đỉnh định mang trong thân mình tuyệt thế công pháp vì truy cầu bước cuối, xé bỏ tấm màn thành thần nhưng thất bại đã phải bỏ mình. Thế nhưng ông trời dường như không muốn tuyệt dường người, Lăng Hàn đã được trọng sinh vào một thiếu niên cùng tên và điều may mắn nhất là "Bất Diệt Thiên Kinh" ấn ký vẫn còn nằm nguyên trong tâm thức hắn.
+
+Từ nay về sau sóng gió cuộn trào nổi lên, Đan Đế ngày xưa bây giờ phải cùng tranh phong với vô số thiên tài trẻ tuổi, lại bắt đầu một truyền thuyết mới như để chứng minh với trời đất: Ta, là người mạnh nhất!
+Phân chia cảnh giới: Luyện Thể, Tụ Nguyên, Dũng Tuyền, Linh Hải, Thần Thai, Sinh Hoa, Linh Anh, Hóa Thần cùng Thiên Nhân Cảnh.....
+Mỗi cảnh giới chia làm chín tầng: tầng một đến ba là tiền kỳ, tầng bốn đến sáu gọi là trung kỳ và tầng bảy đến chín gọi là hậu kỳ và đỉnh`,
         total_chapper: 4,
         author: "Nhĩ Nhã",
         status_approve: false,
@@ -551,6 +618,7 @@ module.exports = {
         view: 15,
         id_user: 2,
         deleted: 0,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -567,10 +635,10 @@ module.exports = {
         view: 33,
         id_user: 2,
         deleted: 0,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
-     
     ]);
   },
 

@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import * as apis from "../../../apis";
+import * as apis from "../../../../apis";
 import { useDispatch, useSelector } from "react-redux";
 import { DataGrid } from "@mui/x-data-grid";
-import icons from "../../../ultis/icons";
-import table from "../../../assets/css/table.css";
-import { Title, Arrange, Search } from "../../../components/poster";
+import icons from "../../../../ultis/icons";
+import { Title, Arrange, Search } from "../../../../components/poster";
 import { Outlet } from "react-router-dom";
 const { BiEditAlt } = icons;
 const columns = [

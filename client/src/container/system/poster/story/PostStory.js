@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Title, FormStory } from "../../../components/poster";
-import * as apis from "../../../apis";
+import { Title, FormStory } from "../../../../components/poster";
+import * as apis from "../../../../apis";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const PostStory = () => {

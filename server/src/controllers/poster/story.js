@@ -89,4 +89,52 @@ async function store(req, res, next) {
   }
   // Thêm mảng images vào đối tượng data
 }
+
+//[STORE] submit story screen
+async function edit(req, res, next) {
+  try {
+    var data = req.body;
+    data.totalChap = Number(data.totalChap);
+    data.classifi = Number(data.classifi);
+    data.img = req.file.filename;
+    console.log(data);
+    const storyPost = await story.create({
+      name: data.name,
+      description: data.description,
+      total_chapper: data.totalChap,
+      author: data.author,
+      status_approve: false,
+      classifi: data.classifi,
+      image: data.img,
+      view: 0,
+      id_user: 2,
+      deleted: 0,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
+    console.log(storyPost.id);
+    data.category.forEach(async (item) => {
+      console.log(item);
+      await story_category.create({
+        id_story: storyPost.id,
+        id_category: decryptData(
+          item,
+          process.env.SEVER_SECRET_KEY_CATEGORY || "this is secret"
+        ),
+      });
+    });
+    res.status(200).json({
+      success: true,
+      message: "Đăng truyện thành công",
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: "Đăng truyện không thành công",
+      error
+    });
+  }
+  // Thêm mảng images vào đối tượng data
+}
+
 export default { index, show, getCategoryOfStoryById, store };

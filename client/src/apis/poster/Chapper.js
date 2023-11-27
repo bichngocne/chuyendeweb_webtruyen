@@ -1,5 +1,5 @@
 import axios from "../../axios";
-import qs from 'qs'
+import qs from "qs";
 // get api post chapper
 const apiPostChapper = (data) =>
   new Promise(async (resolve, reject) => {
@@ -8,13 +8,41 @@ const apiPostChapper = (data) =>
         url: "chapper0/create",
         method: "post",
         maxBodyLength: Infinity,
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded'}, 
-        data:  qs.stringify(data),
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        data: qs.stringify(data),
       });
       resolve(response);
     } catch (error) {
       reject(error);
     }
   });
+// get api detail chapper
+const apiDetailChapper = async (storyId, number) => {
+  try {
+    const response = await axios({
+      url: `chapper0/${storyId}/${number}`,
+      method: "get",
+    });
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
 
-export {apiPostChapper };
+const apiUpdateChapper = async (data) =>  new Promise(async (resolve, reject) => {
+  try {
+    const response =  await axios({
+      url: "chapper0/edit",
+      method: "put",
+      maxBodyLength: Infinity,
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      data: qs.stringify(data),
+    })
+    resolve(response);
+  } catch (error) {
+    reject(error);
+  }
+});
+ 
+
+export { apiPostChapper, apiDetailChapper, apiUpdateChapper };
