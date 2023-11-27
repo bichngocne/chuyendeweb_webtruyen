@@ -49,7 +49,7 @@ const FullStories = () => {
                     <div className=" " key={story.id}>
                       <img
                         className="w-[150px] h-[230px]"
-                        src={require(`../../../assets/images/${story.image}`)}
+                        src={`http://localhost:5000/api/static/uploads/${story.image}`}
                       />
                       <div className=" py-1 px-[2px] flex flex-col items-center">
                         <a

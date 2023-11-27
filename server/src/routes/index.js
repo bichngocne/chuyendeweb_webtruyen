@@ -3,6 +3,7 @@ export {default as categoryReader} from './readerRouter/category.js';
 export {default as story_categoryR} from './readerRouter/story_categories.js';  
 export {default as storyReader} from './readerRouter/story.js';
 export {default as Comment} from './readerRouter/Comment.js'; 
+export {default as chapperReader} from './readerRouter/ChapperReader.js'; 
 // chung   
 export {default as Story} from './Story.js';
 export {default as category} from './Category.js';

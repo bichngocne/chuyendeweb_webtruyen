@@ -9,7 +9,7 @@ import {
   Story,
   Chapper,
 } from "./container/system/poster";
-import { DetailStory, TypeStory } from "./container/system/reader";
+import { DetailStory, TypeStory, ChapperReader,NotFound, ListComics } from "./container/system/reader";
 import { Public } from "./container/public";
 import { ListStoryAdmin,ListCategoryAdmin,ListPendingAdmin,ListUserAdmin,DetailStoryAdmin,PendingDetailAdmin } from "./container/system/admin";
 import { Route, Routes } from "react-router-dom";
@@ -53,6 +53,9 @@ function App() {
                 <Route path={path.HOME_FOR_READER} element={<HomeReader />} />
                 <Route path={path.TYPE_STORY} element={<TypeStory />} />
                 <Route path={path.DETAIL_STORY} element={<DetailStory />} />
+                <Route path={path.CHAPPER_READER} element={<ChapperReader />} />
+                <Route path={path.LIST_COMICS} element={<ListComics />} />
+                <Route path={path.NOTFOUND_PAGE} element={<NotFound/>}/>
               </Routes>
             </Suspense>
           </div>
@@ -60,7 +63,7 @@ function App() {
       <div className="">
         <Suspense>
           <Routes>
-             {/* Tuyến đường của reader */}
+             {/* Tuyến đường của admin */}
               <Route path={path.HOME_FOR_ADMIN} element={<HomeAdmin />}>
               <Route path={path.LIST_STORY_ADMIN} element={<ListStoryAdmin />} />
               <Route path={path.DETAIL_STORY_ADMIN} element={<DetailStoryAdmin />} />

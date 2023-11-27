@@ -9,3 +9,4 @@ export {default as HotStories } from './Story/HotStories';
 export {default as FullStories } from './Story/FullStories';
 export {default as Comments } from './Comment/Comments';
 export {default as FormComment } from './Comment/FormComment';
+export {default as RedirectChaper } from './RedirectChaper';

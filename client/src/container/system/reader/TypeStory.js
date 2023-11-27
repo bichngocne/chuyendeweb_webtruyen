@@ -22,7 +22,7 @@ const{BsFillPenFill,BiSolidBookBookmark} = icons
   const { categoryId } = useParams();
   const [stories, setStories] = useState([]);
   useEffect(() => {
-   apis.getStoryOfCategory(categoryId)
+   apis.getWordStoryOfCategory(categoryId)
       .then((res) => {
         setStories(res.data.stories);
         console.log(res.data.stories); // In ra dữ liệu truyện
@@ -49,7 +49,7 @@ const{BsFillPenFill,BiSolidBookBookmark} = icons
             stories.map((story) => (
               <ul key={story.id} className="flex py-3 border-t gap-3 relative">
                 <img
-                  src={require(`../../../assets/images/${story.story.image}`)}
+                 src={`http://localhost:5000/api/static/uploads/${story.story.image}`}
                   alt={story.story.image}
                   className="w-[130px] h-[60px] object-cover"
                 />

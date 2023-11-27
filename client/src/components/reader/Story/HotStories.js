@@ -40,11 +40,8 @@ const HotStories = () => {
     const categoryId = selectedOption.value;
     console.log(categoryId);
     try {
-      const hotStoriesByCategoryResponse = await apis.getHotStoriesByCategory(
-        categoryId
-      );
-      // console.log(hotStoriesByCategoryResponse.data.HotStoriesByCategory[categoryId]);
-      setDisplayedStories(hotStoriesByCategoryResponse.data.HotStoriesByCategory[categoryId].slice(0, 16));
+      const hotStoriesByCategoryResponse = await apis.getHotWordStoriesByCategory(categoryId);
+      setDisplayedStories(hotStoriesByCategoryResponse.data.getHotWordStoriesByCategory[categoryId].slice(0, 16));
     } catch (error) {
       console.error("Lỗi khi truy xuất dữ liệu:", error);
     }
@@ -86,7 +83,7 @@ const HotStories = () => {
               <Link to={`/story/${story.id}`} className="relative">
                 <img
                   className=""
-                  src={require(`../../../assets/images/${story.image}`)}
+                  src={`http://localhost:5000/api/static/uploads/${story.image}`}
                   alt={story.name}
                 />
                 <div className="absolute bottom-0 left-0 right-0 py-1 px-[2px] bg-slate-300 opacity-80 z-1">

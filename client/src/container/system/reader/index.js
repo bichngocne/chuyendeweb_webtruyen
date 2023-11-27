@@ -1,3 +1,6 @@
 export {default as Home} from './Home'
 export {default as TypeStory} from './TypeStory'
 export {default as DetailStory} from './DetailStory'
+export {default as ChapperReader} from './ChapperReader'
+export {default as NotFound} from './notfoundpage'
+export {default as ListComics} from './ListComics'

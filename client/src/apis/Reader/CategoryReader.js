@@ -26,11 +26,11 @@ export const getCategoryofStory = (storyId)=>{
     }
   });
 }
-export const getStoryOfCategory = (categoryId) => {
+export const getWordStoryOfCategory = (categoryId) => {
   return new Promise(async (resolve, reject) => {
     try {
       const response = await axios({
-        url: `${HOST}/typeOfStory/${categoryId}`,
+        url: `${HOST}/typeOfWordStory/${categoryId}`,
         method: "get",
       });
       resolve(response);

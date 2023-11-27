@@ -7,7 +7,23 @@ import {
   Comment,
 } from "../../models/index.js";
 import { Op } from "sequelize";
-
+import Sequelize from'sequelize';
+const getAllWordStory = async (req, res) => {
+  try {
+    console.log("hih");
+    const stories = await story.findAll({
+      where: {
+        status_approve: 1,
+        classifi: 0,
+      },
+    });
+    console.log(stories);
+    return res.json({ stories });
+  } catch (error) {
+    console.error("Error retrieving story:", error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+};
 const getStoryById = async (req, res) => {
   console.log("getStoryById");
   const storyId = req.params.id; // Lấy giá trị id từ đường dẫn URL
@@ -24,9 +40,13 @@ const getStoryById = async (req, res) => {
     return res.status(500).json({ error: "Internal Server Error" });
   }
 };
-const getHotStories = async (req, res) => {
+const getHotWordStories = async (req, res) => {
   try {
     const hotStories = await story.findAll({
+      where: {
+        status_approve: 1,
+        classifi: 0,
+      },
       order: [["view", "DESC"]], // Sắp xếp theo số lượt xem giảm dần
       limit: 20, // Giới hạn số lượng truyện trả về
     });
@@ -54,7 +74,7 @@ const getStoryCategories = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
-const getStoryOfCategory = async (req, res) => {
+const getWordStoryOfCategory = async (req, res) => {
   try {
     console.log("type story");
     const { id_category } = req.params;
@@ -62,7 +82,15 @@ const getStoryOfCategory = async (req, res) => {
     // Thực hiện truy vấn để lấy các thể loại của câu chuyện với storyId
     const stories = await story_category.findAll({
       where: { id_category },
-      include: [story],
+      include: {
+        model: story,
+          as: "story",
+          where: {
+            status_approve: 1,
+            classifi: 0,
+        },
+      },
+
     });
     // Gửi danh sách tên thể loại như phản hồi JSON
     res.json({ stories: stories });
@@ -136,9 +164,9 @@ const searchStories = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
-const getHotStoriesByCategory = async (req, res) => {
+const getHotWordStoriesByCategory = async (req, res) => {
   try {
-    console.log("getHotStoriesByCategory");
+    console.log("getHotWordStoriesByCategory");
     const { id_category } = req.params;
     
     const hotStories = await story_category.findAll({
@@ -147,6 +175,10 @@ const getHotStoriesByCategory = async (req, res) => {
           model: story,
           as: "story",
           attributes: ["id", "view", "image", "name"],
+          where: {
+            status_approve: 1,
+            classifi: 0,
+          },
         },
         {
           model: Category,
@@ -163,30 +195,93 @@ const getHotStoriesByCategory = async (req, res) => {
     const groupedStories = {};
     groupedStories[id_category] = hotStories.map((storyCategory) => storyCategory.story);
 
-    res.json({ HotStoriesByCategory: groupedStories });
+    res.json({ getHotWordStoriesByCategory: groupedStories });
   } catch (error) {
     console.error("Error retrieving story categories:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
-const getStoriesUpdating = async (req, res) => {
+const getWordStoriesUpdating = async (req, res) => {
   try {
     console.log("getStoriesUpdating");
-    const latestUpdatedStories = await story.findAll({
-      attributes: ["id", "name", "updatedAt"],
+    const storiesUpdating = await chapper.findAll({
+      attributes: [
+        "number_chapper",
+        [Sequelize.literal('(SELECT MAX(`number_chapper`) FROM `chappers` WHERE `chappers`.`id_story` = `story`.`id`)'), 'max_chapter'],
+        'updatedAt',
+      ],
       include: [
         {
-          model: chapper,
-          as: 'chappers',
-          attributes: ["number_chapper", "updatedAt"],
+          model: story,
+          attributes: ["id", "name", "createdAt", "updatedAt", "total_chapper"],
+          where: {
+            status_approve: 1,
+            classifi: 0,
+          },
         },
       ],
+      where: Sequelize.literal(
+        '`story`.`total_chapper` > (SELECT COUNT(*) FROM `chappers` WHERE `chappers`.`id_story` = `story`.`id`)'
+      ),
       order: [["updatedAt", "DESC"]],
       limit: 20,
     });
-  
-    console.log("Latest Updated Stories:", latestUpdatedStories);
-    res.json({ LatestUpdatedStories: latestUpdatedStories });
+    
+    
+    // Gửi kết quả về phía client dưới dạng JSON
+    res.json({ storiesUpdating });
+    
+  } catch (error) {
+    console.error("Error retrieving latest updated stories:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+const getWordStoriesUpdatingByCategories = async (req, res) => {
+  try {
+    console.log("getStoriesUpdating");
+   const categoryId = req.params.id_category; // Lấy categoryId từ đường dẫn API
+   if (!categoryId) {
+    return res.status(400).json({ error: "Missing categoryId in the request" });
+  }
+
+  const storiesUpdating = await chapper.findAll({
+    attributes: [
+      "number_chapper",
+      [
+        Sequelize.literal('(SELECT MAX(`number_chapper`) FROM `chappers` WHERE `chappers`.`id_story` = `story`.`id`)'),
+      'max_chapter'
+      ],
+      'updatedAt',
+      [Sequelize.literal('(SELECT id_category FROM `story_categories` WHERE `story_categories`.`id_story` = `story`.`id` LIMIT 1)'), 'categoryId'],
+    ],
+    include: [
+      {
+        model: story,
+        as:"story",
+        attributes: ["id", "name", "createdAt", "updatedAt", "total_chapper"],
+        where: {
+          status_approve: 1,
+          classifi: 0,
+        },
+      },
+    ],
+    where: Sequelize.literal([
+      '(',
+      '  SELECT COUNT(*)',
+      '  FROM story_categories sc',
+      '  INNER JOIN stories ON sc.id_story = stories.id',
+      '  WHERE  sc.id_category = :categoryId', // Using parameterized query
+      ') > `story`.`total_chapper`'
+    ].join('\n')),
+    group: ['story.id'],
+    having: Sequelize.literal('number_chapper < `story`.`total_chapper`'),
+    replacements: { categoryId: categoryId }, // Bind the parameter value
+    order: [["updatedAt", "DESC"]],
+    limit: 20,
+  });
+    // Gửi kết quả về phía client dưới dạng JSON
+    res.json({ storiesUpdating });
+    
   } catch (error) {
     console.error("Error retrieving latest updated stories:", error);
     res.status(500).json({ error: "Internal Server Error" });
@@ -194,13 +289,15 @@ const getStoriesUpdating = async (req, res) => {
 };
 export default {
   getStoryCategories,
-  getStoryOfCategory,
+  getWordStoryOfCategory,
   getStoryById,
   getUsePost,
   getChapperOfStory,
   getCommentOfStory,
   searchStories,
-  getHotStories,
-  getHotStoriesByCategory,
-  getStoriesUpdating
+  getHotWordStories,
+  getHotWordStoriesByCategory,
+  getWordStoriesUpdating,
+  getWordStoriesUpdatingByCategories,
+  getAllWordStory
 };

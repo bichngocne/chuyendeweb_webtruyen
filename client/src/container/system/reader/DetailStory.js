@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import hinh from "../../../assets/images";
 import icons from "../../../ultis/icons";
 import * as apis from "../../../apis";
-import { useTheme } from '../../../components/reader/ThemeContext';
+import { useTheme } from "../../../components/reader/ThemeContext";
 const DetailStory = () => {
   const [detailStory, setDetailStory] = useState([]);
   const navigation = useNavigate(); // Lấy đối tượng history từ React Router
@@ -40,16 +40,16 @@ const DetailStory = () => {
         const categoryNames = categoryResponse.data.storyCategory.map(
           (item) => item.Category.name
         );
+
         setCategoryNames(categoryNames);
 
         // Lấy danh sách tất cả câu chuyện
-        const allStoryResponse = await apis.getAllStoryR();
+        const allStoryResponse = await apis.getAllWordStory();
         setStories(allStoryResponse.data.stories);
 
         // Lấy danh sách chương truyện
         const chapperResponse = await apis.getAllChapperOfStory(storyId);
         setChappers(chapperResponse.data.chappers);
-        console.log(chapperResponse.data.chappers);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -75,7 +75,10 @@ const DetailStory = () => {
       <div className="bg-[#0e2234]">
         <Header />
       </div>
-      <div className="bg-[#f0f8ff]" style={{ backgroundColor: theme.bgColor, color: theme.textColor }}>
+      <div
+        className="bg-[#f0f8ff]"
+        style={{ backgroundColor: theme.bgColor, color: theme.textColor }}
+      >
         <div className="max-w-[1280px] mx-auto pt-9">
           {/* thông tin truyện */}
           <div>
@@ -91,37 +94,10 @@ const DetailStory = () => {
                 <div className="flex w-[100%]">
                   <div>
                     <img
-                      src={
-                        detailStory?.image
-                          ? require(`../../../assets/images/${detailStory.image}`)
-                          : "sai"
-                      }
+                      src={`http://localhost:5000/api/static/uploads/${detailStory.image}`}
                       alt={detailStory.image}
                       className=""
                     />
-                    {/* tac gia */}
-                    <div className="mt-[30px]">
-                      <div className="flex">
-                        <p className="font-medium pr-2">Tác giả: </p>
-                        <p> {detailStory.author}</p>
-                      </div>
-                      <div className="flex">
-                        <p className="font-medium pr-2">Thể loại: </p>
-                        {categoryNames.map((categoryName, index) => (
-                          <p key={index}>{categoryName}</p>
-                        ))}
-                      </div>
-                      <div className="flex">
-                        <p className="font-medium pr-2">Trạng thái: </p>
-                        <p>
-                          {
-                            (detailStory.status_chapter = false
-                              ? "Đang ra"
-                              : "Hoàn thành")
-                          }
-                        </p>
-                      </div>
-                    </div>
                   </div>
                   <div className="w-[100%] text-center px-[50px]">
                     <h5 className="font-bold text-[18px] border-b border-black">
@@ -134,8 +110,12 @@ const DetailStory = () => {
                     </div>
                     <div className="flex ">
                       <p className="font-medium  pr-2">Thể loại : </p>
-                      {categoryNames.map((categoryName, index) => (
-                        <p key={index}>{categoryName}</p>
+                      {categoryNames.map((categoryName, index,array) => (
+                        <p key={index}>{Array.isArray(categoryName)
+                          ? categoryName.join(" ,    ")
+                          : categoryName}
+                        {index < array.length - 1 && ", "}
+                        &nbsp;</p>
                       ))}
                     </div>
                     <div className="flex">
@@ -144,6 +124,35 @@ const DetailStory = () => {
                       </p>
                       <p className="text-start "> {detailStory.description}</p>
                     </div>
+                  </div>
+                </div>
+                {/* tac gia */}
+                <div className="mt-[30px]">
+                  <div className="flex">
+                    <p className="font-medium pr-2">Tác giả: </p>
+                    <p> {detailStory.author}</p>
+                  </div>
+                  <div className="flex">
+                    <p className="font-medium pr-2">Thể loại: </p>
+                    {categoryNames.map((categoryName, index, array) => (
+                      <p key={index}>
+                        {Array.isArray(categoryName)
+                          ? categoryName.join(" ,    ")
+                          : categoryName}
+                        {index < array.length - 1 && ", "}
+                        &nbsp;
+                      </p>
+                    ))}
+                  </div>
+                  <div className="flex">
+                    <p className="font-medium pr-2">Trạng thái: </p>
+                    <p>
+                      {
+                        (detailStory.status_chapter = false
+                          ? "Đang ra"
+                          : "Hoàn thành")
+                      }
+                    </p>
                   </div>
                 </div>
                 {/* chương */}
