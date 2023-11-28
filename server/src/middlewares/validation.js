@@ -85,12 +85,10 @@ const validatePostChapper2 = () => {
     )
       .isLength({ min: 3, max: 50 })
       .matches(/^(?!(\s.*){3}).*/),
-    body("img", "Must choose a photo.").custom(isImgValue),
     body("id_story", "The id story field is required").not().isEmpty(),
     body("numberChapper", "The numberChapper field is required")
       .not()
       .isEmpty(),
-    body("numberChapper", "The numberChapper field is number").isInt(),
   ];
 };
 

@@ -8,7 +8,7 @@ const path = {
     CATEGORY_STORY_POSTER:'category-story',
     STORY_NEED_UPDATE:'story-need-update',
     THUNG_RAC:'thung-rac',
-    STORY__NAME__ID_UPDATE:'edit',
+    STORY__NAME__ID_UPDATE:'story/:name/:sid/edit',
     STORY__NAME__ID:'story/:name/:sid',
     CHAPPER__NAME__ID:'story/:name/:sid/chapper/:number',
     CHAPPER__NAME__ID_EDIT:'story/:name/:sid/chapper/:number/edit',

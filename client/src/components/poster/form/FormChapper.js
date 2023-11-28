@@ -147,14 +147,16 @@ class FormChapper extends React.Component {
       var data = {};
       if (Object.keys(this.state.imgValue).length === 0) {
         data = {
+          classifi:0,
           name: this.state.nameValue,
           description: this.state.descriptionValue,
         };
       } else {
-        data = {
-          name: this.state.nameValue,
-          img: this.state.imgValue.map((file) => file),
-        };
+        data = new FormData();
+        data.append("name", this.state.nameValue);
+        this.state.imgValue.forEach((file) => {
+          data.append("img", file);
+        });
       }
       if(this.props.chapper){
         this.props.onSubmitChapper(data);

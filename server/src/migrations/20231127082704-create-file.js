@@ -13,7 +13,12 @@ module.exports = {
         type: Sequelize.STRING
       },
       id_chapper: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'chappers',
+          key: 'id'
+        },
+        allowNull: false
       },
       createdAt: {
         allowNull: false,

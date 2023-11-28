@@ -33,7 +33,7 @@ async function getCategoryOfStoryById(req, res) {
     );
     const foundStory = await story_category.findAll({
       where: { id_story: decryptedStoryID },
-      include: [Category],
+      include: [Category,story],
     });
     console.log(foundStory);
     res.json({ foundStory });

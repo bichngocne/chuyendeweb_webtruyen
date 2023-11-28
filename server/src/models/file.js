@@ -1,6 +1,7 @@
 "use strict";
 import { DataTypes, Model } from "sequelize";
-import {sequelize} from "../database/connect.js";
+import { sequelize } from "../database/connect.js";
+import { chapper } from "./chapper.js";
 class file extends Model {
   /**
    * Helper method for defining associations.
@@ -18,7 +19,10 @@ file.init(
   },
   {
     sequelize,
-    modelName: "file",
+    modelName: "files",
+    tableName: "files",
   }
 );
+// file.belongsTo(chapper, { foreignKey: "id_chapper", as: "chappers" });
+
 export { file };

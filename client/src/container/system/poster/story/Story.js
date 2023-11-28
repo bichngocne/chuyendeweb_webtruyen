@@ -28,13 +28,16 @@ const Story = () => {
     fetchDetailStory();
     const fetchCategoryStory = async () => {
       const responseCategory = await apis.apiGetCategoryOfStoryById(storyId);
-      console.log(responseCategory.data.foundStory[0]);
+      // console.log(responseCategory.data.foundStory[0]);
+      sessionStorage.setItem("story", responseCategory.data.foundStory[0].story.classifi);
       if (responseCategory.status === 200) {
         setCategoryStory(responseCategory.data.foundStory);
       }
     };
     fetchCategoryStory();
   }, [data]);
+  // console.log(categoryStory);
+
   var tmp = [];
   for (var i = 1; i <= detailStory?.storyById.total_chapper; i++) {
     tmp.push(i);

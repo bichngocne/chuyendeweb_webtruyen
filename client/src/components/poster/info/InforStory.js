@@ -8,7 +8,7 @@ const InforStory = ({ detailStory, categoryStory }) => {
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
   };
-  console.log(categoryStory);
+  // console.log(categoryStory);
   return (
     <div className="flex-auto">
       <div className="block">
@@ -64,7 +64,7 @@ const InforStory = ({ detailStory, categoryStory }) => {
           <span>{detailStory?.storyById.total_chapper}</span>
         </div>
         <div className="h-[35px]">
-          <NavLink>
+          <NavLink to={window.location.href + '/edit'}>
             <ButtonSave text="Chỉnh sửa" />
           </NavLink>
         </div>

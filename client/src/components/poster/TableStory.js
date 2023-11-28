@@ -15,7 +15,7 @@ const TableStory = (props) => {
     {
       field: "name",
       headerName: "Tên truyện",
-      width: 450,
+      width: 400,
       renderCell: (params) => callDetail(params, params.row.name),
     },
     {
@@ -30,6 +30,13 @@ const TableStory = (props) => {
       type: "number",
       width: 130,
       valueGetter: (params) => (params.row.status_approve ? "Full" : "Đang ra"),
+    },
+    {
+      field: "classifi",
+      headerName: "Phân loại",
+      type: "number",
+      width: 130,
+      valueGetter: (params) => (params.row.classifi === 0 ? "Truyện chữ" : "Truyện tranh"),
     },
     {
       field: "tacvu",

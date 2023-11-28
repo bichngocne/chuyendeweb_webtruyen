@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import * as apis from "../../apis";
 import { encryptData } from "../../ultis/function";
 import Diacritics from 'diacritic';
-const DropdownCategory = ({ value, onChange }) => {
+const DropdownCategory = ({ dataCategoryStory,value, onChange }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState([]);
   const toggleDropdown = () => {
@@ -18,7 +18,7 @@ const DropdownCategory = ({ value, onChange }) => {
   useEffect(() => {
     const fetchCategory = async () => {
       const response = await apis.getAllCategories();
-      console.log(response);
+      // console.log(response);
       if (response.status === 200) {
         setRowsWithSTT(response.data.categories);
         setData(response.data.categories)
@@ -30,6 +30,14 @@ const DropdownCategory = ({ value, onChange }) => {
   const handleChange = (value) => {
     setText(value);
   };
+  const listIdCategory = [];
+  useEffect(() => {
+    const listIdCategory = dataCategoryStory
+      ? dataCategoryStory.map(item => item.category.id)
+      : [];
+  
+    setSelectedValue(listIdCategory);
+  }, [dataCategoryStory]);
   useEffect(() => {
     const updatedFilteredData = data.filter((item) => {
       return Diacritics.clean(item.name)
@@ -37,19 +45,21 @@ const DropdownCategory = ({ value, onChange }) => {
         .includes(Diacritics.clean(text).toLowerCase());
     });
     setRowsWithSTT([...updatedFilteredData]);
-    console.log(text);
   }, [text, data]);
   //function checkbox
   const handleCheckboxChange = (id) => {
+    console.log(selectedValue);
     const updatedValue = [...selectedValue];
+    console.log(selectedValue);
     if (updatedValue.includes(id)) {
       updatedValue.splice(updatedValue.indexOf(id), 1);
     } else {
       updatedValue.push(id);
     }
-    setSelectedValue(updatedValue);
+      setSelectedValue(updatedValue);
     onChange(updatedValue); // Gọi hàm onChange và truyền giá trị đã chọn
   };
+  
   return (
     <div className="relative">
       <button

@@ -7,22 +7,42 @@ import "react-toastify/dist/ReactToastify.css";
 class FormStory extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      nameValue: "",
-      descriptionValue: "",
-      categoryValue: [],
-      imgValue: {},
-      authorValue: "",
-      totalChapValue: 0,
-      classifiValue: 0,
-      errors: {},
-    };
+    console.log(this.props.dataStory);
+    if (this.props.dataStory) {
+      this.state = {
+        nameValue: this.props.dataStory.storyById.name,
+        descriptionValue: this.props.dataStory.storyById.description,
+        categoryValue: this.props.dataCategoryStory?.map(
+          (item) => item.category.id
+        ),
+        imgValue: {},
+        authorValue: this.props.dataStory.storyById.author,
+        totalChapValue: this.props.dataStory.storyById.total_chapper,
+        classifiValue: this.props.dataStory.storyById.classifi,
+        errors: {},
+      };
+    } else {
+      this.state = {
+        nameValue: "",
+        descriptionValue: "",
+        categoryValue: [],
+        imgValue: {},
+        authorValue: "",
+        totalChapValue: 0,
+        classifiValue: 0,
+        errors: {},
+      };
+    }
+
     const isCategoryValueValid = () => {
       const categoryArray = this.state.categoryValue;
       return categoryArray.length >= 1 && categoryArray.length <= 3;
     };
     const isImgValue = () => {
       const imgs = this.state.imgValue;
+      if (this.props.dataStory) {
+        return imgs;
+      }
       return imgs.length === 1;
     };
     const isNameValueValid = (value, field, state) => {
@@ -75,7 +95,8 @@ class FormStory extends React.Component {
         field: "descriptionValue",
         method: isNameValueValid,
         validWhen: true,
-        message: "The description cannot start with 3 spaces and don't down line.",
+        message:
+          "The description cannot start with 3 spaces and don't down line.",
       },
 
       {
@@ -116,6 +137,7 @@ class FormStory extends React.Component {
         message: "Value have to 0 or 1 please don't change value",
       },
     ];
+
     this.validator = new Validator(rules);
     this.handleNameChange = this.handleNameChange.bind(this);
     this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
@@ -125,6 +147,26 @@ class FormStory extends React.Component {
     this.handleTotalChaChange = this.handleTotalChaChange.bind(this);
     this.handleClassifiChange = this.handleClassifiChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  componentDidUpdate(prevProps) {
+    if (prevProps.dataStory !== this.props.dataStory) {
+      if (this.props.dataStory) {
+        const { name, description, author, total_chapper, classifi } =
+          this.props.dataStory.storyById;
+
+        this.setState({
+          nameValue: name || "",
+          descriptionValue: description || "",
+          authorValue: author || "",
+          totalChapValue: total_chapper || 0,
+          classifiValue: classifi || 0,
+          categoryValue: this.props.dataCategoryStory?.map(
+            (item) => item.category.id
+          ),
+          imgValue: {},
+        });
+      }
+    }
   }
   //xử lí giá trị tên truyện
   handleNameChange(event) {
@@ -151,7 +193,6 @@ class FormStory extends React.Component {
     });
   }
   handleImageSelection = (imageNames) => {
-    console.log(imageNames);
     this.setState({ imgValue: imageNames }, () => {
       this.setState({
         errors: this.validator.validate(this.state),
@@ -210,7 +251,7 @@ class FormStory extends React.Component {
       formData.append("classifi", this.state.classifiValue);
       this.props.onSubmit(formData);
     } else {
-      toast.warn('Vui lòng nhập dữ liệu đúng theo format!', {
+      toast.warn("Vui lòng nhập dữ liệu đúng theo format!", {
         position: "bottom-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -219,7 +260,7 @@ class FormStory extends React.Component {
         draggable: true,
         progress: undefined,
         theme: "dark",
-        });
+      });
     }
   }
 
@@ -297,6 +338,7 @@ class FormStory extends React.Component {
               </label>
               <div className="block w-full">
                 <DropdownCategory
+                  dataCategoryStory={this.props.dataCategoryStory}
                   value={this.state.categoryValue}
                   onChange={this.handleCategoryChange.bind(this)}
                 />
@@ -319,20 +361,35 @@ class FormStory extends React.Component {
               >
                 Ảnh đại diện
               </label>
-              <div className="block w-full">
-                <Upload
-                  name="img"
-                  text="imgmain"
-                  onChange={this.handleImageSelection}
-                />
-                {errors.imgValue && (
-                  <div
-                    className="validation text-red-600"
-                    style={{ display: "block" }}
-                  >
-                    {errors.imgValue}
+              <div className="flex w-full">
+                {this.props.dataStory ? (
+                  <div className="flex-none pr-5">
+                    <img
+                      className="object-contain h-[375px]"
+                      src={`http://localhost:5000/api/static/uploads/${this.props.dataStory.storyById.image}`}
+                      alt="Story Image"
+                    />
+                    <span className="text-[15px]">{this.props.dataStory.storyById.image}</span>
                   </div>
+                ) : (
+                  <div></div>
                 )}
+                <div className="flex-auto">
+                  <Upload
+                    fileinput={this.state.imgValue}
+                    name="img"
+                    text="imgmain"
+                    onChange={this.handleImageSelection}
+                  />
+                  {errors.imgValue && (
+                    <div
+                      className="validation text-red-600"
+                      style={{ display: "block" }}
+                    >
+                      {errors.imgValue}
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </div>

@@ -2,6 +2,7 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../database/connect.js";
 import { story } from "./story.js";
+import { file } from "./file.js";
 class chapper extends Model {
   /**
    * Helper method for defining associations.
@@ -10,6 +11,7 @@ class chapper extends Model {
    */
   static associate(models) {
     // define association here
+    // chapper.hasMany(models.files, { as: "files" });
   }
 }
 chapper.init(
@@ -23,8 +25,10 @@ chapper.init(
   },
   {
     sequelize,
-    modelName: "chapper",
+    modelName: "chappers",
+    tableName: "chappers",
   }
 );
 chapper.belongsTo(story, { foreignKey: "id_story" });
+
 export { chapper };

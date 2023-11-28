@@ -3,11 +3,15 @@ import { Title, FormStory } from "../../../../components/poster";
 import * as apis from "../../../../apis";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useParams } from "react-router-dom";
 const PostStory = () => {
   const [submittedData, setSubmittedData] = useState(null);
   const [responsePost, setResponsePost] = useState(null);
+  const [detailStory, setDetailStory] = useState(null);
+  const [categoryStory, setCategoryStory] = useState(null);
+  const { sid } = useParams();
+  // get data story if have
 
-  // Hàm callback để nhận dữ liệu từ child
   const handleFormSubmit = (data) => {
     setSubmittedData(data);
   };
@@ -58,13 +62,32 @@ const PostStory = () => {
 
       fetchPostStory();
     }
+    if(sid){
+      const fetchDetailStory = async () => {
+        const response = await apis.apiGetStoryById(sid);
+        console.log(response.data);
+        if (response.status === 200) {
+          setDetailStory(response.data);
+        }
+      };
+      fetchDetailStory();
+      const fetchCategoryStory = async () =>{
+        const responseCategory = await apis.apiGetCategoryOfStoryById(sid);
+        console.log(responseCategory.data.foundStory[0]);
+        if (responseCategory.status === 200) {
+          setCategoryStory(responseCategory.data.foundStory);
+        }
+      }
+      fetchCategoryStory();
+      console.log(categoryStory);
+    }
   }, [submittedData]);
   return (
     <>
       <div className="flex flex-col">
         <Title text="Đăng truyện"></Title>
         <div className="flex justify-between items-center">
-          <FormStory onSubmit={handleFormSubmit} />
+          <FormStory onSubmit={handleFormSubmit} dataStory={detailStory} dataCategoryStory={categoryStory}/>
         </div>
       </div>
       <ToastContainer />
