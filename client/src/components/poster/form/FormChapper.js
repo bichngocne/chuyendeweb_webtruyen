@@ -6,25 +6,18 @@ import Validator from "./../../../ultis/validator";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const { BsTypeBold, BsTypeItalic, BsTypeUnderline } = icons;
+const imgOld = [];
 class FormChapper extends React.Component {
   constructor(props) {
     super(props);
-    if (this.props.chapper) {
-      this.state = {
-        nameValue: this.props.chapper.title || "",
-        descriptionValue: this.props.chapper.content || "",
-        imgValue: {},
-        errors: {},
-      };
-    } else {
-      this.state = {
-        nameValue: "",
-        descriptionValue: "",
-        imgValue: {},
-        errors: {},
-      };
-    }
-    
+    const { chapper } = props;
+    this.state = {
+      nameValue: chapper?.title || "",
+      descriptionValue: chapper?.content || "",
+      imgValue: {},
+      errors: {},
+    };
+
     const isImgValue = () => {
       const imgs = this.state.imgValue;
       return Object.keys(imgs).length === 0;
@@ -40,7 +33,7 @@ class FormChapper extends React.Component {
       }
       return true;
     };
-    
+
     const rules = [
       {
         field: "nameValue",
@@ -105,37 +98,33 @@ class FormChapper extends React.Component {
   componentDidUpdate(prevProps) {
     if (prevProps.chapper !== this.props.chapper) {
       // Handle changes in this.props.chapper
-      if (this.props.chapper) {
+
+      if (this.props.chapper && this.props.text == 0) {
         this.setState({
           nameValue: this.props.chapper.title || "",
           descriptionValue: this.props.chapper.content || "",
+        });
+      } else if (this.props.chapper && this.props.text == 1) {
+        this.props.chapper?.files.map((item) => {
+          imgOld.push(item.name);
+        });
+        this.setState({
+          nameValue: this.props.chapper.title || "",
+          imgValue: imgOld || {},
         });
       }
     }
   }
   handleNameChange(event) {
-    this.setState({ nameValue: event.target.value }, () => {
-      this.setState({
-        errors: this.validator.validate(this.state),
-      });
-    });
+    this.setState({ nameValue: event.target.value });
   }
   //xử lí giá trị nọi dung chương
   handleDescriptionChange(event) {
-    this.setState({ descriptionValue: event.target.value }, () => {
-      this.setState({
-        errors: this.validator.validate(this.state),
-      });
-    });
+    this.setState({ descriptionValue: event.target.value });
   }
   //xử lí giá trị hình ảnh chương
   handleImageSelection = (imageNames) => {
-    console.log(imageNames);
-    this.setState({ imgValue: imageNames }, () => {
-      this.setState({
-        errors: this.validator.validate(this.state),
-      });
-    });
+    this.setState({ imgValue: imageNames });
   };
 
   handleSubmit(event) {
@@ -143,24 +132,30 @@ class FormChapper extends React.Component {
     this.setState({
       errors: this.validator.validate(this.state),
     });
-    if (Object.keys(this.state.errors).length === 1) {
+    if (
+      Object.keys(this.state.errors).length == 1 ||
+      Object.keys(this.state.errors).length == 0
+    ) {
       var data = {};
-      if (Object.keys(this.state.imgValue).length === 0) {
+      if (this.props.text == 0) {
         data = {
-          classifi:0,
+          classifi: 0,
           name: this.state.nameValue,
           description: this.state.descriptionValue,
         };
       } else {
         data = new FormData();
         data.append("name", this.state.nameValue);
+        if (this.props.chapper) {
+          data.append("imgOld[]", imgOld);
+        } 
         this.state.imgValue.forEach((file) => {
           data.append("img", file);
         });
       }
-      if(this.props.chapper){
+      if (this.props.chapper) {
         this.props.onSubmitChapper(data);
-      }else{
+      } else {
         this.props.onSubmit(data);
       }
     } else {
@@ -176,6 +171,7 @@ class FormChapper extends React.Component {
       });
     }
   }
+
   render() {
     const { errors } = this.state;
     return (
@@ -283,7 +279,7 @@ class FormChapper extends React.Component {
                     <textarea
                       id="description"
                       rows="8"
-                      value={ this.state.descriptionValue}
+                      value={this.state.descriptionValue}
                       onChange={this.handleDescriptionChange}
                       className={`block w-full px-0 text-sm text-gray-800 bg-white border-0 outline-none ${
                         errors?.descriptionValue
@@ -332,7 +328,6 @@ class FormChapper extends React.Component {
               </div>
             </div>
           )}
-
           <div className="w-full flex justify-end">
             <ButtonSave text="Lưu" onClick={this.handleSubmit} />
           </div>

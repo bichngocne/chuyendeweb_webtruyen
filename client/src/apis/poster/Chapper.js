@@ -55,7 +55,7 @@ const apiDetailChapperForImgStory = async (storyId, number) => {
     return error;
   }
 };
-
+// get api updateChapper
 const apiUpdateChapper = async (data) =>  new Promise(async (resolve, reject) => {
   try {
     const response =  await axios({
@@ -70,6 +70,21 @@ const apiUpdateChapper = async (data) =>  new Promise(async (resolve, reject) =>
     reject(error);
   }
 });
+
+const apiUpdateChapperForImgStory = async (data) =>  new Promise(async (resolve, reject) => {
+    try {
+      const response = await axios({
+        url: "chapper1/edit",
+        method: "put",
+        data: data,
+        headers: { "Content-Type": "multipart/form-data" }, 
+      });
+      resolve(response);
+    } catch (error) {
+      reject(error);
+    }
+});
+
  
 
-export { apiPostChapper, apiDetailChapper, apiUpdateChapper,apiPostChapperImg,apiDetailChapperForImgStory };
+export { apiPostChapper, apiDetailChapper, apiUpdateChapper,apiPostChapperImg,apiDetailChapperForImgStory, apiUpdateChapperForImgStory };

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Title, FormChapper, ButtonSave } from "../../../../components/poster";
+import { Title, FormChapper, ButtonSave, FormChapper2 } from "../../../../components/poster";
 import { NavLink, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import * as apis from "../../../../apis";
@@ -129,7 +129,6 @@ const Chapper = () => {
             });
           }
         };
-
         fetchPostStory();
       } else {
         const fetchPostStoryForImg = async () => {
@@ -186,6 +185,7 @@ const Chapper = () => {
     var content = chapper.content;
     content = content.replace(/\n/g, "<br />");
   }
+  // console.log(chapper);
   return (
     <>
       <div className="flex flex-col">
@@ -210,9 +210,9 @@ const Chapper = () => {
               </div>
             </div>
             {chapper?.content === null ? (
-              <div className="w-full mt-10">
+              <div className="w-full mt-10 bg-black pt-20">
                 {chapper?.files.map((item) => (
-                  <div className="w-full flex justify-center">
+                  <div className="w-full flex justify-center" key={item.name}>
                     <img
                       className="object-contain"
                       src={`http://localhost:5000/api/static/uploads/${item.name}`}

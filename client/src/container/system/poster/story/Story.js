@@ -57,7 +57,6 @@ const Story = () => {
           <InforStory detailStory={detailStory} categoryStory={categoryStory} />
         </div>
         <Title text="Danh sách chương"></Title>
-        <Arrange text="Bộ lọc" />
         <div className="my-5 flex flex-col">
           <div className="columns-2 gap-[80px]">
             {tmp.map(function (i) {

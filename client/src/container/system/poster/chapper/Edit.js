@@ -1,11 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { Title, FormChapper, ButtonSave } from "../../../../components/poster";
+import {
+  Title,
+  FormChapper,
+  ButtonSave,
+  FormChapper2,
+} from "../../../../components/poster";
 import { NavLink, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import * as apis from "../../../../apis";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { encryptData } from "../../../../ultis/function";
+import FromChapper2 from "../../../../components/poster/form/FromChapper2";
+
+
 
 const EditChapper = () => {
   const { number, name, sid } = useParams();
@@ -15,7 +23,8 @@ const EditChapper = () => {
   const storyId = sid;
   const [submittedData, setSubmittedData] = useState(null);
   const [responsePost, setResponsePost] = useState(null);
-
+  var storySession = sessionStorage.getItem("story");
+  const [dataForm, setDataForm] = useState(null);
   useEffect(() => {
     const fetchDetailStory = async () => {
       const response = await apis.apiGetStoryById(storyId);
@@ -26,71 +35,14 @@ const EditChapper = () => {
     fetchDetailStory();
     //get api chapper
     const fetchDetailChapper = async () => {
-      const response = await apis.apiDetailChapper(storyId, number);
-      if (response.status === 200) {
-        setChapper(response.data.chapper);
-      } else {
-        // console.log(response.response.data);
-        toast.error(response.response.data.message, {
-          position: "bottom-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        });
-      }
-    };
-    fetchDetailChapper();
-  }, []);
-  const handleFormSubmit = (data) => {
-    // console.log(chapper);
-    data = {
-      ...data,
-      id_chapper: encryptData(
-        chapper.id,
-        process.env.REACT_APP_SECRET_KEY_ID_STORY ||
-          "this is secret"
-      )
-    };
-    // console.log(data);
-    setSubmittedData(data);
-  };
-  useEffect(() => {
-    if (submittedData) {
-      const fetchUpdateChapper = async () => {
-        try {
-          console.log(submittedData);
-          const response = await apis.apiUpdateChapper(submittedData);
-          if (response.data.success) {
-            setResponsePost(response.data);
-            toast.success(response.data.message, {
-              position: "bottom-right",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "dark",
-            });
-          } else {
-            toast.error(response.data.message, {
-              position: "bottom-right",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "dark",
-            });
-          }
-        } catch (error) {
-          console.error("Error posting story:", error);
-          toast.error("Ôi lỗi !!Không cấp nhật được chương", {
+      if (storySession === 0) {
+        const response = await apis.apiDetailChapper(storyId, number);
+        // console.log(response);
+        if (response.status === 200) {
+          setChapper(response.data.chapper);
+        } else {
+          // console.log(response.response.data);
+          toast.error(response.response.data.message, {
             position: "bottom-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -101,18 +53,154 @@ const EditChapper = () => {
             theme: "dark",
           });
         }
-      };
+      } else {
+        const response = await apis.apiDetailChapperForImgStory(
+          storyId,
+          number
+        );
+        if (response.status === 200) {
+          setChapper(response.data.chapper[0]);
+        } else {
+          toast.error(response.response.data.message, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
+        }
+      }
+    };
+    fetchDetailChapper();
+  }, []);
+  const handleFormSubmit = (data) => {
+    setDataForm(data);
+    data = {
+      ...data,
+      version: chapper.version + 1,
+      id_chapper: encryptData(
+        chapper.id,
+        process.env.REACT_APP_SECRET_KEY_ID_STORY || "this is secret"
+      ),
+    };
+    // console.log(data);
+    setSubmittedData(data);
+  };
 
-      fetchUpdateChapper();
+  useEffect(() => {
+    if (submittedData) {
+      if (storySession == 0) {
+        const fetchUpdateChapper = async () => {
+          try {
+            const response = await apis.apiUpdateChapper(submittedData);
+            // console.log(submittedData);
+            if (response.data.success) {
+              setResponsePost(response.data);
+              toast.success(response.data.message, {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+              });
+            } else {
+              toast.error(response.data.message, {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+              });
+            }
+          } catch (error) {
+            // console.error("Error posting story:", error.response.data);
+            toast.error(error.response.data.message, {
+              position: "bottom-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+            });
+            setTimeout(()=>{
+              window.location.reload(false);
+
+            },2000)
+          }
+        };
+        fetchUpdateChapper();
+      }
+      if (storySession == 1) {
+        const fetchUpdateChapterStoryForImg = async () => {
+          try {
+            dataForm.append(
+              "id_chapper",
+              encryptData(
+                chapper.id,
+                process.env.REACT_APP_SECRET_KEY_ID_STORY || "this is secret"
+              )
+            );
+            dataForm.append("version", chapper.version + 1);
+            const response = await apis.apiUpdateChapperForImgStory(dataForm);
+            console.log(response);
+            if (response.data.success) {
+              setResponsePost(response.data);
+              toast.success(response.data.message, {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+              });
+            } else {
+              toast.error(response.data.message, {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+              });
+            }
+          } catch (error) {
+            window.location.reload(false);
+            // console.error("Error posting story:", error);
+            toast.error(error.response.data.message, {
+              position: "bottom-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+            });
+          }
+        };
+        fetchUpdateChapterStoryForImg();
+      }
     }
   }, [submittedData]);
-  // console.log(chapper);
   if (chapper && chapper.content) {
     var content = chapper.content;
     content = content.replace(/\n/g, "<br />");
   }
-  // const chapperSend = chapper;
-  // console.log(chapperSend);
   return (
     <>
       <div className="flex flex-col">

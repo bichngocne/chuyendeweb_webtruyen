@@ -5,7 +5,7 @@ const Upload = (props) => {
   const maxNumber = 69;
   useEffect(() => {
     props.onChange(images);
-    console.log(images);
+    // console.log(images);
   }, [images]);
   return (
     <>

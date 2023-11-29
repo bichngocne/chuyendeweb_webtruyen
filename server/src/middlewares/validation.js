@@ -70,9 +70,23 @@ const validatePostChapper1 = () => {
     body("numberChapper", "The numberChapper field is number").isInt(),
   ];
 };
-// validate for post chapper (truyện tranh)
+// validate for update chapper (truyện chu)
 const validateUpdateChapper1 = () => {
   return [...common,
+    body("version", "The version field is number").isInt(),
+    body("id_chapper", "The id chapper field is required").not().isEmpty(),
+  ];
+};
+//validate update for img story
+const validateUpdateChapper2 = () => {
+  return [ body("name", "The name field is required").not().isEmpty(),
+  body(
+    "name",
+    "The name must be at least 3 characters, maximum 50 characters and cannot start with 3 spaces."
+  )
+    .isLength({ min: 3, max: 50 })
+    .matches(/^(?!(\s.*){3}).*/),
+    body("version", "The version field is number").isInt(),
     body("id_chapper", "The id chapper field is required").not().isEmpty(),
   ];
 };
@@ -97,4 +111,5 @@ export {
   validatePostChapper1,
   validatePostChapper2,
   validateUpdateChapper1,
+  validateUpdateChapper2
 };
