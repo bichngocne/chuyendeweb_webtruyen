@@ -278,7 +278,7 @@ class FormChapper extends React.Component {
                   <div className="px-4 py-2 bg-white rounded-b-lg">
                     <textarea
                       id="description"
-                      rows="8"
+                      rows="15"
                       value={this.state.descriptionValue}
                       onChange={this.handleDescriptionChange}
                       className={`block w-full px-0 text-sm text-gray-800 bg-white border-0 outline-none ${

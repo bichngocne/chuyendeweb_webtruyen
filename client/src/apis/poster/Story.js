@@ -54,5 +54,19 @@ const apiPostStory = (data) =>
       reject(error);
     }
   });
+  const apiUpdateStory = (data) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const response = await axios({
+        url: "story/edit",
+        method: "patch",
+        data: data,
+        headers: { "Content-Type": "multipart/form-data" }, 
+      });
+      resolve(response);
+    } catch (error) {
+      reject(error);
+    }
+  });
 
-export { getStories, apiGetStoryById, apiGetCategoryOfStoryById, apiPostStory };
+export { getStories, apiGetStoryById, apiGetCategoryOfStoryById, apiPostStory, apiUpdateStory };

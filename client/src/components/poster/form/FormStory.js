@@ -7,32 +7,17 @@ import "react-toastify/dist/ReactToastify.css";
 class FormStory extends React.Component {
   constructor(props) {
     super(props);
-    console.log(this.props.dataStory);
-    if (this.props.dataStory) {
-      this.state = {
-        nameValue: this.props.dataStory.storyById.name,
-        descriptionValue: this.props.dataStory.storyById.description,
-        categoryValue: this.props.dataCategoryStory?.map(
-          (item) => item.category.id
-        ),
-        imgValue: {},
-        authorValue: this.props.dataStory.storyById.author,
-        totalChapValue: this.props.dataStory.storyById.total_chapper,
-        classifiValue: this.props.dataStory.storyById.classifi,
-        errors: {},
-      };
-    } else {
-      this.state = {
-        nameValue: "",
-        descriptionValue: "",
-        categoryValue: [],
-        imgValue: {},
-        authorValue: "",
-        totalChapValue: 0,
-        classifiValue: 0,
-        errors: {},
-      };
-    }
+    this.state = {
+      nameValue: this.props.dataStory?.storyById.name || "",
+      descriptionValue: this.props.dataStory?.storyById.description || "",
+      categoryValue:
+        this.props.dataCategoryStory?.map((item) => item.category.id) || [],
+      imgValue: {},
+      authorValue: this.props.dataStory?.storyById.author || "",
+      totalChapValue: this.props.dataStory?.storyById.total_chapper || "",
+      classifiValue: this.props.dataStory?.storyById.classifi || 0,
+      errors: {},
+    };
 
     const isCategoryValueValid = () => {
       const categoryArray = this.state.categoryValue;
@@ -40,10 +25,7 @@ class FormStory extends React.Component {
     };
     const isImgValue = () => {
       const imgs = this.state.imgValue;
-      if (this.props.dataStory) {
-        return imgs;
-      }
-      return imgs.length === 1;
+      return Object.keys(imgs).length === 0;
     };
     const isNameValueValid = (value, field, state) => {
       // Kiểm tra không có 3 khoảng trắng ở đầu chuỗi
@@ -108,7 +90,7 @@ class FormStory extends React.Component {
       {
         field: "imgValue",
         method: isImgValue,
-        validWhen: true,
+        validWhen: false,
         message: "Choose a photo.",
       },
       {
@@ -151,78 +133,46 @@ class FormStory extends React.Component {
   componentDidUpdate(prevProps) {
     if (prevProps.dataStory !== this.props.dataStory) {
       if (this.props.dataStory) {
-        const { name, description, author, total_chapper, classifi } =
-          this.props.dataStory.storyById;
-
         this.setState({
-          nameValue: name || "",
-          descriptionValue: description || "",
-          authorValue: author || "",
-          totalChapValue: total_chapper || 0,
-          classifiValue: classifi || 0,
-          categoryValue: this.props.dataCategoryStory?.map(
-            (item) => item.category.id
-          ),
-          imgValue: {},
+          nameValue: this.props.dataStory?.storyById.name || "",
+          descriptionValue: this.props.dataStory?.storyById.description || "",
+          categoryValue:
+            this.props.dataCategoryStory?.map((item) => item.category.id) || [],
+          imgValue: [this.props.dataStory?.storyById.image] || {},
+          authorValue: this.props.dataStory?.storyById.author || "",
+          totalChapValue: this.props.dataStory?.storyById.total_chapper || "",
+          classifiValue: this.props.dataStory?.storyById.classifi || "",
         });
       }
     }
   }
   //xử lí giá trị tên truyện
   handleNameChange(event) {
-    this.setState({ nameValue: event.target.value }, () => {
-      this.setState({
-        errors: this.validator.validate(this.state),
-      });
-    });
+    this.setState({ nameValue: event.target.value });
   }
   //xử lí giá trị nọi dung truyện
   handleDescriptionChange(event) {
-    this.setState({ descriptionValue: event.target.value }, () => {
-      this.setState({
-        errors: this.validator.validate(this.state),
-      });
-    });
+    this.setState({ descriptionValue: event.target.value });
   }
   //xử lí giá trị thể loại truyện
   handleCategoryChange(event) {
-    this.setState({ categoryValue: event }, () => {
-      this.setState({
-        errors: this.validator.validate(this.state),
-      });
-    });
+    this.setState({ categoryValue: event });
   }
   handleImageSelection = (imageNames) => {
-    this.setState({ imgValue: imageNames }, () => {
-      this.setState({
-        errors: this.validator.validate(this.state),
-      });
-    });
+    this.setState({ imgValue: imageNames });
   };
   //xử lí giá trị tác giả
   handleAuthorChange(event) {
-    this.setState({ authorValue: event.target.value }, () => {
-      this.setState({
-        errors: this.validator.validate(this.state),
-      });
-    });
+    this.setState({ authorValue: event.target.value });
   }
   //xử lí giá trị tổng số chương
   handleTotalChaChange(event) {
-    this.setState({ totalChapValue: event.target.value }, () => {
-      this.setState({
-        errors: this.validator.validate(this.state),
-      });
-    });
+    this.setState({ totalChapValue: event.target.value });
   }
   //xử lí giá trị phân loại truyện
   handleClassifiChange(event) {
     console.log(event.target.value);
-    this.setState({ classifiValue: event.target.value }, () => {
-      this.setState({
-        errors: this.validator.validate(this.state),
-      });
-    });
+    this.setState({ classifiValue: event.target.value });
   }
   //submit
   handleSubmit(event) {
@@ -243,9 +193,17 @@ class FormStory extends React.Component {
       encryptedCategory.forEach((category) => {
         formData.append("category[]", category);
       });
-      this.state.imgValue.forEach((file) => {
-        formData.append("img", file);
-      });
+
+      if (this.props.dataStory) {
+        formData.append("imgOld", this.props.dataStory?.storyById.image);
+        this.props.dataCategoryStory?.map((item) => formData.append("category[]",encryptData(
+          item.category.id,
+          process.env.REACT_APP_SECRET_KEY_CATEGORY || "this is secret"
+        )));
+      }
+        this.state.imgValue.forEach((file) => {
+          formData.append("img", file);
+        });
       formData.append("author", this.state.authorValue);
       formData.append("totalChap", Number(this.state.totalChapValue));
       formData.append("classifi", this.state.classifiValue);
@@ -361,15 +319,12 @@ class FormStory extends React.Component {
               >
                 Ảnh đại diện
               </label>
-              <div className="flex w-full">
+              <div className="block w-full">
                 {this.props.dataStory ? (
                   <div className="flex-none pr-5">
-                    <img
-                      className="object-contain h-[375px]"
-                      src={`http://localhost:5000/api/static/uploads/${this.props.dataStory.storyById.image}`}
-                      alt="Story Image"
-                    />
-                    <span className="text-[15px]">{this.props.dataStory.storyById.image}</span>
+                    <span className="text-[15px]">
+                      {this.props.dataStory.storyById.image}
+                    </span>
                   </div>
                 ) : (
                   <div></div>

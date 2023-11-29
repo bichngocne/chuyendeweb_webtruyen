@@ -223,10 +223,10 @@ async function update(req, res) {
         });
       });
   } else {
-      return res.status(400).json({
-        success: false,
-        message: "Dữ liệu vừa bị thay đổi ! Vui lòng xem lại dữ liệu :D",
-      });
+    return res.status(400).json({
+      success: false,
+      message: "Dữ liệu vừa bị thay đổi ! Vui lòng xem lại dữ liệu :D",
+    });
   }
 }
 
@@ -241,43 +241,52 @@ async function update1(req, res) {
     );
     console.log(decryptedChapperID);
     // udate chapter have title
-    
-    await chapper.update(
-      { title: req.body.name },
-      {
-        where: { id: decryptedChapperID },
-      }
-    );
-    // if change img
-    if (req.files.length != 0) {
-      console.log("có đăng hình");
-      const imgOld = req.body.imgOld;
-      // delete img old
-      imgOld.forEach((item) => {
-        const fileNames = item.split(",");
-        fileNames.forEach((fileName) => {
-          const filePath = path.join(
-            __dirname,
-            "../../public/uploads/",
-            fileName.trim()
-          );
-          fs.unlink(filePath, (err) => {
-            if (err) {
-              console.log(err);
-              return console.log("File không tồn tại");
-            }
-            console.log("Đã xóa tệp tin thành công.", fileName);
+    const chapterData = await chapper.findOne({
+      where: { id: decryptedChapperID },
+    });
+    if (chapterData.version + 1 == req.body.version) {
+      await chapper.update(
+        { title: req.body.name },
+        {
+          where: { id: decryptedChapperID },
+        }
+      );
+      // if change img
+      if (req.files.length != 0) {
+        console.log("có đăng hình");
+        const imgOld = req.body.imgOld;
+        // delete img old
+        imgOld.forEach((item) => {
+          const fileNames = item.split(",");
+          fileNames.forEach((fileName) => {
+            const filePath = path.join(
+              __dirname,
+              "../../public/uploads/",
+              fileName.trim()
+            );
+            fs.unlink(filePath, (err) => {
+              if (err) {
+                console.log(err);
+                return console.log("File không tồn tại");
+              }
+              console.log("Đã xóa tệp tin thành công.", fileName);
+            });
           });
         });
-      });
-      // create file img new
-      await file.destroy({ where: { id_chapper: decryptedChapperID } });
-      for (let i = 0; i < req.files.length; i++) {
-        await file.create({
-          id_chapper: decryptedChapperID,
-          name: req.files[i].filename,
-        });
+        // create file img new
+        await file.destroy({ where: { id_chapper: decryptedChapperID } });
+        for (let i = 0; i < req.files.length; i++) {
+          await file.create({
+            id_chapper: decryptedChapperID,
+            name: req.files[i].filename,
+          });
+        }
       }
+    } else {
+      return res.status(400).json({
+        success: false,
+        message: "Dữ liệu vừa bị thay đổi ! Vui lòng xem lại dữ liệu :D",
+      });
     }
     return res.status(200).json({
       success: true,
