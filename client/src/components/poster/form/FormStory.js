@@ -2,36 +2,40 @@ import React, { useEffect } from "react";
 import { ButtonSave, DropdownCategory, Upload } from "../index.js";
 import Validator from "./../../../ultis/validator";
 import { encryptData, isNumber } from "../../../ultis/function.js";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 class FormStory extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      nameValue: "",
-      descriptionValue: "",
-      categoryValue: [],
+      nameValue: this.props.dataStory?.storyById.name || "",
+      descriptionValue: this.props.dataStory?.storyById.description || "",
+      categoryValue:
+        this.props.dataCategoryStory?.map((item) => item.category.id) || [],
       imgValue: {},
-      authorValue: "",
-      totalChapValue: 0,
-      classifiValue: 0,
+      authorValue: this.props.dataStory?.storyById.author || "",
+      totalChapValue: this.props.dataStory?.storyById.total_chapper || "",
+      classifiValue: this.props.dataStory?.storyById.classifi || 0,
       errors: {},
     };
+
     const isCategoryValueValid = () => {
       const categoryArray = this.state.categoryValue;
       return categoryArray.length >= 1 && categoryArray.length <= 3;
     };
     const isImgValue = () => {
       const imgs = this.state.imgValue;
-      return imgs.length === 1;
+      return Object.keys(imgs).length === 0;
     };
     const isNameValueValid = (value, field, state) => {
       // Kiểm tra không có 3 khoảng trắng ở đầu chuỗi
-      if (/^\s{3}/.test(value)) {
+      if (/^\s{3}|^\s*\n/.test(value)) {
         return false;
       }
       return true;
     };
     function isZeroOrOne(value) {
+      value = 0;
       return value === 0 || value === 1 || value === "0" || value === "1";
     }
     const rules = [
@@ -73,7 +77,8 @@ class FormStory extends React.Component {
         field: "descriptionValue",
         method: isNameValueValid,
         validWhen: true,
-        message: "The description cannot start with 3 spaces.",
+        message:
+          "The description cannot start with 3 spaces and don't down line.",
       },
 
       {
@@ -85,7 +90,7 @@ class FormStory extends React.Component {
       {
         field: "imgValue",
         method: isImgValue,
-        validWhen: true,
+        validWhen: false,
         message: "Choose a photo.",
       },
       {
@@ -110,10 +115,11 @@ class FormStory extends React.Component {
       {
         field: "classifiValue",
         method: isZeroOrOne,
-        validWhen: false,
+        validWhen: true,
         message: "Value have to 0 or 1 please don't change value",
       },
     ];
+
     this.validator = new Validator(rules);
     this.handleNameChange = this.handleNameChange.bind(this);
     this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
@@ -124,64 +130,53 @@ class FormStory extends React.Component {
     this.handleClassifiChange = this.handleClassifiChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+  componentDidUpdate(prevProps) {
+    if (prevProps.dataStory !== this.props.dataStory) {
+      if (this.props.dataStory) {
+        this.setState({
+          nameValue: this.props.dataStory?.storyById.name || "",
+          descriptionValue: this.props.dataStory?.storyById.description || "",
+          categoryValue:
+            this.props.dataCategoryStory?.map((item) => item.category.id) || [],
+          imgValue: [this.props.dataStory?.storyById.image] || {},
+          authorValue: this.props.dataStory?.storyById.author || "",
+          totalChapValue: this.props.dataStory?.storyById.total_chapper || "",
+          classifiValue: this.props.dataStory?.storyById.classifi || "",
+        });
+      }
+    }
+  }
   //xử lí giá trị tên truyện
   handleNameChange(event) {
-    this.setState({ nameValue: event.target.value }, () => {
-      this.setState({
-        errors: this.validator.validate(this.state),
-      });
-    });
+    this.setState({ nameValue: event.target.value });
   }
   //xử lí giá trị nọi dung truyện
   handleDescriptionChange(event) {
-    this.setState({ descriptionValue: event.target.value }, () => {
-      this.setState({
-        errors: this.validator.validate(this.state),
-      });
-    });
+    this.setState({ descriptionValue: event.target.value });
   }
   //xử lí giá trị thể loại truyện
   handleCategoryChange(event) {
-    this.setState({ categoryValue: event }, () => {
-      this.setState({
-        errors: this.validator.validate(this.state),
-      });
-    });
+    this.setState({ categoryValue: event });
   }
   handleImageSelection = (imageNames) => {
-    console.log(imageNames);
-    this.setState({ imgValue: imageNames }, () => {
-      this.setState({
-        errors: this.validator.validate(this.state),
-      });
-    });
+    this.setState({ imgValue: imageNames });
   };
   //xử lí giá trị tác giả
   handleAuthorChange(event) {
-    this.setState({ authorValue: event.target.value }, () => {
-      this.setState({
-        errors: this.validator.validate(this.state),
-      });
-    });
+    this.setState({ authorValue: event.target.value });
   }
   //xử lí giá trị tổng số chương
   handleTotalChaChange(event) {
-    this.setState({ totalChapValue: event.target.value }, () => {
-      this.setState({
-        errors: this.validator.validate(this.state),
-      });
-    });
+    this.setState({ totalChapValue: event.target.value });
   }
   //xử lí giá trị phân loại truyện
   handleClassifiChange(event) {
-    this.setState({ classifiValue: event.target.value }, () => {
-      this.setState({
-        errors: this.validator.validate(this.state),
-      });
-    });
+    console.log(event.target.value);
+    this.setState({ classifiValue: event.target.value });
   }
   //submit
   handleSubmit(event) {
+    event.preventDefault();
     this.setState({
       errors: this.validator.validate(this.state),
     });
@@ -192,26 +187,38 @@ class FormStory extends React.Component {
           process.env.REACT_APP_SECRET_KEY_CATEGORY || "this is secret"
         );
       });
-      console.log(this.state.imgValue.length);
-      console.log(encryptedCategory);
       const formData = new FormData();
       formData.append("name", this.state.nameValue);
       formData.append("description", this.state.descriptionValue);
       encryptedCategory.forEach((category) => {
         formData.append("category[]", category);
       });
-      this.state.imgValue.forEach((file) => {
-        console.log(file);
-        formData.append("img", file);
-      });
+
+      if (this.props.dataStory) {
+        formData.append("imgOld", this.props.dataStory?.storyById.image);
+        this.props.dataCategoryStory?.map((item) => formData.append("category[]",encryptData(
+          item.category.id,
+          process.env.REACT_APP_SECRET_KEY_CATEGORY || "this is secret"
+        )));
+      }
+        this.state.imgValue.forEach((file) => {
+          formData.append("img", file);
+        });
       formData.append("author", this.state.authorValue);
       formData.append("totalChap", Number(this.state.totalChapValue));
       formData.append("classifi", this.state.classifiValue);
       this.props.onSubmit(formData);
-      alert("Dữ liệu đã được gửi đi.");
     } else {
-      // Xử lý khi có lỗi
-      alert("Có lỗi xảy ra. Vui lòng kiểm tra lại các trường.");
+      toast.warn("Vui lòng nhập dữ liệu đúng theo format!", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
     }
   }
 
@@ -289,6 +296,7 @@ class FormStory extends React.Component {
               </label>
               <div className="block w-full">
                 <DropdownCategory
+                  dataCategoryStory={this.props.dataCategoryStory}
                   value={this.state.categoryValue}
                   onChange={this.handleCategoryChange.bind(this)}
                 />
@@ -312,19 +320,31 @@ class FormStory extends React.Component {
                 Ảnh đại diện
               </label>
               <div className="block w-full">
-                <Upload
-                  name="img"
-                  text="imgmain"
-                  onChange={this.handleImageSelection}
-                />
-                {errors.imgValue && (
-                  <div
-                    className="validation text-red-600"
-                    style={{ display: "block" }}
-                  >
-                    {errors.imgValue}
+                {this.props.dataStory ? (
+                  <div className="flex-none pr-5">
+                    <span className="text-[15px]">
+                      {this.props.dataStory.storyById.image}
+                    </span>
                   </div>
+                ) : (
+                  <div></div>
                 )}
+                <div className="flex-auto">
+                  <Upload
+                    fileinput={this.state.imgValue}
+                    name="img"
+                    text="imgmain"
+                    onChange={this.handleImageSelection}
+                  />
+                  {errors.imgValue && (
+                    <div
+                      className="validation text-red-600"
+                      style={{ display: "block" }}
+                    >
+                      {errors.imgValue}
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </div>
@@ -400,7 +420,7 @@ class FormStory extends React.Component {
                 <div>
                   <div className="flex items-center mb-4">
                     <input
-                      checked
+                      defaultChecked
                       onChange={this.handleClassifiChange}
                       id="wordsoty"
                       type="radio"
@@ -431,14 +451,14 @@ class FormStory extends React.Component {
                       Truyện tranh
                     </label>
                   </div>
-                    {errors.classifiValue && (
-                      <div
-                        className="validation text-red-600"
-                        style={{ display: "block" }}
-                      >
-                        {errors.classifiValue}
-                      </div>
-                    )}
+                  {errors.classifiValue && (
+                    <div
+                      className="validation text-red-600"
+                      style={{ display: "block" }}
+                    >
+                      {errors.classifiValue}
+                    </div>
+                  )}
                 </div>
                 <div className="h-[35px]">
                   <ButtonSave text="Lưu" onClick={this.handleSubmit} />

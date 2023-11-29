@@ -26,7 +26,8 @@ Category.init(
   },
   {
     sequelize,
-    modelName: "Category",
+    modelName: "categories",
+    tableName: "categories"
   }
 );
 

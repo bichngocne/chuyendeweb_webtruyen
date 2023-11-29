@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import * as actions from "../../store/actions";
+import * as apis from "../../apis";
 import { encryptData } from "../../ultis/function";
-const DropdownCategory = ({ value, onChange }) => {
+import Diacritics from 'diacritic';
+const DropdownCategory = ({ dataCategoryStory,value, onChange }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState([]);
   const toggleDropdown = () => {
@@ -11,45 +12,54 @@ const DropdownCategory = ({ value, onChange }) => {
 
   const dispatch = useDispatch();
   const [rowsWithSTT, setRowsWithSTT] = useState([]);
-  const { data } = useSelector((state) => state.app);
+  const [data, setData] = useState([]);
   const [text, setText] = useState("");
   //get categories
   useEffect(() => {
-    dispatch(actions.getCategories());
+    const fetchCategory = async () => {
+      const response = await apis.getAllCategories();
+      // console.log(response);
+      if (response.status === 200) {
+        setRowsWithSTT(response.data.categories);
+        setData(response.data.categories)
+      }
+    };
+    fetchCategory();
   }, []);
-  useEffect(() => {
-    if (data) {
-      const updatedData = data.map((row, index) => ({
-        ...row,
-        STT: index + 1,
-      }));
-      setRowsWithSTT(updatedData);
-    }
-  }, [data]);
-  // create on change when search
+  // function search
   const handleChange = (value) => {
     setText(value);
-    setRowsWithSTT(
-      data.filter((item) => {
-        return Object.keys(item).some((key) => {
-          if (typeof item[key] === 'string') {
-            return item[key].toLowerCase().includes(value.toLowerCase());
-          }
-          return false; 
-        });
-      })
-    );
   };
+  const listIdCategory = [];
+  useEffect(() => {
+    const listIdCategory = dataCategoryStory
+      ? dataCategoryStory.map(item => item.category.id)
+      : [];
+  
+    setSelectedValue(listIdCategory);
+  }, [dataCategoryStory]);
+  useEffect(() => {
+    const updatedFilteredData = data.filter((item) => {
+      return Diacritics.clean(item.name)
+        .toLowerCase()
+        .includes(Diacritics.clean(text).toLowerCase());
+    });
+    setRowsWithSTT([...updatedFilteredData]);
+  }, [text, data]);
+  //function checkbox
   const handleCheckboxChange = (id) => {
+    console.log(selectedValue);
     const updatedValue = [...selectedValue];
+    console.log(selectedValue);
     if (updatedValue.includes(id)) {
       updatedValue.splice(updatedValue.indexOf(id), 1);
     } else {
       updatedValue.push(id);
     }
-    setSelectedValue(updatedValue);
+      setSelectedValue(updatedValue);
     onChange(updatedValue); // Gọi hàm onChange và truyền giá trị đã chọn
   };
+  
   return (
     <div className="relative">
       <button
@@ -106,8 +116,8 @@ const DropdownCategory = ({ value, onChange }) => {
                 type="text"
                 id="input-group-search"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Search user"
-                onChange={e => handleChange(e.target.value)}
+                placeholder="Tìm kiếm thể loại"
+                onChange={(e) => handleChange(e.target.value)}
                 value={text}
               />
             </div>
@@ -123,13 +133,21 @@ const DropdownCategory = ({ value, onChange }) => {
                     id={item.name}
                     type="checkbox"
                     key={item.name}
-                    value={encryptData(item.id,process.env.REACT_APP_SECRET_KEY_CATEGORY || 'this is secret')}
+                    value={encryptData(
+                      item.id,
+                      process.env.REACT_APP_SECRET_KEY_CATEGORY ||
+                        "this is secret"
+                    )}
                     className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
                     checked={selectedValue.includes(item.id)}
                     onChange={() => handleCheckboxChange(item.id)}
-                 />
+                  />
                   <label
-                    key={encryptData(item.id,process.env.REACT_APP_SECRET_KEY_CATEGORY || 'this is secret')}
+                    key={encryptData(
+                      item.id,
+                      process.env.REACT_APP_SECRET_KEY_CATEGORY ||
+                        "this is secret"
+                    )}
                     htmlFor={item.name}
                     className="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300"
                   >

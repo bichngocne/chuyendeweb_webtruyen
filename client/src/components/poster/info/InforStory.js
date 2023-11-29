@@ -8,6 +8,7 @@ const InforStory = ({ detailStory, categoryStory }) => {
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
   };
+  // console.log(categoryStory);
   return (
     <div className="flex-auto">
       <div className="block">
@@ -37,8 +38,8 @@ const InforStory = ({ detailStory, categoryStory }) => {
       <div className="text-[15px] mt-3 [font-family:'Inter-Medium',Helvetica] flex gap-5">
         <span>Thể loại :</span>
         <span>
-          {categoryStory?.foundStory.map((element) => {
-            return element.Category.name + " ";
+          {categoryStory?.map((element) => {
+            return element.category.name + " ";
           })}
         </span>
       </div>
@@ -63,7 +64,7 @@ const InforStory = ({ detailStory, categoryStory }) => {
           <span>{detailStory?.storyById.total_chapper}</span>
         </div>
         <div className="h-[35px]">
-          <NavLink>
+          <NavLink to={window.location.href + '/edit'}>
             <ButtonSave text="Chỉnh sửa" />
           </NavLink>
         </div>

@@ -5,7 +5,7 @@ const Upload = (props) => {
   const maxNumber = 69;
   useEffect(() => {
     props.onChange(images);
-    console.log(images);
+    // console.log(images);
   }, [images]);
   return (
     <>
@@ -15,7 +15,7 @@ const Upload = (props) => {
           aria-describedby="file_input_help"
           id={props.text}
           type="file"
-          {...(props.text !== "imgmain" ? {} : { multiple: "multiple" })}
+          {...(props.text === "imgmain" ? {} : { multiple: "multiple" })}
           accept=".jpg, .png, .svg"
           onChange={(event) => {
             const selectedFiles = Array.from(event.target.files);

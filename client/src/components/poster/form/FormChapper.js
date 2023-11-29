@@ -3,32 +3,37 @@ import icons from "./../../../ultis/icons";
 import ButtonSave from "../ButtonSave";
 import Upload from "../Upload";
 import Validator from "./../../../ultis/validator";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const { BsTypeBold, BsTypeItalic, BsTypeUnderline } = icons;
+const imgOld = [];
 class FormChapper extends React.Component {
   constructor(props) {
     super(props);
+    const { chapper } = props;
     this.state = {
-      nameValue: "",
-      descriptionValue: "",
+      nameValue: chapper?.title || "",
+      descriptionValue: chapper?.content || "",
       imgValue: {},
       errors: {},
     };
+
     const isImgValue = () => {
       const imgs = this.state.imgValue;
-      return Object.keys(imgs).length === 0 ;
+      return Object.keys(imgs).length === 0;
     };
     const numberOfImgValue = () => {
       const imgs = this.state.imgValue;
-      return Object.keys(imgs).length <= 50 ;
+      return Object.keys(imgs).length <= 50;
     };
     const isNameValueValid = (value, field, state) => {
       // Kiểm tra không có 3 khoảng trắng ở đầu chuỗi
-      if (/^\s{3}/.test(value)) {
+      if (/^\s{3}|^\s*\n/.test(value)) {
         return false;
       }
       return true;
     };
+
     const rules = [
       {
         field: "nameValue",
@@ -48,7 +53,8 @@ class FormChapper extends React.Component {
         field: "nameValue",
         method: isNameValueValid,
         validWhen: true,
-        message: "The title chapper cannot start with 3 spaces.",
+        message:
+          "The title chapper cannot start with 3 spaces and don't down line.",
       },
 
       {
@@ -86,56 +92,83 @@ class FormChapper extends React.Component {
     this.validator = new Validator(rules);
     this.handleNameChange = this.handleNameChange.bind(this);
     this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
-    this.handleImgChange = this.handleImgChange.bind(this);
+    this.handleImageSelection = this.handleImageSelection.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+  componentDidUpdate(prevProps) {
+    if (prevProps.chapper !== this.props.chapper) {
+      // Handle changes in this.props.chapper
 
+      if (this.props.chapper && this.props.text == 0) {
+        this.setState({
+          nameValue: this.props.chapper.title || "",
+          descriptionValue: this.props.chapper.content || "",
+        });
+      } else if (this.props.chapper && this.props.text == 1) {
+        this.props.chapper?.files.map((item) => {
+          imgOld.push(item.name);
+        });
+        this.setState({
+          nameValue: this.props.chapper.title || "",
+          imgValue: imgOld || {},
+        });
+      }
+    }
+  }
   handleNameChange(event) {
-    this.setState({ nameValue: event.target.value }, () => {
-      this.setState({
-        errors: this.validator.validate(this.state),
-      });
-    });
+    this.setState({ nameValue: event.target.value });
   }
   //xử lí giá trị nọi dung chương
   handleDescriptionChange(event) {
-    this.setState({ descriptionValue: event.target.value }, () => {
-      this.setState({
-        errors: this.validator.validate(this.state),
-      });
-    });
+    this.setState({ descriptionValue: event.target.value });
   }
   //xử lí giá trị hình ảnh chương
-  handleImgChange(event) {
-    this.setState({ imgValue: event.target.value }, () => {
-      this.setState({
-        errors: this.validator.validate(this.state),
-      });
-    });
-  }
   handleImageSelection = (imageNames) => {
-    this.setState({ imgValue: imageNames }, () => {
-      this.setState({
-        errors: this.validator.validate(this.state),
-      });
-    });
+    this.setState({ imgValue: imageNames });
   };
 
   handleSubmit(event) {
+    event.preventDefault();
     this.setState({
       errors: this.validator.validate(this.state),
     });
-    if (Object.keys(this.state.errors).length === 1) {
-      const dataToSubmit = {
-        name: this.state.nameValue,
-        description: this.state.descriptionValue,
-        img: this.state.imgValue,
-      };
-      console.log(dataToSubmit);
-      alert("Dữ liệu đã được gửi đi.");
+    if (
+      Object.keys(this.state.errors).length == 1 ||
+      Object.keys(this.state.errors).length == 0
+    ) {
+      var data = {};
+      if (this.props.text == 0) {
+        data = {
+          classifi: 0,
+          name: this.state.nameValue,
+          description: this.state.descriptionValue,
+        };
+      } else {
+        data = new FormData();
+        data.append("name", this.state.nameValue);
+        if (this.props.chapper) {
+          data.append("imgOld[]", imgOld);
+        } 
+        this.state.imgValue.forEach((file) => {
+          data.append("img", file);
+        });
+      }
+      if (this.props.chapper) {
+        this.props.onSubmitChapper(data);
+      } else {
+        this.props.onSubmit(data);
+      }
     } else {
-      // Xử lý khi có lỗi
-      alert("Có lỗi xảy ra. Vui lòng kiểm tra lại các trường.");
+      toast.warn("Vui lòng nhập dữ liệu đúng theo format!", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
     }
   }
 
@@ -245,7 +278,7 @@ class FormChapper extends React.Component {
                   <div className="px-4 py-2 bg-white rounded-b-lg">
                     <textarea
                       id="description"
-                      rows="8"
+                      rows="15"
                       value={this.state.descriptionValue}
                       onChange={this.handleDescriptionChange}
                       className={`block w-full px-0 text-sm text-gray-800 bg-white border-0 outline-none ${
@@ -279,9 +312,9 @@ class FormChapper extends React.Component {
                 </label>
                 <div className="block w-full">
                   <Upload
+                    name="img"
                     text="imgs"
-                    value={this.state.imgValue}
-                    onChange={this.handleImageSelection.bind(this)}
+                    onChange={this.handleImageSelection}
                   />
                   {errors.imgValue && (
                     <div
@@ -295,7 +328,6 @@ class FormChapper extends React.Component {
               </div>
             </div>
           )}
-
           <div className="w-full flex justify-end">
             <ButtonSave text="Lưu" onClick={this.handleSubmit} />
           </div>

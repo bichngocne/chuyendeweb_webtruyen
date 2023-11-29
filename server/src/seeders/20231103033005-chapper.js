@@ -6,7 +6,7 @@ module.exports = {
     return queryInterface.bulkInsert("chappers", [
       // truyện 1
       {
-        title: "Vụ án thứ 1: Thằn lằn trong rương 1 : Chó hoang và...",
+        title: "CÔ VỢ ĐÁNG GỜM CỦA LĂNG THIẾU",
         id_story: 1,
         number_chapper: 1,
         image: null,
@@ -68,11 +68,12 @@ module.exports = {
 
         Người nọ nhìn chằm chằm Mạc Phi trong giây lát, khẽ cười nói, “Ba mươi đồng khẳng định không đủ.”
          `,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        title: "Vụ án thứ 2: Thằn lằn trong rương 1 : Chó hoang và...",
+        title: "CÔ VỢ ĐÁNG GỜM CỦA LĂNG THIẾU",
         id_story: 1,
         number_chapper: 2,
         image: null,
@@ -134,11 +135,12 @@ module.exports = {
 
         Người nọ nhìn chằm chằm Mạc Phi trong giây lát, khẽ cười nói, “Ba mươi đồng khẳng định không đủ.”
          `,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        title: "Vụ án thứ 1: Thằn lằn trong rương 1 : Chó hoang và...",
+        title: "CÔ VỢ ĐÁNG GỜM CỦA LĂNG THIẾU",
         id_story: 1,
         number_chapper: 3,
         image: null,
@@ -200,11 +202,12 @@ module.exports = {
 
         Người nọ nhìn chằm chằm Mạc Phi trong giây lát, khẽ cười nói, “Ba mươi đồng khẳng định không đủ.”
          `,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        title: "Vụ án thứ 2: Thằn lằn trong rương 1 : Chó hoang và...",
+        title: "CÔ VỢ ĐÁNG GỜM CỦA LĂNG THIẾU",
         id_story: 1,
         number_chapper: 4,
         image: null,
@@ -266,13 +269,14 @@ module.exports = {
 
         Người nọ nhìn chằm chằm Mạc Phi trong giây lát, khẽ cười nói, “Ba mươi đồng khẳng định không đủ.”
          `,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
 
       // truyện 2
       {
-        title: "Vụ án thứ 1: Thằn lằn trong rương 1 : Chó hoang và...",
+        title: "CÔ VỢ ĐÁNG GỜM CỦA LĂNG THIẾU",
         id_story: 2,
         number_chapper: 1,
         image: null,
@@ -334,11 +338,12 @@ module.exports = {
 
         Người nọ nhìn chằm chằm Mạc Phi trong giây lát, khẽ cười nói, “Ba mươi đồng khẳng định không đủ.”
          `,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        title: "Vụ án thứ 2: Thằn lằn trong rương 1 : Chó hoang và...",
+        title: "CÔ VỢ ĐÁNG GỜM CỦA LĂNG THIẾU",
         id_story: 2,
         number_chapper: 2,
         image: null,
@@ -400,11 +405,12 @@ module.exports = {
 
         Người nọ nhìn chằm chằm Mạc Phi trong giây lát, khẽ cười nói, “Ba mươi đồng khẳng định không đủ.”
          `,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        title: "Vụ án thứ 1: Thằn lằn trong rương 1 : Chó hoang và...",
+        title: "CÔ VỢ ĐÁNG GỜM CỦA LĂNG THIẾU",
         id_story: 2,
         number_chapper: 3,
         image: null,
@@ -466,11 +472,13 @@ module.exports = {
 
         Người nọ nhìn chằm chằm Mạc Phi trong giây lát, khẽ cười nói, “Ba mươi đồng khẳng định không đủ.”
          `,
+        version: 0,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        title: "Vụ án thứ 2: Thằn lằn trong rương 1 : Chó hoang và...",
+        title: "CÔ VỢ ĐÁNG GỜM CỦA LĂNG THIẾU",
         id_story: 2,
         number_chapper: 4,
         image: null,
@@ -532,11 +540,12 @@ module.exports = {
 
         Người nọ nhìn chằm chằm Mạc Phi trong giây lát, khẽ cười nói, “Ba mươi đồng khẳng định không đủ.”
          `,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        title: "Vụ án thứ 1: Thằn lằn trong rương 1 : Chó hoang và...",
+        title: "CÔ VỢ ĐÁNG GỜM CỦA LĂNG THIẾU",
         id_story: 2,
         number_chapper: 5,
         image: null,
@@ -598,12 +607,13 @@ module.exports = {
 
         Người nọ nhìn chằm chằm Mạc Phi trong giây lát, khẽ cười nói, “Ba mươi đồng khẳng định không đủ.”
          `,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       // truyện 3
       {
-        title: "Vụ án thứ 2: Thằn lằn trong rương 1 : Chó hoang và...",
+        title: "CÔ VỢ ĐÁNG GỜM CỦA LĂNG THIẾU",
         id_story: 3,
         number_chapper: 1,
         image: null,
@@ -665,11 +675,12 @@ module.exports = {
 
         Người nọ nhìn chằm chằm Mạc Phi trong giây lát, khẽ cười nói, “Ba mươi đồng khẳng định không đủ.”
          `,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        title: "Vụ án thứ 1: Thằn lằn trong rương 1 : Chó hoang và...",
+        title: "CÔ VỢ ĐÁNG GỜM CỦA LĂNG THIẾU",
         id_story: 3,
         number_chapper: 2,
         image: null,
@@ -731,12 +742,13 @@ module.exports = {
 
         Người nọ nhìn chằm chằm Mạc Phi trong giây lát, khẽ cười nói, “Ba mươi đồng khẳng định không đủ.”
          `,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       // truyện 4
       {
-        title: "Vụ án thứ 2: Thằn lằn trong rương 1 : Chó hoang và...",
+        title: "CÔ VỢ ĐÁNG GỜM CỦA LĂNG THIẾU",
         id_story: 4,
         number_chapper: 1,
         image: null,
@@ -798,11 +810,12 @@ module.exports = {
 
         Người nọ nhìn chằm chằm Mạc Phi trong giây lát, khẽ cười nói, “Ba mươi đồng khẳng định không đủ.”
          `,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        title: "Vụ án thứ 1: Thằn lằn trong rương 1 : Chó hoang và...",
+        title: "CÔ VỢ ĐÁNG GỜM CỦA LĂNG THIẾU",
         id_story: 4,
         number_chapper: 2,
         image: null,
@@ -864,11 +877,12 @@ module.exports = {
 
         Người nọ nhìn chằm chằm Mạc Phi trong giây lát, khẽ cười nói, “Ba mươi đồng khẳng định không đủ.”
          `,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        title: "Vụ án thứ 2: Thằn lằn trong rương 1 : Chó hoang và...",
+        title: "CÔ VỢ ĐÁNG GỜM CỦA LĂNG THIẾU",
         id_story: 4,
         number_chapper: 3,
         image: null,
@@ -930,13 +944,14 @@ module.exports = {
 
         Người nọ nhìn chằm chằm Mạc Phi trong giây lát, khẽ cười nói, “Ba mươi đồng khẳng định không đủ.”
          `,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
 
       // truyện 5
       {
-        title: "Vụ án thứ 1: Thằn lằn trong rương 1 : Chó hoang và...",
+        title: "CÔ VỢ ĐÁNG GỜM CỦA LĂNG THIẾU",
         id_story: 5,
         number_chapper: 1,
         image: null,
@@ -998,11 +1013,12 @@ module.exports = {
 
         Người nọ nhìn chằm chằm Mạc Phi trong giây lát, khẽ cười nói, “Ba mươi đồng khẳng định không đủ.”
          `,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        title: "Vụ án thứ 2: Thằn lằn trong rương 1 : Chó hoang và...",
+        title: "CÔ VỢ ĐÁNG GỜM CỦA LĂNG THIẾU",
         id_story: 5,
         number_chapper: 2,
         image: null,
@@ -1064,11 +1080,12 @@ module.exports = {
 
         Người nọ nhìn chằm chằm Mạc Phi trong giây lát, khẽ cười nói, “Ba mươi đồng khẳng định không đủ.”
          `,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        title: "Vụ án thứ 1: Thằn lằn trong rương 1 : Chó hoang và...",
+        title: "CÔ VỢ ĐÁNG GỜM CỦA LĂNG THIẾU",
         id_story: 5,
         number_chapper: 3,
         image: null,
@@ -1130,11 +1147,12 @@ module.exports = {
 
         Người nọ nhìn chằm chằm Mạc Phi trong giây lát, khẽ cười nói, “Ba mươi đồng khẳng định không đủ.”
          `,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        title: "Vụ án thứ 2: Thằn lằn trong rương 1 : Chó hoang và...",
+        title: "CÔ VỢ ĐÁNG GỜM CỦA LĂNG THIẾU",
         id_story: 5,
         number_chapper: 4,
         image: null,
@@ -1196,12 +1214,13 @@ module.exports = {
 
         Người nọ nhìn chằm chằm Mạc Phi trong giây lát, khẽ cười nói, “Ba mươi đồng khẳng định không đủ.”
          `,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       //truyện 6
       {
-        title: "Vụ án thứ 1: Thằn lằn trong rương 1 : Chó hoang và...",
+        title: "CÔ VỢ ĐÁNG GỜM CỦA LĂNG THIẾU",
         id_story: 6,
         number_chapper: 1,
         image: null,
@@ -1263,11 +1282,12 @@ module.exports = {
 
         Người nọ nhìn chằm chằm Mạc Phi trong giây lát, khẽ cười nói, “Ba mươi đồng khẳng định không đủ.”
          `,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        title: "Vụ án thứ 2: Thằn lằn trong rương 1 : Chó hoang và...",
+        title: "CÔ VỢ ĐÁNG GỜM CỦA LĂNG THIẾU",
         id_story: 6,
         number_chapper: 2,
         image: null,
@@ -1329,11 +1349,12 @@ module.exports = {
 
         Người nọ nhìn chằm chằm Mạc Phi trong giây lát, khẽ cười nói, “Ba mươi đồng khẳng định không đủ.”
          `,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        title: "Vụ án thứ 1: Thằn lằn trong rương 1 : Chó hoang và...",
+        title: "CÔ VỢ ĐÁNG GỜM CỦA LĂNG THIẾU",
         id_story: 6,
         number_chapper: 3,
         image: null,
@@ -1395,11 +1416,12 @@ module.exports = {
 
         Người nọ nhìn chằm chằm Mạc Phi trong giây lát, khẽ cười nói, “Ba mươi đồng khẳng định không đủ.”
          `,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        title: "Vụ án thứ 2: Thằn lằn trong rương 1 : Chó hoang và...",
+        title: "CÔ VỢ ĐÁNG GỜM CỦA LĂNG THIẾU",
         id_story: 6,
         number_chapper: 4,
         image: null,
@@ -1461,13 +1483,14 @@ module.exports = {
 
         Người nọ nhìn chằm chằm Mạc Phi trong giây lát, khẽ cười nói, “Ba mươi đồng khẳng định không đủ.”
          `,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
 
       // truyện 7
       {
-        title: "Vụ án thứ 1: Thằn lằn trong rương 1 : Chó hoang và...",
+        title: "CÔ VỢ ĐÁNG GỜM CỦA LĂNG THIẾU",
         id_story: 7,
         number_chapper: 1,
         image: null,
@@ -1529,11 +1552,12 @@ module.exports = {
 
         Người nọ nhìn chằm chằm Mạc Phi trong giây lát, khẽ cười nói, “Ba mươi đồng khẳng định không đủ.”
          `,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        title: "Vụ án thứ 2: Thằn lằn trong rương 1 : Chó hoang và...",
+        title: "CÔ VỢ ĐÁNG GỜM CỦA LĂNG THIẾU",
         id_story: 7,
         number_chapper: 2,
         image: null,
@@ -1595,11 +1619,12 @@ module.exports = {
 
         Người nọ nhìn chằm chằm Mạc Phi trong giây lát, khẽ cười nói, “Ba mươi đồng khẳng định không đủ.”
          `,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        title: "Vụ án thứ 1: Thằn lằn trong rương 1 : Chó hoang và...",
+        title: "CÔ VỢ ĐÁNG GỜM CỦA LĂNG THIẾU",
         id_story: 7,
         number_chapper: 3,
         image: null,
@@ -1661,11 +1686,12 @@ module.exports = {
 
         Người nọ nhìn chằm chằm Mạc Phi trong giây lát, khẽ cười nói, “Ba mươi đồng khẳng định không đủ.”
          `,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        title: "Vụ án thứ 2: Thằn lằn trong rương 1 : Chó hoang và...",
+        title: "CÔ VỢ ĐÁNG GỜM CỦA LĂNG THIẾU",
         id_story: 7,
         number_chapper: 4,
         image: null,
@@ -1727,13 +1753,14 @@ module.exports = {
 
         Người nọ nhìn chằm chằm Mạc Phi trong giây lát, khẽ cười nói, “Ba mươi đồng khẳng định không đủ.”
          `,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
 
-      // truyeenj 8                               
+      // truyeenj 8
       {
-        title: "Vụ án thứ 1: Thằn lằn trong rương 1 : Chó hoang và...",
+        title: "CÔ VỢ ĐÁNG GỜM CỦA LĂNG THIẾU",
         id_story: 8,
         number_chapper: 1,
         image: null,
@@ -1795,11 +1822,12 @@ module.exports = {
 
         Người nọ nhìn chằm chằm Mạc Phi trong giây lát, khẽ cười nói, “Ba mươi đồng khẳng định không đủ.”
          `,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        title: "Vụ án thứ 2: Thằn lằn trong rương 1 : Chó hoang và...",
+        title: "CÔ VỢ ĐÁNG GỜM CỦA LĂNG THIẾU",
         id_story: 8,
         number_chapper: 2,
         image: null,
@@ -1861,11 +1889,12 @@ module.exports = {
 
         Người nọ nhìn chằm chằm Mạc Phi trong giây lát, khẽ cười nói, “Ba mươi đồng khẳng định không đủ.”
          `,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        title: "Vụ án thứ 1: Thằn lằn trong rương 1 : Chó hoang và...",
+        title: "CÔ VỢ ĐÁNG GỜM CỦA LĂNG THIẾU",
         id_story: 8,
         number_chapper: 3,
         image: null,
@@ -1927,13 +1956,14 @@ module.exports = {
 
         Người nọ nhìn chằm chằm Mạc Phi trong giây lát, khẽ cười nói, “Ba mươi đồng khẳng định không đủ.”
          `,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
 
       // truyện 9
       {
-        title: "Vụ án thứ 2: Thằn lằn trong rương 1 : Chó hoang và...",
+        title: "CÔ VỢ ĐÁNG GỜM CỦA LĂNG THIẾU",
         id_story: 9,
         number_chapper: 1,
         image: null,
@@ -1995,11 +2025,12 @@ module.exports = {
 
         Người nọ nhìn chằm chằm Mạc Phi trong giây lát, khẽ cười nói, “Ba mươi đồng khẳng định không đủ.”
          `,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        title: "Vụ án thứ 1: Thằn lằn trong rương 1 : Chó hoang và...",
+        title: "CÔ VỢ ĐÁNG GỜM CỦA LĂNG THIẾU",
         id_story: 9,
         number_chapper: 2,
         image: null,
@@ -2061,11 +2092,12 @@ module.exports = {
 
         Người nọ nhìn chằm chằm Mạc Phi trong giây lát, khẽ cười nói, “Ba mươi đồng khẳng định không đủ.”
          `,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        title: "Vụ án thứ 2: Thằn lằn trong rương 1 : Chó hoang và...",
+        title: "CÔ VỢ ĐÁNG GỜM CỦA LĂNG THIẾU",
         id_story: 9,
         number_chapper: 3,
         image: null,
@@ -2127,13 +2159,14 @@ module.exports = {
 
         Người nọ nhìn chằm chằm Mạc Phi trong giây lát, khẽ cười nói, “Ba mươi đồng khẳng định không đủ.”
          `,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
 
       // truyện 10
       {
-        title: "Vụ án thứ 1: Thằn lằn trong rương 1 : Chó hoang và...",
+        title: "CÔ VỢ ĐÁNG GỜM CỦA LĂNG THIẾU",
         id_story: 10,
         number_chapper: 1,
         image: null,
@@ -2195,11 +2228,12 @@ module.exports = {
 
         Người nọ nhìn chằm chằm Mạc Phi trong giây lát, khẽ cười nói, “Ba mươi đồng khẳng định không đủ.”
          `,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        title: "Vụ án thứ 2: Thằn lằn trong rương 1 : Chó hoang và...",
+        title: "CÔ VỢ ĐÁNG GỜM CỦA LĂNG THIẾU",
         id_story: 10,
         number_chapper: 2,
         image: null,
@@ -2261,11 +2295,12 @@ module.exports = {
 
         Người nọ nhìn chằm chằm Mạc Phi trong giây lát, khẽ cười nói, “Ba mươi đồng khẳng định không đủ.”
          `,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        title: "Vụ án thứ 1: Thằn lằn trong rương 1 : Chó hoang và...",
+        title: "CÔ VỢ ĐÁNG GỜM CỦA LĂNG THIẾU",
         id_story: 10,
         number_chapper: 3,
         image: null,
@@ -2327,13 +2362,14 @@ module.exports = {
 
         Người nọ nhìn chằm chằm Mạc Phi trong giây lát, khẽ cười nói, “Ba mươi đồng khẳng định không đủ.”
          `,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
 
       // truyện 11
       {
-        title: "Vụ án thứ 2: Thằn lằn trong rương 1 : Chó hoang và...",
+        title: "CÔ VỢ ĐÁNG GỜM CỦA LĂNG THIẾU",
         id_story: 11,
         number_chapper: 1,
         image: null,
@@ -2395,11 +2431,12 @@ module.exports = {
 
         Người nọ nhìn chằm chằm Mạc Phi trong giây lát, khẽ cười nói, “Ba mươi đồng khẳng định không đủ.”
          `,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        title: "Vụ án thứ 1: Thằn lằn trong rương 1 : Chó hoang và...",
+        title: "CÔ VỢ ĐÁNG GỜM CỦA LĂNG THIẾU",
         id_story: 11,
         number_chapper: 2,
         image: null,
@@ -2461,11 +2498,12 @@ module.exports = {
 
         Người nọ nhìn chằm chằm Mạc Phi trong giây lát, khẽ cười nói, “Ba mươi đồng khẳng định không đủ.”
          `,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        title: "Vụ án thứ 2: Thằn lằn trong rương 1 : Chó hoang và...",
+        title: "CÔ VỢ ĐÁNG GỜM CỦA LĂNG THIẾU",
         id_story: 11,
         number_chapper: 3,
         image: null,
@@ -2527,13 +2565,14 @@ module.exports = {
 
         Người nọ nhìn chằm chằm Mạc Phi trong giây lát, khẽ cười nói, “Ba mươi đồng khẳng định không đủ.”
          `,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
 
       // truyện 12
       {
-        title: "Vụ án thứ 1: Thằn lằn trong rương 1 : Chó hoang và...",
+        title: "CÔ VỢ ĐÁNG GỜM CỦA LĂNG THIẾU",
         id_story: 12,
         number_chapper: 1,
         image: null,
@@ -2595,11 +2634,12 @@ module.exports = {
 
         Người nọ nhìn chằm chằm Mạc Phi trong giây lát, khẽ cười nói, “Ba mươi đồng khẳng định không đủ.”
          `,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        title: "Vụ án thứ 2: Thằn lằn trong rương 1 : Chó hoang và...",
+        title: "CÔ VỢ ĐÁNG GỜM CỦA LĂNG THIẾU",
         id_story: 12,
         number_chapper: 2,
         image: null,
@@ -2661,13 +2701,14 @@ module.exports = {
 
         Người nọ nhìn chằm chằm Mạc Phi trong giây lát, khẽ cười nói, “Ba mươi đồng khẳng định không đủ.”
          `,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
 
       // truyện 13
       {
-        title: "Vụ án thứ 1: Thằn lằn trong rương 1 : Chó hoang và...",
+        title: "CÔ VỢ ĐÁNG GỜM CỦA LĂNG THIẾU",
         id_story: 13,
         number_chapper: 1,
         image: null,
@@ -2729,11 +2770,12 @@ module.exports = {
 
         Người nọ nhìn chằm chằm Mạc Phi trong giây lát, khẽ cười nói, “Ba mươi đồng khẳng định không đủ.”
          `,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        title: "Vụ án thứ 2: Thằn lằn trong rương 1 : Chó hoang và...",
+        title: "CÔ VỢ ĐÁNG GỜM CỦA LĂNG THIẾU",
         id_story: 13,
         number_chapper: 2,
         image: null,
@@ -2795,12 +2837,13 @@ module.exports = {
 
         Người nọ nhìn chằm chằm Mạc Phi trong giây lát, khẽ cười nói, “Ba mươi đồng khẳng định không đủ.”
          `,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       // truyện 14
       {
-        title: "Vụ án thứ 1: Thằn lằn trong rương 1 : Chó hoang và...",
+        title: "CÔ VỢ ĐÁNG GỜM CỦA LĂNG THIẾU",
         id_story: 14,
         number_chapper: 2,
         image: null,
@@ -2862,11 +2905,12 @@ module.exports = {
 
         Người nọ nhìn chằm chằm Mạc Phi trong giây lát, khẽ cười nói, “Ba mươi đồng khẳng định không đủ.”
          `,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        title: "Vụ án thứ 2: Thằn lằn trong rương 1 : Chó hoang và...",
+        title: "CÔ VỢ ĐÁNG GỜM CỦA LĂNG THIẾU",
         id_story: 14,
         number_chapper: 2,
         image: null,
@@ -2928,13 +2972,14 @@ module.exports = {
 
         Người nọ nhìn chằm chằm Mạc Phi trong giây lát, khẽ cười nói, “Ba mươi đồng khẳng định không đủ.”
          `,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
 
       // truyện 15
       {
-        title: "Vụ án thứ 1: Thằn lằn trong rương 1 : Chó hoang và...",
+        title: "CÔ VỢ ĐÁNG GỜM CỦA LĂNG THIẾU",
         id_story: 15,
         number_chapper: 1,
         image: null,
@@ -2996,11 +3041,12 @@ module.exports = {
 
         Người nọ nhìn chằm chằm Mạc Phi trong giây lát, khẽ cười nói, “Ba mươi đồng khẳng định không đủ.”
          `,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        title: "Vụ án thứ 2: Thằn lằn trong rương 1 : Chó hoang và...",
+        title: "CÔ VỢ ĐÁNG GỜM CỦA LĂNG THIẾU",
         id_story: 15,
         number_chapper: 2,
         image: null,
@@ -3062,11 +3108,12 @@ module.exports = {
 
         Người nọ nhìn chằm chằm Mạc Phi trong giây lát, khẽ cười nói, “Ba mươi đồng khẳng định không đủ.”
          `,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        title: "Vụ án thứ 1: Thằn lằn trong rương 1 : Chó hoang và...",
+        title: "CÔ VỢ ĐÁNG GỜM CỦA LĂNG THIẾU",
         id_story: 16,
         number_chapper: 1,
         image: null,
@@ -3128,11 +3175,12 @@ module.exports = {
 
         Người nọ nhìn chằm chằm Mạc Phi trong giây lát, khẽ cười nói, “Ba mươi đồng khẳng định không đủ.”
          `,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        title: "Vụ án thứ 2: Thằn lằn trong rương 1 : Chó hoang và...",
+        title: "CÔ VỢ ĐÁNG GỜM CỦA LĂNG THIẾU",
         id_story: 16,
         number_chapper: 2,
         image: null,
@@ -3194,11 +3242,12 @@ module.exports = {
 
         Người nọ nhìn chằm chằm Mạc Phi trong giây lát, khẽ cười nói, “Ba mươi đồng khẳng định không đủ.”
          `,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        title: "Vụ án thứ 1: Thằn lằn trong rương 1 : Chó hoang và...",
+        title: "CÔ VỢ ĐÁNG GỜM CỦA LĂNG THIẾU",
         id_story: 17,
         number_chapper: 1,
         image: null,
@@ -3260,11 +3309,12 @@ module.exports = {
 
         Người nọ nhìn chằm chằm Mạc Phi trong giây lát, khẽ cười nói, “Ba mươi đồng khẳng định không đủ.”
          `,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        title: "Vụ án thứ 2: Thằn lằn trong rương 1 : Chó hoang và...",
+        title: "CÔ VỢ ĐÁNG GỜM CỦA LĂNG THIẾU",
         id_story: 17,
         number_chapper: 2,
         image: null,
@@ -3326,6 +3376,7 @@ module.exports = {
 
         Người nọ nhìn chằm chằm Mạc Phi trong giây lát, khẽ cười nói, “Ba mươi đồng khẳng định không đủ.”
          `,
+        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
