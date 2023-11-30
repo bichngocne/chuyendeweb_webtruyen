@@ -1,20 +1,21 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import icons from "../../../ultis/icons";
+import {encodeWithSecret} from "../../../ultis/function"
 import * as apis from "../../../apis";
 import { formatDistanceToNow } from "date-fns";
 import { vi } from "date-fns/locale";
 const StoryUpdating = () => {
   const { BiSolidHot, MdOutlineNavigateNext } = icons;
   const [categories, setCategories] = useState([]);
-  const [stories, setStories] = useState([]);
+  const [storiesUpadeting, setStoriesUpadeting] = useState([]);
   const [storyCategories, setStoryCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("Tất cả"); // Trạng thái thể loại được chọn
-
+  const [storyCategoriesMap, setStoryCategoriesMap] = useState({});
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -22,9 +23,29 @@ const StoryUpdating = () => {
         const categoriesResponse = await apis.getAllCategories();
         setCategories(categoriesResponse.data.categories);
 
-        // Lấy danh sách stories
-        const storiesResponse = await apis.getAllStories();
-        setStories(storiesResponse.data.stories);
+        // Lấy danh sách stories đang update
+        const storiesResponse =await apis.getWordStoriesUpdating();
+        const dataStories = storiesResponse.data.storiesUpdating;
+        setStoriesUpadeting(storiesResponse.data.storiesUpdating);
+       
+        const storyIds = dataStories.map((story) => story.story.id);
+        const storyCategoriesMap = {};
+        for (const storyId of storyIds) {
+          // Gọi API getCategoryofStory với id_story
+          const storyCategoriesResponse = await apis.getCategoryofStory(
+            storyId
+          );
+          const storyCategories = storyCategoriesResponse.data.storyCategory;
+          // Kiểm tra xem storyCategories có dữ liệu hay không
+          if (storyCategories.length > 0) {
+            storyCategoriesMap[storyId] = storyCategories.map(
+              (category) => category.Category.name
+            );
+           } else {
+            storyCategoriesMap[storyId] = [];
+          }
+        }
+        setStoryCategoriesMap(storyCategoriesMap);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -33,41 +54,19 @@ const StoryUpdating = () => {
     // Gọi fetchData khi component được mount
     fetchData();
   }, []);
-  
 
-  useEffect(() => {
-    if (stories.length > 0) {
-      // Lấy danh sách storyIds từ danh sách truyện
-      const storyIds = stories.map((story) => story.id);
-
-      // Tạo mảng chứa tất cả các truy vấn thể loại
-      const categoryRequests = storyIds.map((storyId) => {
-        return axios
-          .get(`http://localhost:5000/api/story_categories/${storyId}`)
-          .then((res) => res.data.storyCategory);
-      });
-
-      // Thực hiện tất cả các truy vấn bằng Promise.all
-      Promise.all(categoryRequests)
-        .then((results) => {
-          // results là một mảng chứa danh sách thể loại của từng truyện
-          setStoryCategories(results);
-        })
-        .catch((err) => console.error(err));
-    }
-  }, [stories]);
   const handleCategoryChange = (selected) => {
-    setSelectedCategory(selected.value); // Cập nhật trạng thái thể loại được chọn
+    setSelectedCategory(selected.value); // Cập nhật trạng thái thể loại được chọnz
   };
-      // Lọc danh sách truyện dựa trên thể loại được chọn
+  // lấy thời gian 
+  const getTimeDistance = (createdAt) => {
+    return formatDistanceToNow(new Date(createdAt), {
+      locale: vi,
+      addSuffix: true,
+    });
+  };
 
   
-    const getTimeDistance = (createdAt) => {
-      return formatDistanceToNow(new Date(createdAt), {
-        locale: vi,
-        addSuffix: true,
-      });
-    };
   return (
     <div>
       <div className="flex items-start justify-between mt-10">
@@ -98,26 +97,28 @@ const StoryUpdating = () => {
           <div>
             <div className=" mt-[10px]">
               <table className="border-t border-black w-[100%]">
-                <tbody>
-                  {stories.slice(0, 16).map((story) => {
+                <tbody >
+                  {storiesUpadeting.slice(0,16).map((story) => {
                     // Lọc danh sách thể loại cho truyện cụ thể
-                    const storyCategoriesForStory = storyCategories
-                      .filter((category) => category.id_story === story.id)
-                      .map((category) => category.Category.name);
-                    
+                    const storyId = story.story.id;
+                    const secret = "iloveyoubaby"
+                    const encodedId = encodeWithSecret(storyId , secret)
+                    const storyCategoriesForStory=storyCategoriesMap[storyId] || [];
                     return (
-                      <tr key={story.id}>
-                        <td className="border border-black border-l-0 border-t-0 border-dashed pr-3 flex items-center">
-                          <MdOutlineNavigateNext size={24} /> {story.name}
-                        </td>
+                      <tr key={storyId}>
+                        <Link  to={`/story/${encodedId}`} className="border border-black border-l-0 border-t-0 border-dashed pr-3 flex items-center">
+                          <MdOutlineNavigateNext size={24} /> {story.story.name}
+                        </Link>
                         <td className="border border-black border-l-0 border-t-0 border-dashed px-3 ">
-                          {storyCategoriesForStory==true ? storyCategoriesForStory.join(", "):"Không hiển thị thể loại "}
+                          {storyCategoriesForStory.length > 0
+                            ? storyCategoriesForStory.join(", ")
+                            : "Không hiển thị thể loại"}
                         </td>
                         <td className="border border-black border-t-0 border-dashed px-3">
-                          Chương {story.total_chapper}
+                          Chương {story.number_chapper}
                         </td>
                         <td className="border border-black border-t-0 border-dashed px-3">
-                        {getTimeDistance(story.createdAt)}
+                          {getTimeDistance(story.story.createdAt)}
                         </td>
                       </tr>
                     );
@@ -136,17 +137,17 @@ const StoryUpdating = () => {
               TRUYỆN ĐANG ĐỌC
             </h5>
             <div>
-              {stories &&
-                stories.slice(0, 6).map((story, index) => {
+              {storiesUpadeting &&
+                storiesUpadeting.slice(0, 6).map((story, index) => {
                   return (
                     <a
-                      key={story.id}
+                      key={story.story.id}
                       className={`py-[3px] flex items-center border-black border-dashed ${
                         index === 5 ? "" : "border-b"
                       }`}
                     >
                       <MdOutlineNavigateNext size={24} />
-                      {story.name}
+                      {story.story.name}
                     </a>
                   );
                 })}

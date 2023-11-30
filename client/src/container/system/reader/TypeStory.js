@@ -6,6 +6,7 @@ import { Link, useParams } from "react-router-dom";
 import bia from "../../../assets/images";
 import axios from "axios";
 import icons from "../../../ultis/icons";
+import {encodeWithSecret} from "../../../ultis/function"
 import * as apis from "../../../apis";
 import { useTheme } from '../../../components/reader/ThemeContext';
 const TypeStory = () => {
@@ -22,7 +23,7 @@ const{BsFillPenFill,BiSolidBookBookmark} = icons
   const { categoryId } = useParams();
   const [stories, setStories] = useState([]);
   useEffect(() => {
-   apis.getStoryOfCategory(categoryId)
+   apis.getWordStoryOfCategory(categoryId)
       .then((res) => {
         setStories(res.data.stories);
         console.log(res.data.stories); // In ra dữ liệu truyện
@@ -46,22 +47,26 @@ const{BsFillPenFill,BiSolidBookBookmark} = icons
               </h1>
             </div>
             {stories.length > 0 ? (
-            stories.map((story) => (
+            stories.map((story) => {
+              const storyId = story.id;
+              const secret = "iloveyoubaby"
+              const encodedId = encodeWithSecret(storyId , secret)
+              return(
               <ul key={story.id} className="flex py-3 border-t gap-3 relative">
                 <img
-                  src={require(`../../../assets/images/${story.story.image}`)}
+                 src={`http://localhost:5000/api/static/uploads/${story.story.image}`}
                   alt={story.story.image}
                   className="w-[130px] h-[60px] object-cover"
                 />
                 <li className="flex flex-col gap-2">
-                  <Link to={`/story/${story.id}`} className="flex gap-[5px]">
+                  <Link to={`/story/${encodedId}`} className="flex gap-[5px]">
                     <BiSolidBookBookmark size={24}/>
                     {story.story.name}</Link>
                   <a className="flex gap-[5px]"><BsFillPenFill size={24}/> {story.story.author}</a>
                 </li>
                 <li className="absolute right-0">{story.story.total_chapper} chương</li>
               </ul>
-              ))
+              )})
               ) : (
                 <p>Hiện tại chưa có truyện thuộc thể loại này.</p>
               )}

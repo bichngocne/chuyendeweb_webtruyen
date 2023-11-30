@@ -1,17 +1,313 @@
-'use strict';
+"use strict";
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
-    return queryInterface.bulkInsert('files', [{
-      name: 'image44.png',
-      id_chapper: 1,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    }]);
+  async up(queryInterface, Sequelize) {
+    return queryInterface.bulkInsert("files", [
+      {
+        name: "c1_truyentr1.jpg",
+        id_chapper: 45,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "2_c1_truyentranh1.jpg",
+        id_chapper: 45,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "3_c1_truyentranh1.jpg",
+        id_chapper: 45,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "4__c1_truyentranh1.jpg",
+        id_chapper: 45,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "5_c1_truyenTranh1.jpg",
+        id_chapper: 45,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "6__c1_truyenTranh1.jpg",
+        id_chapper: 45,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "7__c1_truyenTranh1.jpg",
+        id_chapper: 45,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "8__c1_truyenTranh1.jpg",
+        id_chapper: 45,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "9__c1_truyenTranh1.jpg",
+        id_chapper: 45,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "10__c1_truyenTranh1.jpg",
+        id_chapper: 45,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "c1_truyentr1.jpg",
+        id_chapper: 46,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "2_c1_truyentranh1.jpg",
+        id_chapper: 46,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "3_c1_truyentranh1.jpg",
+        id_chapper: 46,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "4__c1_truyentranh1.jpg",
+        id_chapper: 46,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "5_c1_truyenTranh1.jpg",
+        id_chapper: 46,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "6__c1_truyenTranh1.jpg",
+        id_chapper: 46,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "7__c1_truyenTranh1.jpg",
+        id_chapper: 46,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "8__c1_truyenTranh1.jpg",
+        id_chapper: 46,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "9__c1_truyenTranh1.jpg",
+        id_chapper: 46,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "10__c1_truyenTranh1.jpg",
+        id_chapper: 46,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "c1_truyentr1.jpg",
+        id_chapper: 47,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "2_c1_truyentranh1.jpg",
+        id_chapper: 47,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "3_c1_truyentranh1.jpg",
+        id_chapper: 47,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "4__c1_truyentranh1.jpg",
+        id_chapper: 47,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "5_c1_truyenTranh1.jpg",
+        id_chapper: 47,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "6__c1_truyenTranh1.jpg",
+        id_chapper: 47,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "7__c1_truyenTranh1.jpg",
+        id_chapper: 47,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "8__c1_truyenTranh1.jpg",
+        id_chapper: 47,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "9__c1_truyenTranh1.jpg",
+        id_chapper: 47,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "10__c1_truyenTranh1.jpg",
+        id_chapper: 47,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "c1_truyentr1.jpg",
+        id_chapper: 48,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "2_c1_truyentranh1.jpg",
+        id_chapper: 48,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "3_c1_truyentranh1.jpg",
+        id_chapper: 48,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "4__c1_truyentranh1.jpg",
+        id_chapper: 48,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "5_c1_truyenTranh1.jpg",
+        id_chapper: 48,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "6__c1_truyenTranh1.jpg",
+        id_chapper: 48,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "7__c1_truyenTranh1.jpg",
+        id_chapper: 48,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "8__c1_truyenTranh1.jpg",
+        id_chapper: 48,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "9__c1_truyenTranh1.jpg",
+        id_chapper: 48,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "10__c1_truyenTranh1.jpg",
+        id_chapper: 48,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "c1_truyentr1.jpg",
+        id_chapper: 49,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "2_c1_truyentranh1.jpg",
+        id_chapper: 49,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "3_c1_truyentranh1.jpg",
+        id_chapper: 49,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "4__c1_truyentranh1.jpg",
+        id_chapper: 49,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "5_c1_truyenTranh1.jpg",
+        id_chapper: 49,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "6__c1_truyenTranh1.jpg",
+        id_chapper: 49,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "7__c1_truyenTranh1.jpg",
+        id_chapper: 49,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "8__c1_truyenTranh1.jpg",
+        id_chapper: 49,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "9__c1_truyenTranh1.jpg",
+        id_chapper: 49,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "10__c1_truyenTranh1.jpg",
+        id_chapper: 49,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    ]);
   },
 
-  async down (queryInterface, Sequelize) {
+  async down(queryInterface, Sequelize) {
     return queryInterface.bulkDelete("files", null, {});
-  }
+  },
 };

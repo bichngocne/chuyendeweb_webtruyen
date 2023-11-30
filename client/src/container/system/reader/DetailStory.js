@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Footer, Header, Comments } from "../../../components/reader";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import hinh from "../../../assets/images";
 import icons from "../../../ultis/icons";
+import {decodeWithSecret , encodeWithSecret } from "../../../ultis/function";
 import * as apis from "../../../apis";
-import { useTheme } from '../../../components/reader/ThemeContext';
+import { useTheme } from "../../../components/reader/ThemeContext";
 const DetailStory = () => {
   const [detailStory, setDetailStory] = useState([]);
   const navigation = useNavigate(); // Lấy đối tượng history từ React Router
@@ -16,14 +17,14 @@ const DetailStory = () => {
   const { theme } = useTheme();
   const { FaStarOfLife } = icons;
 
+  const secretKey ="iloveyoubaby"
+const decodedId = decodeWithSecret(storyId, secretKey);
   useEffect(() => {
     const fetchData = async () => {
       try {
         // Lấy thông tin về câu chuyện
-        const detailStoryResponse = await apis.getStoryByIdR(storyId);
+        const detailStoryResponse = await apis.getStoryByIdR(decodedId);
         const storyData = detailStoryResponse.data.stories;
-        console.log(storyData);
-
         // Lấy thông tin người đăng
         const id_user = storyData.id_user;
         const userDataResponse = await apis.getUserPost(id_user);
@@ -36,27 +37,27 @@ const DetailStory = () => {
         });
 
         // Lấy thể loại của câu chuyện
-        const categoryResponse = await apis.getCategoryofStory(storyId);
+        const categoryResponse = await apis.getCategoryofStory(decodedId);
         const categoryNames = categoryResponse.data.storyCategory.map(
           (item) => item.Category.name
         );
+
         setCategoryNames(categoryNames);
 
         // Lấy danh sách tất cả câu chuyện
-        const allStoryResponse = await apis.getAllStoryR();
+        const allStoryResponse = await apis.getAllWordStory();
         setStories(allStoryResponse.data.stories);
 
         // Lấy danh sách chương truyện
-        const chapperResponse = await apis.getAllChapperOfStory(storyId);
+        const chapperResponse = await apis.getAllChapperOfStory(decodedId);
         setChappers(chapperResponse.data.chappers);
-        console.log(chapperResponse.data.chappers);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
 
     fetchData();
-  }, [storyId]);
+  }, [decodedId]);
 
   // màu nền cho stt truyện hot
   const getBackgroundColor = (index) => {
@@ -75,7 +76,10 @@ const DetailStory = () => {
       <div className="bg-[#0e2234]">
         <Header />
       </div>
-      <div className="bg-[#f0f8ff]" style={{ backgroundColor: theme.bgColor, color: theme.textColor }}>
+      <div
+        className="bg-[#f0f8ff]"
+        style={{ backgroundColor: theme.bgColor, color: theme.textColor }}
+      >
         <div className="max-w-[1280px] mx-auto pt-9">
           {/* thông tin truyện */}
           <div>
@@ -91,37 +95,10 @@ const DetailStory = () => {
                 <div className="flex w-[100%]">
                   <div>
                     <img
-                      src={
-                        detailStory?.image
-                          ? require(`../../../assets/images/${detailStory.image}`)
-                          : "sai"
-                      }
+                      src={`http://localhost:5000/api/static/uploads/${detailStory.image}`}
                       alt={detailStory.image}
                       className=""
                     />
-                    {/* tac gia */}
-                    <div className="mt-[30px]">
-                      <div className="flex">
-                        <p className="font-medium pr-2">Tác giả: </p>
-                        <p> {detailStory.author}</p>
-                      </div>
-                      <div className="flex">
-                        <p className="font-medium pr-2">Thể loại: </p>
-                        {categoryNames.map((categoryName, index) => (
-                          <p key={index}>{categoryName}</p>
-                        ))}
-                      </div>
-                      <div className="flex">
-                        <p className="font-medium pr-2">Trạng thái: </p>
-                        <p>
-                          {
-                            (detailStory.status_chapter = false
-                              ? "Đang ra"
-                              : "Hoàn thành")
-                          }
-                        </p>
-                      </div>
-                    </div>
                   </div>
                   <div className="w-[100%] text-center px-[50px]">
                     <h5 className="font-bold text-[18px] border-b border-black">
@@ -134,8 +111,12 @@ const DetailStory = () => {
                     </div>
                     <div className="flex ">
                       <p className="font-medium  pr-2">Thể loại : </p>
-                      {categoryNames.map((categoryName, index) => (
-                        <p key={index}>{categoryName}</p>
+                      {categoryNames.map((categoryName, index,array) => (
+                        <p key={index}>{Array.isArray(categoryName)
+                          ? categoryName.join(" ,    ")
+                          : categoryName}
+                        {index < array.length - 1 && ", "}
+                        &nbsp;</p>
                       ))}
                     </div>
                     <div className="flex">
@@ -146,6 +127,35 @@ const DetailStory = () => {
                     </div>
                   </div>
                 </div>
+                {/* tac gia */}
+                <div className="mt-[30px]">
+                  <div className="flex">
+                    <p className="font-medium pr-2">Tác giả: </p>
+                    <p> {detailStory.author}</p>
+                  </div>
+                  <div className="flex">
+                    <p className="font-medium pr-2">Thể loại: </p>
+                    {categoryNames.map((categoryName, index, array) => (
+                      <p key={index}>
+                        {Array.isArray(categoryName)
+                          ? categoryName.join(" ,    ")
+                          : categoryName}
+                        {index < array.length - 1 && ", "}
+                        &nbsp;
+                      </p>
+                    ))}
+                  </div>
+                  <div className="flex">
+                    <p className="font-medium pr-2">Trạng thái: </p>
+                    <p>
+                      {
+                        (detailStory.status_chapter = false
+                          ? "Đang ra"
+                          : "Hoàn thành")
+                      }
+                    </p>
+                  </div>
+                </div>
                 {/* chương */}
                 <div className="mt-[30px]">
                   <div>
@@ -154,15 +164,19 @@ const DetailStory = () => {
                   <div>
                     {chappers.length > 0 ? (
                       <div>
-                        {chappers.map((chapper) => (
-                          <div key={chapper.id} className="flex items-center">
+                        {chappers.map((chapper) => {
+                           const chapperId = chapper.id;
+                           const secret = "iloveyoubaby"
+                           const encodedId = encodeWithSecret(chapperId , secret)
+                          return(
+                          <Link to={`/chapper/${storyId}/${encodedId}`} key={encodedId} className="flex items-center">
                             <FaStarOfLife size={18} />
                             <p className="mr-2 font-medium">
                               Chương {chapper.number_chapper} :{" "}
                             </p>
                             <p>{chapper.title}</p>
-                          </div>
-                        ))}
+                          </Link>
+                        )})}
                       </div>
                     ) : (
                       <p>Chưa có chương truyện nào</p>

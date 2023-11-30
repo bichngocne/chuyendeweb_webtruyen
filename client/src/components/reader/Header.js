@@ -6,9 +6,10 @@ import icon from "../../ultis/icons";
 import Setup from "./Setup";
 import Search from "./Search";
 import ListType from "./ListType";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 const Header = () => {
-  const { AiOutlineMenuUnfold,IoHome ,BsFillImageFill} = icon;
+  const { AiOutlineMenuUnfold, IoHome, BsFillImageFill,FaRegFileWord } = icon;
   const danhSach = [
     "Truyện mới cập nhập",
     "Truyện full",
@@ -17,6 +18,12 @@ const Header = () => {
     "Đam mỹ",
   ];
   const defaultOption = danhSach[0];
+  const [selected, setSelected] = useState(true);
+  const navigation = useNavigate();
+  const handleTypeStory = () => {
+    setSelected(!selected);
+
+  };
   return (
     <div className="flex max-w-[1280px] mx-auto items-center relative">
       {/* logo truyen */}
@@ -25,9 +32,11 @@ const Header = () => {
       </div>
       {/* select */}
       <div className="flex items-center gap-2">
-        <Link to={`/reader`} className="flex gap-2 text-white pr-3" ><IoHome size={24}/> Home</Link>
+        <Link to={`/reader`} className="flex gap-2 text-white pr-3">
+          <IoHome size={24} /> Home
+        </Link>
         {/* thể loại */}
-       <ListType/>
+        <ListType />
         {/* Phân loại theo chương */}
         <div className="flex items-center">
           <AiOutlineMenuUnfold size={24} color="white" />
@@ -44,19 +53,30 @@ const Header = () => {
         </div>
 
         {/* truyện tranh */}
-        <div className="flex gap-2">
-          <BsFillImageFill size={24} color="white" />
-          <a className="text-white">Truyện tranh</a>
-        </div>
+        {
+          selected ?
+          (
+            <div className="flex gap-2" onClick={handleTypeStory}>
+            <BsFillImageFill size={24} color="white" />
+            <Link to={`/reader/listcomics`} className="text-white">Truyện tranh</Link>
+          </div>
+          ):(
+            <div className="flex gap-2" onClick={handleTypeStory}>
+            <FaRegFileWord size={24} color="white" />
+            <Link to={`/reader`} className="text-white">Truyện chữ</Link>
+          </div>
+          )
+        }
+       
 
         {/* cài đặt */}
         <div>
-         <Setup/>
+          <Setup />
         </div>
       </div>
       {/* search */}
       <div className="absolute right-0">
-        <Search/>
+        <Search />
       </div>
     </div>
   );

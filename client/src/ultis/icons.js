@@ -10,8 +10,9 @@ import {
 } from "react-icons/ai";
 import { BsFillImageFill, BsFillPenFill, BsFillStarFill,BsTypeUnderline,BsTypeBold, BsTypeItalic } from "react-icons/bs";
 import { BiSearchAlt, BiSolidHot, BiSolidBookBookmark, } from "react-icons/bi";
-import { FaStarOfLife } from "react-icons/fa";
-import { IoHome } from "react-icons/io5";
+import { FaStarOfLife,FaListAlt ,FaRegFileWord  } from "react-icons/fa";
+import {IoHome} from "react-icons/io5";
+import {GrFormPrevious,GrFormNext  } from "react-icons/gr"
 const icons = {
   RiArrowDropDownLine,
   FcSearch,
@@ -26,12 +27,11 @@ const icons = {
   MdOutlineNavigateNext,
   BiSolidBookBookmark,
   BsFillPenFill,
-  AiFillSetting,
-  FaStarOfLife,
-  BsFillStarFill,
-  IoHome,
-  AiOutlineStar,
-  AiFillStar,
+  AiFillSetting,FaStarOfLife,
+  BsFillStarFill,IoHome,
+  FaListAlt ,
+  GrFormPrevious ,
+  GrFormNext  ,FaRegFileWord 
 };
 
 export default icons;

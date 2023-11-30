@@ -4,6 +4,7 @@ import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 import icons from "../../ultis/icons";
 import { useTheme } from "./ThemeContext";
+import { useNavigate } from "react-router-dom";
 
 const Setup = () => {
   const danhSach = [
@@ -34,32 +35,31 @@ const Setup = () => {
   ];
 
   const { AiFillSetting } = icons;
-  const [bgColor, setBgColor] = useState('#fff');
-  const [textColor, setTextColor] = useState('#000');
+  const [bgColor, setBgColor] = useState("#fff");
+  const [textColor, setTextColor] = useState("#000");
   const { theme, updateTheme } = useTheme();
-
+  const navigation = useNavigate();
   const handleOptionChange = (selectedOption) => {
     switch (selectedOption.value) {
-      case 'light':
-        updateTheme({ bgColor: '#fff', textColor: '#000' }); // Màu sáng
+      case "light":
+        updateTheme({ bgColor: "#fff", textColor: "#000" }); // Màu sáng
         break;
-      case 'dark':
-        updateTheme({ bgColor: '#b3b3b3', textColor: '#000' }); // Màu tối
+      case "dark":
+        updateTheme({ bgColor: "#b3b3b3", textColor: "#000" }); // Màu tối
         break;
-      default:
+      case "updatePassword":
+        navigation(`/infomation/1`);
         break;
     }
   };
   return (
-    <div className="ml-3" >
+    <div className="ml-3">
       <div className="flex items-center relative ">
         <AiFillSetting size={24} color="white" />
         <Dropdown
           options={danhSach}
           value={"Cài đặt"}
-          onChange={(selectedOption) =>
-            handleOptionChange(selectedOption)
-          }
+          onChange={(selectedOption) => handleOptionChange(selectedOption)}
           placeholder="Select an option"
           className="!static pl-1"
           controlClassName="!text-white !border-none !outline-none !bg-transparent !pl-[3px] !pr-[15px]"

@@ -10,7 +10,7 @@ const Search = () => {
   const [showResults, setShowResults] = useState(false);
   const fetchData = (value) => {
     apis
-      .getAllStoryR()
+      .getAllWordStory()
 
       .then((res) => {
         // console.log(res);

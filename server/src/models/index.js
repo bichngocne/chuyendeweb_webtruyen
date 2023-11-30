@@ -6,4 +6,3 @@ export {story} from './story.js'
 export {Category} from './category.js'
 export {user} from './user.js'
 export {Comment} from './comment.js'
-

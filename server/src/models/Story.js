@@ -2,7 +2,9 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../database/connect.js";
 import { story_category } from "./story_category.js";
-import { Category } from "./category.js";
+import { Category } from "./Category.js";
+import { user } from "./user.js";
+import { chapper } from "./chapper.js";
 class story extends Model {
   /**
    * Helper method for defining associations.
@@ -17,6 +19,10 @@ class story extends Model {
       otherKey: "id_category", // Khóa ngoại của bảng Category
       as:'Category'
     });
+    story.hasMany(models.chapper, {
+      foreignKey: "id_story",
+    });
+    
   }
 }
 story.init(
@@ -41,6 +47,7 @@ story.init(
   {
     sequelize,
     modelName: "stories",
-  }
-);
+  });
+story.belongsTo(user, { foreignKey: 'id_user' }); // Định nghĩa mối quan hệ
+// story.hasMany(chapper, { as: 'chapper', foreignKey: 'id_story' });
 export { story };

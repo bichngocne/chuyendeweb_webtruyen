@@ -472,8 +472,6 @@ module.exports = {
 
         Người nọ nhìn chằm chằm Mạc Phi trong giây lát, khẽ cười nói, “Ba mươi đồng khẳng định không đủ.”
          `,
-        version: 0,
-        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -1152,7 +1150,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        title: "CÔ VỢ ĐÁNG GỜM CỦA LĂNG THIẾU",
+        title: "Vụ án thứ 2: Thằn lằn trong rương 1 : Chó hoang và...",
         id_story: 5,
         number_chapper: 4,
         image: null,
@@ -1214,7 +1212,6 @@ module.exports = {
 
         Người nọ nhìn chằm chằm Mạc Phi trong giây lát, khẽ cười nói, “Ba mươi đồng khẳng định không đủ.”
          `,
-        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -1421,7 +1418,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        title: "CÔ VỢ ĐÁNG GỜM CỦA LĂNG THIẾU",
+        title: "Vụ án thứ 2: Thằn lằn trong rương 1 : Chó hoang và...",
         id_story: 6,
         number_chapper: 4,
         image: null,
@@ -1483,7 +1480,6 @@ module.exports = {
 
         Người nọ nhìn chằm chằm Mạc Phi trong giây lát, khẽ cười nói, “Ba mươi đồng khẳng định không đủ.”
          `,
-        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -1691,7 +1687,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        title: "CÔ VỢ ĐÁNG GỜM CỦA LĂNG THIẾU",
+        title: "Vụ án thứ 2: Thằn lằn trong rương 1 : Chó hoang và...",
         id_story: 7,
         number_chapper: 4,
         image: null,
@@ -1753,7 +1749,6 @@ module.exports = {
 
         Người nọ nhìn chằm chằm Mạc Phi trong giây lát, khẽ cười nói, “Ba mươi đồng khẳng định không đủ.”
          `,
-        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -3179,8 +3174,10 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
+    
+      //truỵen tranh id=45
       {
-        title: "CÔ VỢ ĐÁNG GỜM CỦA LĂNG THIẾU",
+        title: "Vụ án thứ 2: Thằn lằn trong rương 1 : Chó hoang và...",
         id_story: 16,
         number_chapper: 2,
         image: null,
@@ -3242,12 +3239,11 @@ module.exports = {
 
         Người nọ nhìn chằm chằm Mạc Phi trong giây lát, khẽ cười nói, “Ba mươi đồng khẳng định không đủ.”
          `,
-        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        title: "CÔ VỢ ĐÁNG GỜM CỦA LĂNG THIẾU",
+        title: "Vụ án thứ 1: Thằn lằn trong rương 1 : Chó hoang và...",
         id_story: 17,
         number_chapper: 1,
         image: null,
@@ -3309,12 +3305,12 @@ module.exports = {
 
         Người nọ nhìn chằm chằm Mạc Phi trong giây lát, khẽ cười nói, “Ba mươi đồng khẳng định không đủ.”
          `,
-        version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
+    
       {
-        title: "CÔ VỢ ĐÁNG GỜM CỦA LĂNG THIẾU",
+        title: "Vụ án thứ 2: Thằn lằn trong rương 1 : Chó hoang và...",
         id_story: 17,
         number_chapper: 2,
         image: null,
@@ -3376,10 +3372,164 @@ module.exports = {
 
         Người nọ nhìn chằm chằm Mạc Phi trong giây lát, khẽ cười nói, “Ba mươi đồng khẳng định không đủ.”
          `,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    //tranh3
+      {
+        title: "Chapter 1",
+        id_story: 32,
+        number_chapper: 5,
+        image: null,
+        content: null,
         version: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
+    //tranh 4
+      {
+        title: "Chapter 1",
+        id_story: 33,
+        number_chapper: 1,
+        image: null,
+        content: null,
+        version: 0,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    //tranh 5
+      {
+        title: "Chapter 1",
+        id_story: 34,
+        number_chapper: 1,
+        image: null,
+        content: null,
+        version: 0,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    //tranh 6
+      {
+        title: "Chapter 1",
+        id_story: 35,
+        number_chapper: 1,
+        image: null,
+        content: null,
+        version: 0,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    //tranh3
+      {
+        title: "Chapter 1",
+        id_story: 36,
+        number_chapper: 1,
+        image: null,
+        content: null,
+        version: 0,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    //tranh3
+      {
+        title: "Chapter 1",
+        id_story: 37,
+        number_chapper: 1,
+        image: null,
+        content: null,
+        version: 0,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    //tranh3
+      {
+        title: "Chapter 1",
+        id_story: 38,
+        number_chapper: 1,
+        image: null,
+        content: null,
+        version: 0,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    //tranh3
+      {
+        title: "Chapter 1",
+        id_story: 39,
+        number_chapper: 1,
+        image: null,
+        content: null,
+        version: 0,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    //tranh3
+      {
+        title: "Chapter 1",
+        id_story: 40,
+        number_chapper: 1,
+        image: null,
+        content: null,
+        version: 0,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    //tranh3
+      {
+        title: "Chapter 1",
+        id_story: 41,
+        number_chapper: 1,
+        image: null,
+        content: null,
+        version: 0,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    //tranh3
+      {
+        title: "Chapter 1",
+        id_story: 42,
+        number_chapper: 1,
+        image: null,
+        content: null,
+        version: 0,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    //tranh3
+      {
+        title: "Chapter 1",
+        id_story: 43,
+        number_chapper: 1,
+        image: null,
+        content: null,
+        version: 0,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    //tranh3
+      {
+        title: "Chapter 1",
+        id_story: 45,
+        number_chapper: 1,
+        image: null,
+        content: null,
+        version: 0,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    //tranh3
+      {
+        title: "Chapter 1",
+        id_story: 44,
+        number_chapper: 1,
+        image: null,
+        content: null,
+        version: 0,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    
     ]);
   },
 
