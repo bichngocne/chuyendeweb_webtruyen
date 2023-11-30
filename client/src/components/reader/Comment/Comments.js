@@ -5,6 +5,7 @@ import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 import FormComment from "./FormComment";
 import * as apis from "../../../apis";
+import { decodeWithSecret, encodeWithSecret } from "../../../ultis/function";
 import { formatDistanceToNow } from "date-fns";
 import { vi } from "date-fns/locale";
 import axios from "axios";
@@ -14,15 +15,15 @@ const Comments = () => {
   const [comments, setComments] = useState(0);
   const { storyId } = useParams();
   const [sortOption, setSortOption] = useState("Mới nhất");
-
-  console.log(storyId);
+  const secretKey = "iloveyoubaby";
+  const decodedIdStory = decodeWithSecret(storyId, secretKey);
   useEffect(() => {
     const fetchData = async () => {
       try {
         // lấy danh sách comments
-        const listComments = await apis.getAllCommentOfStory(storyId);
+        const listComments = await apis.getAllCommentOfStory(decodedIdStory);
         const listCommentsData = listComments.data.comments;
-
+        console.log(listCommentsData.id_user);
         console.log(listCommentsData);
         // Lấy thông tin người dùng cho mỗi comment
         const commentsWithUserData = await Promise.all(
@@ -37,16 +38,16 @@ const Comments = () => {
             };
           })
         );
-          // Sắp xếp comments theo tùy chọn hiện tại
-          const sortedComments = commentsWithUserData.sort((a, b) => {
-            if (sortOption === "Mới nhất") {
-              return new Date(b.createdAt) - new Date(a.createdAt);
-            } else if (sortOption === "Cũ nhất") {
-              return new Date(a.createdAt) - new Date(b.createdAt);
-            }
-            // Thêm các tùy chọn sắp xếp khác nếu cần
-            return 0;
-          });
+        // Sắp xếp comments theo tùy chọn hiện tại
+        const sortedComments = commentsWithUserData.sort((a, b) => {
+          if (sortOption === "Mới nhất") {
+            return new Date(b.createdAt) - new Date(a.createdAt);
+          } else if (sortOption === "Cũ nhất") {
+            return new Date(a.createdAt) - new Date(b.createdAt);
+          }
+          // Thêm các tùy chọn sắp xếp khác nếu cần
+          return 0;
+        });
         setComments(sortedComments);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -54,7 +55,7 @@ const Comments = () => {
     };
 
     fetchData();
-  }, [storyId,sortOption]);
+  }, [decodedIdStory, sortOption]);
 
   const getTimeDistance = (createdAt) => {
     return formatDistanceToNow(new Date(createdAt), {

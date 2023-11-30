@@ -25,8 +25,6 @@ const decodedId = decodeWithSecret(storyId, secretKey);
         // Lấy thông tin về câu chuyện
         const detailStoryResponse = await apis.getStoryByIdR(decodedId);
         const storyData = detailStoryResponse.data.stories;
-        console.log(storyData);
-
         // Lấy thông tin người đăng
         const id_user = storyData.id_user;
         const userDataResponse = await apis.getUserPost(id_user);
