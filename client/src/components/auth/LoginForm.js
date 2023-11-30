@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { setUserRole } from "../../store/actions/auth/action";
 import * as apis from "../../apis";
 const LoginForm = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -57,13 +54,16 @@ const LoginForm = () => {
         const response = await apis.login(username, password);
         if (response.success === true) {
           alert("Đăng nhập thành công .");
+          console.log(response.user.id_role);
           if (response.user.id_role === 1) {
             console.log(response.user.id_role); // In ra giá trị của id_role
             navigate("/reader");
           } else if (response.user.id_role === 2) {
             navigate("/management-story");
-          } else {
-            navigate("/admin");
+          } else if (response.user.id_role === 3){
+            navigate("/admin/list-story-admin");
+          }else{
+            alert("hết cứu");
           }
           // Đăng nhập thành công
           setIsLoggedIn(true);

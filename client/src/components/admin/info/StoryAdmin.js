@@ -55,7 +55,7 @@ const StoryAdmin = ({ detailStory, categoryStory }) => {
               Tên truyện:{detailStory?.storyById.name}
             </div>
             <div className="py-2.5">Thể loại:{categoryStory?.categoryStory.map((element) => {
-            return element.Category.name + " ";
+            return element.category.name + " ";
           })}</div>
             <div className="py-2.5">
               Tác giả:{detailStory?.storyById.author}

@@ -120,7 +120,7 @@ const RegesterForm = () => {
             // Check the registration result and perform actions accordingly
             if (registrationResult.success === true ) {
               // Registration successful
-              alert("Đăng nhập thành công .");
+              alert("Đăng ký thành công .");
               console.log("User details:", registrationResult);
               navigate("/login");
               // You can also perform additional actions here

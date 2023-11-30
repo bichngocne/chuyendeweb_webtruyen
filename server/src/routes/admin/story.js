@@ -14,6 +14,7 @@ router.get("/storiespending", storyA.showStoryPendingAdmin);
 router.get("/story/:id", storyA.showAdmin);
 router.get("/story/item/:id", storyA.findByIdAndDeleteAdmin);
 router.get("/story/item1/:id", storyA.getChapterOfStoryByIdAdmin);
+router.get("/story/approve/:id", storyA.approveStory);
 router.post(
   "/story/create",validatePostStory(),
   (req, res, next) => {

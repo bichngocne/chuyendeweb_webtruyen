@@ -78,6 +78,18 @@ const apiGetUserOfStoryByIdAdmin = (id) =>
       reject(error);
     }
   });
+  const approveStory = (id) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const response = await axios({
+        url: `/story/approve/${id}`,
+        method: "get",
+      });
+      resolve(response);
+    } catch (error) {
+      reject(error);
+    }
+  });
 export {
   getStoriesAdmin,
   getStoriesApprovedAdmin,
@@ -85,4 +97,5 @@ export {
   apiGetUserOfStoryByIdAdmin,
   apiGetStoryByIdAdmin,
   apiGetCategoryOfStoryByIdAdmin,
+  approveStory,
 };

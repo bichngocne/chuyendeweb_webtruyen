@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import * as apis from "../../../apis";
+import { useNavigate } from "react-router-dom";
 const PendingAdmin = ({ detailStory, categoryStory }) => {
   const [showMore, setShowMore] = useState(false);
   const [UserStory, setUserStory] = useState(null);
+  const navigate = useNavigate();
   const toggleShowMore = () => {
     setShowMore(!showMore);
   };
@@ -30,6 +32,21 @@ const PendingAdmin = ({ detailStory, categoryStory }) => {
     }
     fetchUserStory();});
   const limitedText =String(detailStory?.storyById?.description);
+  // console.log(detailStory?.storyById?.id);
+  const handleClick = async () => {
+    const isConfirmed = window.confirm("Bạn muốn phê duyệt truyện hay không?");
+
+  if (isConfirmed) {
+    await apis.approveStory(detailStory?.storyById?.id);
+    alert("Phê duyệt thành công");
+    navigate("/admin/list-pending-admin");
+  }
+
+  };
+  const handleClick1 = async () => {
+          navigate("/admin/list-pending-admin");
+
+  };
   return (
     <div
       className={`mx-[35px] my-[15px] bg-[#d9d9d9] rounded-xl ${
@@ -43,7 +60,7 @@ const PendingAdmin = ({ detailStory, categoryStory }) => {
             <div className="[font-family:'Roboto-Regular',Helvetica] font-normal text-black text-[14px]">
               <div className="pb-2.5">Tên truyện:{detailStory?.storyById.name}</div>
               <div className="py-2.5">Thể loại:{categoryStory?.categoryStory.map((element) => {
-            return element.Category.name;
+            return element.category.name;
           })}</div>
               <div className="py-2.5">Tác giả:{detailStory?.storyById.author}</div>
               <div className="py-2.5">Người đăng:{UserStory}</div>
@@ -51,7 +68,7 @@ const PendingAdmin = ({ detailStory, categoryStory }) => {
             </div>
             <div className=" pr-[90px] ![font-family:'Inika-Regular',Helvetica] font-normal text-black text-[14px]">
               <div>
-                <button className="flex p-[10px] text-center border border-black h-[40px] w-[143px] mb-2.5">
+                <button onClick={handleClick} className="flex p-[10px] text-center border border-black h-[40px] w-[143px] mb-2.5">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="20"
@@ -81,7 +98,7 @@ const PendingAdmin = ({ detailStory, categoryStory }) => {
                 </button>
               </div>
               <div>
-                <button className="flex p-[10px] text-center border border-black h-[40px] w-[143px]">
+                <button onClick={handleClick1} className="flex p-[10px] text-center border border-black h-[40px] w-[143px]">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="20"

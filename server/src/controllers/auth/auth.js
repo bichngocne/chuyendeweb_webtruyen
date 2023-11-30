@@ -1,24 +1,33 @@
 import { user } from "../../models/index.js";
 
+import bcrypt from "bcryptjs";
 const login = async (req, res) => {
   try {
     const { username, password } = req.body;
 
+    console.log(password);
     // Check if a user with the given username and password exists
     const foundUser = await user.findOne({
       where: {
         name: username,//'reader1',
-        password: password,//'123456', // Note: In a real-world scenario, you'd hash the password and compare hashes
       },
     });
-
     if (foundUser) {
-      // User is authenticated
-      return res.json({ success: true, message: "Login successful", user: foundUser.toJSON() });
-      // Lưu ý: foundUser.toJSON() để chuyển đổi đối tượng Sequelize thành một đối tượng JSON đơn giản
+      // So sánh mật khẩu
+      bcrypt.compare(password, foundUser.password, (err, result) => {
+        if (err) {
+          console.error('Error during password comparison:', err);
+        } else if (result) {
+          // Mật khẩu khớp, xử lý đăng nhập
+          return res.json({ success: true, message: 'Login successful' ,user: foundUser});
+        } else {
+          // Mật khẩu không khớp, xử lý đăng nhập thất bại
+          return res.json({ success: false, message: 'Login failed' });
+        }
+      });
     } else {
-      // User not found or invalid credentials
-      return res.json({ success: false, message: "Login successful" });
+      // Người dùng không tồn tại
+      return res.json({ success: false, message: 'User not found' });
     }
   } catch (error) {
     console.error("Error during login:", error);
@@ -29,24 +38,28 @@ const register = async (req, res) => {
   try {
     
     const { username, email, password, permission } = req.body;
-console.log(typeof req.body);
     // Check if a user with the given email already exists
     const existingUser = await user.findOne({
       where: {
         email: email,
       },
     });
+    const existingUser1 = await user.findOne({
+      where: {
+        name: username,
+      },
+    });
 
-    if (existingUser) {
+    if (existingUser || existingUser1) {
       // User with the provided email already exists
       return res.json({ success: false, message: "User with this email already exists" });
     }
-console.log(username);
+const hashedPassword = await bcrypt.hash(password, 10);
     // Create a new user in the database
     await user.create({
       name: username,
       email: email,
-      password: password,
+      password: hashedPassword,
       id_role: permission,
     }).then(()=>{
       return res.status(200).json({ success: true,  message: "Registration successful" });

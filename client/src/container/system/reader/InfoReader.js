@@ -53,6 +53,7 @@ const InfoReader = () => {
         currentPassword,
         users.password
       );
+      console.log(iscurrentPasswordValid);
       if (!iscurrentPasswordValid) {
         throw new Error("Mật khẩu cũ không đúng.");
       }
@@ -73,7 +74,6 @@ const InfoReader = () => {
           newPassword: newPassword,
         },
       });
-      console.log(response.data.message);
       // Hiển thị thông báo thành công
       setSuccessMessage("Thay đổi mật khẩu thành công");
       // Xoá dữ liệu ở các input
@@ -95,7 +95,6 @@ const InfoReader = () => {
         enteredPassword,
         storedPasswordHash
       );
-      console.log("Password Match:", passwordMatch);
       return passwordMatch;
     } catch (error) {
       console.error(error);

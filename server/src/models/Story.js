@@ -2,7 +2,7 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../database/connect.js";
 import { story_category } from "./story_category.js";
-import { Category } from "./Category.js";
+import { Category } from "./category.js";
 import { user } from "./user.js";
 import { chapper } from "./chapper.js";
 class story extends Model {
@@ -48,7 +48,6 @@ story.init(
     modelName: "stories",
   });
 // Định nghĩa mối quan hệ giữa các bảng
-story.hasMany(chapper, { foreignKey: 'id_story', onDelete: 'CASCADE' });
 story.belongsTo(user, { foreignKey: 'id_user' }); // Định nghĩa mối quan hệ
 // story.hasMany(chapper, { as: 'chapper', foreignKey: 'id_story' });
 export { story };
