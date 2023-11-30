@@ -23,7 +23,7 @@ const Comments = () => {
         // lấy danh sách comments
         const listComments = await apis.getAllCommentOfStory(decodedIdStory);
         const listCommentsData = listComments.data.comments;
-        console.log(listCommentsData.id_user);
+        // console.log(listCommentsData.id_user);
         console.log(listCommentsData);
         // Lấy thông tin người dùng cho mỗi comment
         const commentsWithUserData = await Promise.all(

@@ -24,7 +24,6 @@ const InfoReader = () => {
   }, [user_id]);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const handleItemClick = () => {
     setIsModalOpen(true);
   };
@@ -53,7 +52,7 @@ const InfoReader = () => {
         currentPassword,
         users.password
       );
-      console.log(iscurrentPasswordValid);
+      // console.log(users.password)
       if (!iscurrentPasswordValid) {
         throw new Error("Mật khẩu cũ không đúng.");
       }
@@ -63,7 +62,6 @@ const InfoReader = () => {
           "Mật khẩu mới không hợp lệ. Yêu cầu ít nhất 8 kí tự và chứa ít nhất một chữ cái và một số."
         );
       }
-
       // Xóa thông báo lỗi nếu mọi thứ đều hợp lệ
       setErrorMessage("");
       const response = await axios({
@@ -74,6 +72,11 @@ const InfoReader = () => {
           newPassword: newPassword,
         },
       });
+      if (response.data.newPassword) {
+        console.log("New password:", response.data.newPassword);
+        const updatedUserData = await apis.getUserByIdReader(user_id);
+        setUser(updatedUserData.data.users);
+      }
       // Hiển thị thông báo thành công
       setSuccessMessage("Thay đổi mật khẩu thành công");
       // Xoá dữ liệu ở các input
@@ -95,6 +98,7 @@ const InfoReader = () => {
         enteredPassword,
         storedPasswordHash
       );
+      console.log("Password Match:", passwordMatch);
       return passwordMatch;
     } catch (error) {
       console.error(error);
@@ -112,7 +116,7 @@ const InfoReader = () => {
     const timeout = setTimeout(() => {
       setSuccessMessage("");
     }, 3000);
-  
+
     return () => clearTimeout(timeout);
   }, [successMessage]);
   return (
@@ -120,9 +124,11 @@ const InfoReader = () => {
       {/* thông tin user */}
       <div className="text-center bg-[#47A7BC] py-7">
         <div className="flex justify-center">
-          <p className="rounded-[50%] w-[80px] h-[80px] bg-[#C0E9DD] flex items-center justify-center font text-[30px] text-white">
-            P
-          </p>
+          {users.name && (
+            <p className="rounded-[50%] w-[80px] h-[80px] bg-[#C0E9DD] flex items-center justify-center font text-[30px] text-white">
+              {users.name.charAt(0)}
+            </p>
+          )}
         </div>
         <div className="mt-4">
           <p className="font-medium text-[20px] text-white">{users.name}</p>
@@ -148,7 +154,7 @@ const InfoReader = () => {
           >
             <div className="">
               {successMessage && (
-                <span style={{ color: "green"}} className="text-center">
+                <span style={{ color: "green" }} className="text-center">
                   {successMessage}
                 </span>
               )}
@@ -199,7 +205,7 @@ const InfoReader = () => {
                     value={confirmNewPassword}
                     onChange={(e) => handleChange(e, setConfirmNewPassword)}
                   />
-                   {newPassword !== confirmNewPassword && (
+                  {newPassword !== confirmNewPassword && (
                     <span style={{ color: "red", marginLeft: "5px" }}>
                       Mật khẩu mới và mật khẩu nhập lại không giống nhau
                     </span>

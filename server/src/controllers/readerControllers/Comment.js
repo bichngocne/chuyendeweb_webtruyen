@@ -62,18 +62,15 @@ const creatComment = async (req, res) => {
   console.log("creatComment");
   const { id_story, id_user, content, star } = req.body;
   
-  // Kiểm tra content
-  if (!content || content.trim().length < 5 || content.trim().startsWith(" ")) {
-    setError("Content must have at least 5 characters and should not start with a space.");
-    return;
-  }
-
-  // Kiểm tra star
-  if (!star || star <= 0) {
-    setError("Star rating is required and must be greater than 0.");
-    return;
-  }
-
+    // Kiểm tra content
+    if (!content || content.trim().length < 5 || content.trim().startsWith(" ")) {
+      return res.status(400).json({ error: "Content must have at least 5 characters and should not start with a space." });
+    }
+  
+    // Kiểm tra star
+    if (!star || star <= 0) {
+      return res.status(400).json({ error: "Star rating is required and must be greater than 0." });
+    }
   // // Kiểm tra content chỉ chứa các ký tự không đặc biệt như . , :
   // const specialCharactersRegex = /^[a-zA-Z0-9.,: ]*$/;
 

@@ -17,6 +17,7 @@ const FormComment = () => {
   // console.log(decodedIdStory);
   const [error, setError] = useState(null);
   const [comments, setComments] = useState([]);
+  const [idUseComment, setidUseComment] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -24,24 +25,39 @@ const FormComment = () => {
         const listComments = await apis.getAllCommentOfStory(decodedIdStory);
         const listCommentsData = listComments.data.comments;
         setComments(listCommentsData);
+
+        listCommentsData.map((comment) => {
+          const userIds = comment.id_user;
+          console.log(userIds);
+          setidUseComment(userIds);
+        });
       } catch (error) {
         console.error("Error fetching data:", error);
       }
-    }
+    };
     fetchData();
-  },[]);
+  }, []);
+
+
   const handleSubmit = (event) => {
     console.log("handleSubmit is called");
     event.preventDefault();
     const commentData = {
-          id_user: userId,
-          id_story: decodedIdStory,
-          content: commentContent,
-          star: star,
-        };
+      id_user: userId,
+      id_story: decodedIdStory,
+      content: commentContent,
+      star: star,
+    };
+
     // Kiểm tra content
-    if (!commentContent || commentContent.trim().length < 5 || commentContent.trim().startsWith(" ")) {
-      setError("Bình luận của bạn có trên 3 kí tự và không bắt đầu bằng khoảng trắng.");
+    if (
+      !commentContent ||
+      commentContent.trim().length < 5 ||
+      commentContent.trim().startsWith(" ")
+    ) {
+      setError(
+        "Bình luận của bạn có trên 3 kí tự và không bắt đầu bằng khoảng trắng."
+      );
       return;
     }
     // Kiểm tra star
@@ -49,8 +65,9 @@ const FormComment = () => {
       setError("Bạn nên chọn sao");
       return;
     }
-     // Kiểm tra star
-     if (userId !== comments.id_user) {
+    // Kiểm tra star
+    
+    if (userId === idUseComment) {
       setError("Bạn đã bình luận truyện này trước đó");
       return;
     }
@@ -65,7 +82,9 @@ const FormComment = () => {
       .then((response) => {
         if (!response.ok) {
           // Nếu có lỗi từ server, reject Promise để nó sẽ được xử lý trong catch
-          return Promise.reject(new Error(`Server error: ${response.status} ${response.statusText}`));
+          return Promise.reject(
+            new Error(`Server error: ${response.status} ${response.statusText}`)
+          );
         }
         return response.json();
       })
@@ -117,7 +136,7 @@ const FormComment = () => {
         >
           Comment
         </button>
-        <span style={{ color: "red"}}>{error}</span>
+        <span style={{ color: "red" }}>{error}</span>
       </form>
     </div>
   );

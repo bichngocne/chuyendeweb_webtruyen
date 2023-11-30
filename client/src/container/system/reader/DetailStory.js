@@ -4,7 +4,7 @@ import axios from "axios";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import hinh from "../../../assets/images";
 import icons from "../../../ultis/icons";
-import {decodeWithSecret , encodeWithSecret } from "../../../ultis/function";
+import { decodeWithSecret, encodeWithSecret } from "../../../ultis/function";
 import * as apis from "../../../apis";
 import { useTheme } from "../../../components/reader/ThemeContext";
 const DetailStory = () => {
@@ -17,8 +17,8 @@ const DetailStory = () => {
   const { theme } = useTheme();
   const { FaStarOfLife } = icons;
 
-  const secretKey ="iloveyoubaby"
-const decodedId = decodeWithSecret(storyId, secretKey);
+  const secretKey = "iloveyoubaby";
+  const decodedId = decodeWithSecret(storyId, secretKey);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -37,11 +37,11 @@ const decodedId = decodeWithSecret(storyId, secretKey);
         });
 
         // Lấy thể loại của câu chuyện
-        const categoryResponse = await apis.getCategoryofStory(decodedId);
-        const categoryNames = categoryResponse.data.storyCategory.map(
-          (item) => item.Category.name
-        );
-
+        // const categoryResponse = await apis.getCategoryofStory(decodedId);
+        // const categoryNames = categoryResponse.data.storyCategory.map((item) =>
+        //  item.Category.name
+        // );
+        // console.log(categoryResponse.data.storyCategory);
         setCategoryNames(categoryNames);
 
         // Lấy danh sách tất cả câu chuyện
@@ -111,12 +111,14 @@ const decodedId = decodeWithSecret(storyId, secretKey);
                     </div>
                     <div className="flex ">
                       <p className="font-medium  pr-2">Thể loại : </p>
-                      {categoryNames.map((categoryName, index,array) => (
-                        <p key={index}>{Array.isArray(categoryName)
-                          ? categoryName.join(" ,    ")
-                          : categoryName}
-                        {index < array.length - 1 && ", "}
-                        &nbsp;</p>
+                      {categoryNames.map((categoryName, index, array) => (
+                        <p key={index}>
+                          {Array.isArray(categoryName)
+                            ? categoryName.join(" ,    ")
+                            : categoryName}
+                          {index < array.length - 1 && ", "}
+                          &nbsp;
+                        </p>
                       ))}
                     </div>
                     <div className="flex">
@@ -165,18 +167,23 @@ const decodedId = decodeWithSecret(storyId, secretKey);
                     {chappers.length > 0 ? (
                       <div>
                         {chappers.map((chapper) => {
-                           const chapperId = chapper.id;
-                           const secret = "iloveyoubaby"
-                           const encodedId = encodeWithSecret(chapperId , secret)
-                          return(
-                          <Link to={`/chapper/${storyId}/${encodedId}`} key={encodedId} className="flex items-center">
-                            <FaStarOfLife size={18} />
-                            <p className="mr-2 font-medium">
-                              Chương {chapper.number_chapper} :{" "}
-                            </p>
-                            <p>{chapper.title}</p>
-                          </Link>
-                        )})}
+                          const chapperId = chapper.id;
+                          const secret = "iloveyoubaby";
+                          const encodedId = encodeWithSecret(chapperId, secret);
+                          return (
+                            <Link
+                              to={`/chapper/${storyId}/${encodedId}`}
+                              key={encodedId}
+                              className="flex items-center"
+                            >
+                              <FaStarOfLife size={18} />
+                              <p className="mr-2 font-medium">
+                                Chương {chapper.number_chapper} :{" "}
+                              </p>
+                              <p>{chapper.title}</p>
+                            </Link>
+                          );
+                        })}
                       </div>
                     ) : (
                       <p>Chưa có chương truyện nào</p>
