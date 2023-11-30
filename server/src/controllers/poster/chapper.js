@@ -116,7 +116,6 @@ async function store1(req, res, next) {
 async function show1(req, res) {
   // decrypt story id
   const id = decodeURIComponent(req.params.id_story);
-  console.log(id);
   const decryptedStoryID = decryptData(
     id,
     process.env.SEVER_SECRET_KEY_ID_STORY || "this is secret"
@@ -184,8 +183,6 @@ async function show2(req, res) {
 }
 //[PUT] update chapter for word story
 async function update(req, res) {
-  console.log("update server");
-  console.log(req.body);
   // decrypt id chapter
   const decryptedChapperID = decryptData(
     req.body.id_chapper,
@@ -196,7 +193,6 @@ async function update(req, res) {
   const chapterData = await chapper.findOne({
     where: { id: decryptedChapperID },
   });
-  console.log(req.body.version);
   if (chapterData.version + 1 == req.body.version) {
     await chapper
       .update(
@@ -216,7 +212,6 @@ async function update(req, res) {
         });
       })
       .catch((error) => {
-        console.log(error);
         return res.status(400).json({
           success: false,
           message: "Cập nhật chương không thành công",
@@ -233,13 +228,10 @@ async function update(req, res) {
 //[PUT] update chapter
 async function update1(req, res) {
   try {
-    console.log("update server");
-    console.log(req.body);
     const decryptedChapperID = decryptData(
       req.body.id_chapper,
       process.env.SEVER_SECRET_KEY_ID_STORY || "this is secret"
     );
-    console.log(decryptedChapperID);
     // udate chapter have title
     const chapterData = await chapper.findOne({
       where: { id: decryptedChapperID },
@@ -253,7 +245,6 @@ async function update1(req, res) {
       );
       // if change img
       if (req.files.length != 0) {
-        console.log("có đăng hình");
         const imgOld = req.body.imgOld;
         // delete img old
         imgOld.forEach((item) => {

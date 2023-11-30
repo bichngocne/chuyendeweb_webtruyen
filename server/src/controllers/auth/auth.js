@@ -5,7 +5,6 @@ const login = async (req, res) => {
   try {
     const { username, password } = req.body;
 
-    console.log(password);
     // Check if a user with the given username and password exists
     const foundUser = await user.findOne({
       where: {

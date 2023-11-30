@@ -26,7 +26,6 @@ const showStoryPendingAdmin = async (req, res) => {
     const stories = await story.findAll({ 
       attributes: ['id','name', 'author','status_approve','status_chapter','id_user','createdAt'],
       where: { status_approve: decryptedStoryP } });
-      // console.log(stories);
     return res.json({ stories });
   } catch (error) {
     console.error("Error retrieving stories:", error);
@@ -52,7 +51,6 @@ async function getCategoryOfStoryByIdAdmin(req, res) {
       where: { id_story: decryptedStoryID },
       include: [Category],
     });
-    // console.log(categoryStory.name);
     res.json({ categoryStory });
   } catch (error) {
     console.error("Lỗi khi truy vấn dữ liệu:", error);
