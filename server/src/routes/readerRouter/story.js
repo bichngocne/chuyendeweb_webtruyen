@@ -13,5 +13,7 @@ router.get('/hotWordStories', storyReader.getHotWordStories);// danh sách 20 tr
 router.get('/hotWordStoriesByCategory/:id_category', storyReader.getHotWordStoriesByCategory);// truyện hot theo thể loại
 router.get('/WordStoryUpdating', storyReader.getWordStoriesUpdating);// truyện mới cập nhật
 router.get('/WordStoryUpdatingByCategory/:id_category', storyReader.getWordStoriesUpdatingByCategories);// truyện mới cập nhật
+router.get('/usersReader/:id', storyReader.getUseById);
+router.put('/updatePass/:id', storyReader.updatePasswordReader);
 
 export default router;

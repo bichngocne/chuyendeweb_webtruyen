@@ -44,6 +44,7 @@ story.init(
     view: DataTypes.INTEGER,
     id_user: DataTypes.INTEGER,
     deleted: DataTypes.BOOLEAN,
+    version: { type: DataTypes.INTEGER, defaultValue: 0 },
   },
   {
     sequelize,

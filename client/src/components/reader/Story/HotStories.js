@@ -5,6 +5,7 @@ import "react-dropdown/style.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams, useNavigate, Link } from "react-router-dom";
+import {encodeWithSecret} from "../../../ultis/function"
 import * as apis from "../../../apis";
 import StoryUpdating from "./StoryUpdating";
 import { useTheme } from "../ThemeContext";
@@ -79,8 +80,12 @@ const HotStories = () => {
         {/* show truyện */}
         <div className="">
           <div className="grid grid-cols-8 gap-4 mt-[10px]">
-            {displayedStories.length>0 ?( displayedStories.map((story) => (
-              <Link to={`/story/${story.id}`} className="relative">
+            {displayedStories.length>0 ?( displayedStories.map((story) => {
+                const storyId = story.id;
+                const secret = "iloveyoubaby"
+                const encodedId = encodeWithSecret(storyId , secret)
+              return(
+              <Link to={`/story/${encodedId}`} className="relative">
                 <img
                   className=""
                   src={`http://localhost:5000/api/static/uploads/${story.image}`}
@@ -92,7 +97,7 @@ const HotStories = () => {
                   </p>
                 </div>
               </Link>
-            ))):(<p>Chưa có truyện thuộc thể loại này</p>)}
+            )})):(<p>Chưa có truyện thuộc thể loại này</p>)}
           </div>
         </div>
       </div>

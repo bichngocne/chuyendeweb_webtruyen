@@ -7,7 +7,9 @@ import {
   Comment,
 } from "../../models/index.js";
 import { Op } from "sequelize";
-import Sequelize from'sequelize';
+import Sequelize from "sequelize";
+import bcrypt from "bcrypt";
+
 const getAllWordStory = async (req, res) => {
   try {
     console.log("hih");
@@ -84,13 +86,12 @@ const getWordStoryOfCategory = async (req, res) => {
       where: { id_category },
       include: {
         model: story,
-          as: "story",
-          where: {
-            status_approve: 1,
-            classifi: 0,
+        as: "story",
+        where: {
+          status_approve: 1,
+          classifi: 0,
         },
       },
-
     });
     // Gửi danh sách tên thể loại như phản hồi JSON
     res.json({ stories: stories });
@@ -168,7 +169,7 @@ const getHotWordStoriesByCategory = async (req, res) => {
   try {
     console.log("getHotWordStoriesByCategory");
     const { id_category } = req.params;
-    
+
     const hotStories = await story_category.findAll({
       include: [
         {
@@ -193,7 +194,9 @@ const getHotWordStoriesByCategory = async (req, res) => {
     });
 
     const groupedStories = {};
-    groupedStories[id_category] = hotStories.map((storyCategory) => storyCategory.story);
+    groupedStories[id_category] = hotStories.map(
+      (storyCategory) => storyCategory.story
+    );
 
     res.json({ getHotWordStoriesByCategory: groupedStories });
   } catch (error) {
@@ -207,8 +210,13 @@ const getWordStoriesUpdating = async (req, res) => {
     const storiesUpdating = await chapper.findAll({
       attributes: [
         "number_chapper",
-        [Sequelize.literal('(SELECT MAX(`number_chapper`) FROM `chappers` WHERE `chappers`.`id_story` = `story`.`id`)'), 'max_chapter'],
-        'updatedAt',
+        [
+          Sequelize.literal(
+            "(SELECT MAX(`number_chapper`) FROM `chappers` WHERE `chappers`.`id_story` = `story`.`id`)"
+          ),
+          "max_chapter",
+        ],
+        "updatedAt",
       ],
       include: [
         {
@@ -221,16 +229,14 @@ const getWordStoriesUpdating = async (req, res) => {
         },
       ],
       where: Sequelize.literal(
-        '`story`.`total_chapper` > (SELECT COUNT(*) FROM `chappers` WHERE `chappers`.`id_story` = `story`.`id`)'
+        "`story`.`total_chapper` > (SELECT COUNT(*) FROM `chappers` WHERE `chappers`.`id_story` = `story`.`id`)"
       ),
       order: [["updatedAt", "DESC"]],
       limit: 20,
     });
-    
-    
+
     // Gửi kết quả về phía client dưới dạng JSON
     res.json({ storiesUpdating });
-    
   } catch (error) {
     console.error("Error retrieving latest updated stories:", error);
     res.status(500).json({ error: "Internal Server Error" });
@@ -239,54 +245,121 @@ const getWordStoriesUpdating = async (req, res) => {
 const getWordStoriesUpdatingByCategories = async (req, res) => {
   try {
     console.log("getStoriesUpdating");
-   const categoryId = req.params.id_category; // Lấy categoryId từ đường dẫn API
-   if (!categoryId) {
-    return res.status(400).json({ error: "Missing categoryId in the request" });
-  }
+    const categoryId = req.params.id_category; // Lấy categoryId từ đường dẫn API
+    if (!categoryId) {
+      return res
+        .status(400)
+        .json({ error: "Missing categoryId in the request" });
+    }
 
-  const storiesUpdating = await chapper.findAll({
-    attributes: [
-      "number_chapper",
-      [
-        Sequelize.literal('(SELECT MAX(`number_chapper`) FROM `chappers` WHERE `chappers`.`id_story` = `story`.`id`)'),
-      'max_chapter'
+    const storiesUpdating = await chapper.findAll({
+      attributes: [
+        "number_chapper",
+        [
+          Sequelize.literal(
+            "(SELECT MAX(`number_chapper`) FROM `chappers` WHERE `chappers`.`id_story` = `story`.`id`)"
+          ),
+          "max_chapter",
+        ],
+        "updatedAt",
+        [
+          Sequelize.literal(
+            "(SELECT id_category FROM `story_categories` WHERE `story_categories`.`id_story` = `story`.`id` LIMIT 1)"
+          ),
+          "categoryId",
+        ],
       ],
-      'updatedAt',
-      [Sequelize.literal('(SELECT id_category FROM `story_categories` WHERE `story_categories`.`id_story` = `story`.`id` LIMIT 1)'), 'categoryId'],
-    ],
-    include: [
-      {
-        model: story,
-        as:"story",
-        attributes: ["id", "name", "createdAt", "updatedAt", "total_chapper"],
-        where: {
-          status_approve: 1,
-          classifi: 0,
+      include: [
+        {
+          model: story,
+          as: "story",
+          attributes: ["id", "name", "createdAt", "updatedAt", "total_chapper"],
+          where: {
+            status_approve: 1,
+            classifi: 0,
+          },
         },
-      },
-    ],
-    where: Sequelize.literal([
-      '(',
-      '  SELECT COUNT(*)',
-      '  FROM story_categories sc',
-      '  INNER JOIN stories ON sc.id_story = stories.id',
-      '  WHERE  sc.id_category = :categoryId', // Using parameterized query
-      ') > `story`.`total_chapper`'
-    ].join('\n')),
-    group: ['story.id'],
-    having: Sequelize.literal('number_chapper < `story`.`total_chapper`'),
-    replacements: { categoryId: categoryId }, // Bind the parameter value
-    order: [["updatedAt", "DESC"]],
-    limit: 20,
-  });
+      ],
+      where: Sequelize.literal(
+        [
+          "(",
+          "  SELECT COUNT(*)",
+          "  FROM story_categories sc",
+          "  INNER JOIN stories ON sc.id_story = stories.id",
+          "  WHERE  sc.id_category = :categoryId", // Using parameterized query
+          ") > `story`.`total_chapper`",
+        ].join("\n")
+      ),
+      group: ["story.id"],
+      having: Sequelize.literal("number_chapper < `story`.`total_chapper`"),
+      replacements: { categoryId: categoryId }, // Bind the parameter value
+      order: [["updatedAt", "DESC"]],
+      limit: 20,
+    });
     // Gửi kết quả về phía client dưới dạng JSON
     res.json({ storiesUpdating });
-    
   } catch (error) {
     console.error("Error retrieving latest updated stories:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+const getUseById = async (req, res) => {
+  console.log("getUseById");
+  const UserId = req.params.id; // Lấy giá trị id từ đường dẫn URL
+
+  try {
+    const users = await user.findByPk(UserId);
+    if (users) {
+      return res.json({ users });
+    } else {
+      return res.status(404).json({ error: "story not found" });
+    }
+  } catch (error) {
+    console.error("Error retrieving story:", error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+const updatePasswordReader = async (req, res) => {
+  const userId = req.params.id;
+  console.log(userId);
+  const { currentPassword, newPassword } = req.body;
+  
+  // console.log('currentPassword:', currentPassword);
+  // console.log('newPassword:', newPassword);
+  try {
+    const users = await user.findByPk(userId);
+    if (!users) {
+      return res.status(404).json({ error: "User not found" });
+    }
+   const isPasswordValid = await bcrypt.compare(
+      currentPassword,
+      users.password
+    );
+    console.log('Password comparison result:', isPasswordValid);
+
+    if (!isPasswordValid) {
+      return res.status(400).json({ error: "Current password is incorrect" });
+    }
+
+    if (!isValidPassword(newPassword)) {
+      return res.status(400).json({ error: "Invalid new password format" });
+    }
+
+    const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+    await user.update({ password: hashedNewPassword }, { where: { id: userId } });
+
+    return res.json({ message: "Password updated successfully" });
+  } catch (error) {
+    console.error("Error updating password:", error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+const isValidPassword = (password) => {
+  const passwordRegex = /^(?=.*[^\s])(?=.*[a-zA-Z0-9]).{8,}$/;
+  return passwordRegex.test(password);
+};
+
 export default {
   getStoryCategories,
   getWordStoryOfCategory,
@@ -299,5 +372,7 @@ export default {
   getHotWordStoriesByCategory,
   getWordStoriesUpdating,
   getWordStoriesUpdatingByCategories,
-  getAllWordStory
+  getAllWordStory,
+  getUseById,
+  updatePasswordReader,
 };

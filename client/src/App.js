@@ -9,7 +9,7 @@ import {
   Story,
   Chapper,
 } from "./container/system/poster";
-import { DetailStory, TypeStory, ChapperReader,NotFound, ListComics } from "./container/system/reader";
+import { DetailStory, TypeStory, ChapperReader,NotFound, ListComics, DetailComic, DetailChapperComic, InfoReader } from "./container/system/reader";
 import { Public } from "./container/public";
 import { ListStoryAdmin,ListCategoryAdmin,ListPendingAdmin,ListUserAdmin,DetailStoryAdmin,PendingDetailAdmin } from "./container/system/admin";
 import { Route, Routes } from "react-router-dom";
@@ -55,6 +55,9 @@ function App() {
                 <Route path={path.DETAIL_STORY} element={<DetailStory />} />
                 <Route path={path.CHAPPER_READER} element={<ChapperReader />} />
                 <Route path={path.LIST_COMICS} element={<ListComics />} />
+                <Route path={path.DETAIL_COMIC} element={<DetailComic />} />
+                <Route path={path.DETAIL_CHAPPER_COMIC} element={<DetailChapperComic />} />
+                <Route path={path.INFO_READER} element={<InfoReader />} />
                 <Route path={path.NOTFOUND_PAGE} element={<NotFound/>}/>
               </Routes>
             </Suspense>

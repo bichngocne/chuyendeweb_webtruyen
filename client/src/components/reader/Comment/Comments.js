@@ -14,6 +14,8 @@ const Comments = () => {
   const [comments, setComments] = useState(0);
   const { storyId } = useParams();
   const [sortOption, setSortOption] = useState("Mới nhất");
+
+  console.log(storyId);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -21,6 +23,7 @@ const Comments = () => {
         const listComments = await apis.getAllCommentOfStory(storyId);
         const listCommentsData = listComments.data.comments;
 
+        console.log(listCommentsData);
         // Lấy thông tin người dùng cho mỗi comment
         const commentsWithUserData = await Promise.all(
           listCommentsData.map(async (comment) => {
@@ -98,7 +101,7 @@ const Comments = () => {
               <div className="flex my-2 items-center">
                 <div className=" w-[70px] h-[70px] flex justify-center items-center bg-blue-700 mr-3">
                   <p className="font-bold text-[50px] !m-0 !p-0">
-                    {fisterName}{" "}
+                    {fisterName}
                   </p>
                 </div>
                 <div>

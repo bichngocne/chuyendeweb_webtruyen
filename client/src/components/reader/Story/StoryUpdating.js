@@ -5,6 +5,7 @@ import "react-dropdown/style.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import icons from "../../../ultis/icons";
+import {encodeWithSecret} from "../../../ultis/function"
 import * as apis from "../../../apis";
 import { formatDistanceToNow } from "date-fns";
 import { vi } from "date-fns/locale";
@@ -64,6 +65,8 @@ const StoryUpdating = () => {
       addSuffix: true,
     });
   };
+
+  
   return (
     <div>
       <div className="flex items-start justify-between mt-10">
@@ -98,10 +101,12 @@ const StoryUpdating = () => {
                   {storiesUpadeting.slice(0,16).map((story) => {
                     // Lọc danh sách thể loại cho truyện cụ thể
                     const storyId = story.story.id;
+                    const secret = "iloveyoubaby"
+                    const encodedId = encodeWithSecret(storyId , secret)
                     const storyCategoriesForStory=storyCategoriesMap[storyId] || [];
                     return (
                       <tr key={storyId}>
-                        <Link  to={`/story/${story.story.id}`} className="border border-black border-l-0 border-t-0 border-dashed pr-3 flex items-center">
+                        <Link  to={`/story/${encodedId}`} className="border border-black border-l-0 border-t-0 border-dashed pr-3 flex items-center">
                           <MdOutlineNavigateNext size={24} /> {story.story.name}
                         </Link>
                         <td className="border border-black border-l-0 border-t-0 border-dashed px-3 ">

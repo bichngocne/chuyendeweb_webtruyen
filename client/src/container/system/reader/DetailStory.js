@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Footer, Header, Comments } from "../../../components/reader";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import hinh from "../../../assets/images";
 import icons from "../../../ultis/icons";
+import {decodeWithSecret , encodeWithSecret } from "../../../ultis/function";
 import * as apis from "../../../apis";
 import { useTheme } from "../../../components/reader/ThemeContext";
 const DetailStory = () => {
@@ -16,11 +17,13 @@ const DetailStory = () => {
   const { theme } = useTheme();
   const { FaStarOfLife } = icons;
 
+  const secretKey ="iloveyoubaby"
+const decodedId = decodeWithSecret(storyId, secretKey);
   useEffect(() => {
     const fetchData = async () => {
       try {
         // Lấy thông tin về câu chuyện
-        const detailStoryResponse = await apis.getStoryByIdR(storyId);
+        const detailStoryResponse = await apis.getStoryByIdR(decodedId);
         const storyData = detailStoryResponse.data.stories;
         console.log(storyData);
 
@@ -36,7 +39,7 @@ const DetailStory = () => {
         });
 
         // Lấy thể loại của câu chuyện
-        const categoryResponse = await apis.getCategoryofStory(storyId);
+        const categoryResponse = await apis.getCategoryofStory(decodedId);
         const categoryNames = categoryResponse.data.storyCategory.map(
           (item) => item.Category.name
         );
@@ -48,7 +51,7 @@ const DetailStory = () => {
         setStories(allStoryResponse.data.stories);
 
         // Lấy danh sách chương truyện
-        const chapperResponse = await apis.getAllChapperOfStory(storyId);
+        const chapperResponse = await apis.getAllChapperOfStory(decodedId);
         setChappers(chapperResponse.data.chappers);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -56,7 +59,7 @@ const DetailStory = () => {
     };
 
     fetchData();
-  }, [storyId]);
+  }, [decodedId]);
 
   // màu nền cho stt truyện hot
   const getBackgroundColor = (index) => {
@@ -163,15 +166,19 @@ const DetailStory = () => {
                   <div>
                     {chappers.length > 0 ? (
                       <div>
-                        {chappers.map((chapper) => (
-                          <div key={chapper.id} className="flex items-center">
+                        {chappers.map((chapper) => {
+                           const chapperId = chapper.id;
+                           const secret = "iloveyoubaby"
+                           const encodedId = encodeWithSecret(chapperId , secret)
+                          return(
+                          <Link to={`/chapper/${storyId}/${encodedId}`} key={encodedId} className="flex items-center">
                             <FaStarOfLife size={18} />
                             <p className="mr-2 font-medium">
                               Chương {chapper.number_chapper} :{" "}
                             </p>
                             <p>{chapper.title}</p>
-                          </div>
-                        ))}
+                          </Link>
+                        )})}
                       </div>
                     ) : (
                       <p>Chưa có chương truyện nào</p>

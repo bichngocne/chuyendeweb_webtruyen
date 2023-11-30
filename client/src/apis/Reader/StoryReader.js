@@ -1,5 +1,6 @@
 import axios from "axios";
 import HOST from "../host";
+import bcrypt from "bcryptjs";
 export const getAllWordStory = () =>
   new Promise(async (resolve, reject) => {
     try {
@@ -115,3 +116,34 @@ export const getWordStoriesUpdatingByCategory = (id_category) => {
     }
   });
 };
+export const getUserByIdReader = (id_user) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await axios({
+        url: `${HOST}/usersReader/${id_user}`,
+        method: "get",
+      });
+      resolve(response);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+export const apiPutChangePassword = (currentPassword, newPassword , id_user) =>
+  new Promise(async (resolve, reject) => {
+    try {
+   // const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+      const response = await axios({
+        url:`${HOST}/updatePass/${id_user}`,
+        method: "put",
+        data: {
+          currentPassword: currentPassword,
+          newPassword: newPassword,
+        },
+        headers: { "Content-Type": "multipart/form-data" }, 
+      });
+      resolve(response);
+    } catch (error) {
+      reject(error);
+    }
+  });

@@ -17,7 +17,8 @@ import { story } from "./Story.js";
     id_story: DataTypes.INTEGER,
     number_chapper: DataTypes.INTEGER,
     image: DataTypes.STRING,
-    content: DataTypes.TEXT
+    content: DataTypes.TEXT,
+    version: { type: DataTypes.INTEGER, defaultValue: 0 },
   }, {
     sequelize,
     modelName: 'chapper',

@@ -1,5 +1,6 @@
 export {default as categoryReader} from './readerControllers/category.js';
 export {default as storyReader} from './readerControllers/story.js';
+export {default as comicsReader} from './readerControllers/ComicsReader.js';
 // export {default as storyCategoriesReader} from './readerControllers/story_category.js';
 export {default as Comment} from './readerControllers/Comment.js';
 export {default as ChapperReader} from './readerControllers/ChapperReader.js';

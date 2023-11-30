@@ -42,6 +42,9 @@ module.exports = {
       },
       allowNull: false
     },
+    version:{
+      type: Sequelize.INTEGER
+    },
     deleted: {
       type: Sequelize.BOOLEAN
     },

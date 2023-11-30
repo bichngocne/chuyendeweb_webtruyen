@@ -18,6 +18,9 @@ const path = {
     DETAIL_STORY:'story/:storyId',
     CHAPPER_READER:'chapper/:storyId/:chapperId',
     LIST_COMICS:'reader/listcomics',
+    DETAIL_COMIC:'reader/detailComic/:storyId',
+    DETAIL_CHAPPER_COMIC:'reader/detailComic/:storyId/:chapperId',
+    INFO_READER:'infomation/:user_id',
     NOTFOUND_PAGE:'/notfound',
     //Đường dẫn admin
     HOME_FOR_ADMIN:'admin',

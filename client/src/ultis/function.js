@@ -52,6 +52,14 @@ const isNumber = (value) => {
   const parsedValue = parseFloat(value);
   return !isNaN(parsedValue) && parsedValue > -1;
 };
+const encodeWithSecret = (value,secret) => {
+  const encodedValue = btoa(value.toString() + secret);
+  return encodeURIComponent(encodedValue);
+}
 
-
-export { createSlug, encryptData,callDetail,isNumber };
+const decodeWithSecret = (encodedValue, secret) => {
+  const decodedValue = atob(decodeURIComponent(encodedValue));
+  const originalValue = decodedValue.replace(secret, '');
+  return originalValue;
+};
+export { createSlug, encryptData,callDetail,isNumber,encodeWithSecret,decodeWithSecret };

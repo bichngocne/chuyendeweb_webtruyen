@@ -6,22 +6,25 @@ import {
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import icons from "../../../ultis/icons";
+import {decodeWithSecret , encodeWithSecret } from "../../../ultis/function";
 import * as apis from "../../../apis";
 const ChapperReader = () => {
   const { chapperId } = useParams();
   const [chapper, setChapper] = useState([]);
   const navigation = useNavigate();
+  const secretKey ="iloveyoubaby"
+  const decodedId = decodeWithSecret(chapperId, secretKey);
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const chapperData = await apis.getChaperByIdR(chapperId);
+        const chapperData = await apis.getChaperByIdR(decodedId);
         setChapper(chapperData.data.chapperInfo);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
     fetchData();
-  }, [chapperId]);
+  }, [decodedId]);
   return (
     <div >
       <div className="bg-[#0e2234]">
