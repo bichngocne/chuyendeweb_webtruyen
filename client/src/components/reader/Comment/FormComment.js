@@ -9,14 +9,14 @@ const FormComment = () => {
   const [star, setstar] = useState(0);
   const [hover, setHover] = useState(0);
   const [commentContent, setCommentContent] = useState("");
-  const [userId] = useState(1); // Giá trị mặc định cho id_user
-
+  // const [userId] = useState(1); // Giá trị mặc định cho id_user
+  const userId = 1;
   const { storyId } = useParams();
   const secretKey = "iloveyoubaby";
   const decodedIdStory = decodeWithSecret(storyId, secretKey);
-  // console.log(decodedIdStory);
   const [error, setError] = useState(null);
   const [comments, setComments] = useState([]);
+  const [comment, setComment] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -24,24 +24,35 @@ const FormComment = () => {
         const listComments = await apis.getAllCommentOfStory(decodedIdStory);
         const listCommentsData = listComments.data.comments;
         setComments(listCommentsData);
+
+        comments.map((comment) => {
+          setComment(comment);
+          console.log(comment);
+        });
       } catch (error) {
         console.error("Error fetching data:", error);
       }
-    }
+    };
     fetchData();
-  },[]);
+  }, [comment]);
   const handleSubmit = (event) => {
     console.log("handleSubmit is called");
     event.preventDefault();
     const commentData = {
-          id_user: userId,
-          id_story: decodedIdStory,
-          content: commentContent,
-          star: star,
-        };
+      id_user: userId,
+      id_story: decodedIdStory,
+      content: commentContent,
+      star: star,
+    };
     // Kiểm tra content
-    if (!commentContent || commentContent.trim().length < 5 || commentContent.trim().startsWith(" ")) {
-      setError("Bình luận của bạn có trên 3 kí tự và không bắt đầu bằng khoảng trắng.");
+    if (
+      !commentContent ||
+      commentContent.trim().length < 5 ||
+      commentContent.trim().startsWith(" ")
+    ) {
+      setError(
+        "Bình luận của bạn có trên 3 kí tự và không bắt đầu bằng khoảng trắng."
+      );
       return;
     }
     // Kiểm tra star
@@ -49,12 +60,14 @@ const FormComment = () => {
       setError("Bạn nên chọn sao");
       return;
     }
-     // Kiểm tra star
-     if (userId !== comments.id_user) {
+    // Kiểm tra
+
+    if (userId === comment.id_user) {
       setError("Bạn đã bình luận truyện này trước đó");
       return;
     }
-    // Gọi hàm xử lý việc tạo comment trên server ở đây, ví dụ sử dụng fetch hoặc axios
+
+    // Gọi hàm xử lý việc tạo comment trên server
     fetch("http://localhost:5000/api/createrComment", {
       method: "POST",
       headers: {
@@ -65,13 +78,17 @@ const FormComment = () => {
       .then((response) => {
         if (!response.ok) {
           // Nếu có lỗi từ server, reject Promise để nó sẽ được xử lý trong catch
-          return Promise.reject(new Error(`Server error: ${response.status} ${response.statusText}`));
+          return Promise.reject(
+            new Error(`Server error: ${response.status} ${response.statusText}`)
+          );
         }
         return response.json();
       })
       .then((data) => {
         console.log("Comment created:", data);
-        // Xử lý sau khi comment được tạo
+        setstar('');
+        setCommentContent("");
+        
       })
       .catch((error) => {
         console.error("Error creating comment:", error);
@@ -117,7 +134,7 @@ const FormComment = () => {
         >
           Comment
         </button>
-        <span style={{ color: "red"}}>{error}</span>
+        <span style={{ color: "red" }}>{error}</span>
       </form>
     </div>
   );

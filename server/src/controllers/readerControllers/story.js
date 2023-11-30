@@ -324,8 +324,8 @@ const updatePasswordReader = async (req, res) => {
   console.log(userId);
   const { currentPassword, newPassword } = req.body;
   
-  // console.log('currentPassword:', currentPassword);
-  // console.log('newPassword:', newPassword);
+   console.log('currentPassword:', currentPassword);
+   console.log('newPassword:', newPassword);
   try {
     const users = await user.findByPk(userId);
     if (!users) {
@@ -335,7 +335,7 @@ const updatePasswordReader = async (req, res) => {
       currentPassword,
       users.password
     );
-    console.log('Password comparison result:', isPasswordValid);
+     console.log('Password comparison result:', isPasswordValid);
 
     if (!isPasswordValid) {
       return res.status(400).json({ error: "Current password is incorrect" });
@@ -347,7 +347,14 @@ const updatePasswordReader = async (req, res) => {
 
     const hashedNewPassword = await bcrypt.hash(newPassword, 10);
     await user.update({ password: hashedNewPassword }, { where: { id: userId } });
+    
+    // Lấy thông tin mới sau khi cập nhật
+    const updatedUser = await user.findByPk(userId);
 
+    return res.json({
+      message: "Password updated successfully",
+      newPassword: updatedUser.password, // Trả về mật khẩu mới (lưu ý: không khuyến khích làm như vậy vì lý do bảo mật)
+    });
     return res.json({ message: "Password updated successfully" });
   } catch (error) {
     console.error("Error updating password:", error);

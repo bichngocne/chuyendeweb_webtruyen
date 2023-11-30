@@ -23,8 +23,6 @@ const Comments = () => {
         // lấy danh sách comments
         const listComments = await apis.getAllCommentOfStory(decodedIdStory);
         const listCommentsData = listComments.data.comments;
-        console.log(listCommentsData.id_user);
-        console.log(listCommentsData);
         // Lấy thông tin người dùng cho mỗi comment
         const commentsWithUserData = await Promise.all(
           listCommentsData.map(async (comment) => {
@@ -56,7 +54,6 @@ const Comments = () => {
 
     fetchData();
   }, [decodedIdStory, sortOption]);
-
   const getTimeDistance = (createdAt) => {
     return formatDistanceToNow(new Date(createdAt), {
       locale: vi,
@@ -98,6 +95,7 @@ const Comments = () => {
         {comments &&
           comments.slice(0, 10).map((comment) => {
             const fisterName = comment.user.name.charAt(0);
+            // console.log(comment.id_user);
             return (
               <div className="flex my-2 items-center">
                 <div className=" w-[70px] h-[70px] flex justify-center items-center bg-blue-700 mr-3">
