@@ -1,6 +1,6 @@
 import axios from "../../axios";
 //api get story
-const getStories = () =>
+const getStoriesAdmin = () =>
   new Promise(async (resolve, reject) => {
     try {
       const response = await axios({
@@ -12,7 +12,7 @@ const getStories = () =>
       reject(error);
     }
   });
-  const getStoriesApproved = () =>
+const getStoriesApprovedAdmin = () =>
   new Promise(async (resolve, reject) => {
     try {
       const response = await axios({
@@ -24,7 +24,7 @@ const getStories = () =>
       reject(error);
     }
   });
-  const getStoriesPending = () =>
+const getStoriesPendingAdmin = () =>
   new Promise(async (resolve, reject) => {
     try {
       const response = await axios({
@@ -40,11 +40,11 @@ const getStories = () =>
 //api get story by id
 
 //api get story by id
-const apiGetStoryById = (id) =>
+const apiGetStoryByIdAdmin = (id) =>
   new Promise(async (resolve, reject) => {
     try {
       const response = await axios({
-        url: `/story/${id}`,
+        url: `/storyAdmin/${id}`,
         method: "get",
       });
       resolve(response);
@@ -53,11 +53,11 @@ const apiGetStoryById = (id) =>
     }
   });
 ///story/category/:id
-const apiGetCategoryOfStoryById = (id) =>
+const apiGetCategoryOfStoryByIdAdmin = (id) =>
   new Promise(async (resolve, reject) => {
     try {
       const response = await axios({
-        url: `/story/category/${id}`,
+        url: `/storyAdmin/category/${id}`,
         method: "get",
       });
       resolve(response);
@@ -66,11 +66,11 @@ const apiGetCategoryOfStoryById = (id) =>
     }
   });
 
-  const apiGetUserOfStoryById = (id) =>
+const apiGetUserOfStoryByIdAdmin = (id) =>
   new Promise(async (resolve, reject) => {
     try {
       const response = await axios({
-        url: `/story/user/${id}`,
+        url: `/storyAdmin/user/${id}`,
         method: "get",
       });
       resolve(response);
@@ -78,4 +78,11 @@ const apiGetCategoryOfStoryById = (id) =>
       reject(error);
     }
   });
-export { getStories,getStoriesApproved,getStoriesPending,apiGetUserOfStoryById, apiGetStoryById,apiGetCategoryOfStoryById };
+export {
+  getStoriesAdmin,
+  getStoriesApprovedAdmin,
+  getStoriesPendingAdmin,
+  apiGetUserOfStoryByIdAdmin,
+  apiGetStoryByIdAdmin,
+  apiGetCategoryOfStoryByIdAdmin,
+};

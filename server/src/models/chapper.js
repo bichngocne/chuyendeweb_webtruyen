@@ -1,6 +1,7 @@
 'use strict';
 import { DataTypes, Model } from "sequelize";
 import {sequelize} from "../database/connect.js";
+import { story } from "./story.js";
   class chapper extends Model {
     /**
      * Helper method for defining associations.
@@ -15,17 +16,15 @@ import {sequelize} from "../database/connect.js";
       });
     }
   }
-  chapper.init(
-    {
-      title: DataTypes.STRING,
-      id_story: DataTypes.INTEGER,
-      number_chapper: DataTypes.INTEGER,
-      image: DataTypes.STRING,
-      content: DataTypes.STRING,
-    },
-    {
-      sequelize,
-      modelName: 'chapper',
-    }
-  );
+  chapper.init({
+    title: DataTypes.STRING,
+    id_story: DataTypes.INTEGER,
+    number_chapper: DataTypes.INTEGER,
+    image: DataTypes.STRING,
+    content: DataTypes.TEXT
+  }, {
+    sequelize,
+    modelName: 'chapper',
+  });
+  chapper.belongsTo(story, { foreignKey: 'id_story' }); 
 export{chapper}

@@ -12,14 +12,14 @@ const DetailStoryAdmin = () => {
   const storyId = id;
   useEffect(() => {
     const fetchDetailStory = async () => {
-      const response = await apis.apiGetStoryById(storyId);
+      const response = await apis.apiGetStoryByIdAdmin(storyId);
       if (response.status === 200) {
         setDetailStory(response.data);
       }
     };
     fetchDetailStory();
     const fetchCategoryStory = async () =>{
-       const responseCategory = await apis.apiGetCategoryOfStoryById(storyId);
+       const responseCategory = await apis.apiGetCategoryOfStoryByIdAdmin(storyId);
        if (responseCategory.status === 200) {
         setCategoryStory(responseCategory.data);
       }

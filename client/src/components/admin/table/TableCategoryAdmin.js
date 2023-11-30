@@ -74,7 +74,7 @@ const TableAdmin = ({ searchTerm }) => {
     ];
 
   useEffect(() => {
-      dispatch(actions.getCategories());
+      dispatch(actions.getCategoriesAdmin());
   }, []);
 
   const [filteredData, setFilteredData] = useState([]);

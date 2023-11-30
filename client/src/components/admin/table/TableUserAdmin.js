@@ -74,7 +74,7 @@ const TableAdmin = ({ searchTerm }) => {
 
   useEffect(() => {
     //gọi hàm get
-    dispatch(actions.getUsers());
+    dispatch(actions.getUsersAdmin());
   }, []);
 
   const [filteredData, setFilteredData] = useState([]);

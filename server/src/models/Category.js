@@ -1,6 +1,7 @@
 "use strict";
 import { DataTypes, Model } from "sequelize";
 import {sequelize} from "../database/connect.js";
+
 class Category extends Model {
   /**
    * Helper method for defining associations.
@@ -28,4 +29,5 @@ Category.init(
     modelName: "Category",
   }
 );
+
 export {Category};

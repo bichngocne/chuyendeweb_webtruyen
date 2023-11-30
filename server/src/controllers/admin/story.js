@@ -106,4 +106,4 @@ async function findByIdAndDeleteAdmin(req, res) {
   }
 }
 
-export default { index,showStoryApprovedAdmin,showStoryPendingAdmin , showAdmin, getCategoryOfStoryByIdAdmin,getUserOfStoryByIdAdmin,findByIdAndDeleteAdmin};
+export default { index,showStoryApproved,showStoryPending , show, getCategoryOfStoryById,getUserOfStoryById};

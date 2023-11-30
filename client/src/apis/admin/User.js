@@ -1,6 +1,6 @@
 import axios from "../../axios";
 
-const getUsers = () => new Promise(async(resolve,reject) => {
+const getUsersAdmin = () => new Promise(async(resolve,reject) => {
     try {
         const response = await axios({
             url:'/users',
@@ -11,4 +11,4 @@ const getUsers = () => new Promise(async(resolve,reject) => {
         reject(error)
     }
 })
-export {getUsers}
+export {getUsersAdmin}

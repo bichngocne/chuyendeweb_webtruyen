@@ -1,9 +1,9 @@
-import axios from "../axios";
-
-export const getCategories = () => new Promise(async(resolve,reject) => {
+import axios from "axios"
+import HOST from "./host.js"
+export const getAllCategories = () => new Promise(async(resolve,reject) => {
     try {
         const response = await axios({
-            url:'/categories',
+            url:`${HOST}/categories`,
             method:'get'
         })
         resolve(response)

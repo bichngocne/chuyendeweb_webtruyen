@@ -43,6 +43,6 @@ story.init(
   {
     sequelize,
     modelName: "stories",
-  }
-);
+  });
+story.belongsTo(user, { foreignKey: 'id_user' }); // Định nghĩa mối quan hệ
 export { story };

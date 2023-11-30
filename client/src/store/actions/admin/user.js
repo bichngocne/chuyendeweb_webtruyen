@@ -1,9 +1,9 @@
 import actionTypes from "../actionTypes";
 import * as apis from "../../../apis";
 
-export const getUsers = () => async (dispatch) => {
+export const getUsersAdmin = () => async (dispatch) => {
     try {
-        const response = await apis.getUsers();
+        const response = await apis.getUsersAdmin();
         if(response?.status === 200){
             dispatch({
                 type : actionTypes.GET_USER_FOR_ADMIN,

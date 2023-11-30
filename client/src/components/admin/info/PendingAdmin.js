@@ -13,7 +13,7 @@ const PendingAdmin = ({ detailStory, categoryStory }) => {
       try {
         const userId = detailStory?.storyById.id_user;
         if (userId) {
-          const responseUser = await apis.apiGetUserOfStoryById(userId);
+          const responseUser = await apis.apiGetUserOfStoryByIdAdmin(userId);
 
           if (responseUser.status === 200 && responseUser.data.foundUser) {
             setUserStory(responseUser.data.foundUser.name);
