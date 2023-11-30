@@ -141,7 +141,7 @@ class FormStory extends React.Component {
           imgValue: [this.props.dataStory?.storyById.image] || {},
           authorValue: this.props.dataStory?.storyById.author || "",
           totalChapValue: this.props.dataStory?.storyById.total_chapper || "",
-          classifiValue: this.props.dataStory?.storyById.classifi || "",
+          classifiValue: this.props.dataStory?.storyById.classifi || 0,
         });
       }
     }

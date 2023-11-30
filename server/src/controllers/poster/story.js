@@ -183,6 +183,7 @@ async function update(req, res, next) {
             total_chapper: Number(data.totalChap),
             author: data.author,
             image: img,
+            classifi: data.classifi
           },
           {
             where: {
