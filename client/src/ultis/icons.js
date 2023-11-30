@@ -31,7 +31,10 @@ const icons = {
   BsFillStarFill,IoHome,
   FaListAlt ,
   GrFormPrevious ,
-  GrFormNext  ,FaRegFileWord 
+  GrFormNext  ,FaRegFileWord ,
+  AiOutlineStar,
+  AiFillStar,
+  RiDeviceRecoverLine
 };
 
 export default icons;

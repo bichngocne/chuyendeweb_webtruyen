@@ -12,6 +12,7 @@ const HotComics = () => {
     const fetchData = async () => {
       try {
         const hotComicsData = await apis.getHotComicsStory();
+        console.log(hotComicsData.data.hotComics);
         setHotComics(hotComicsData.data.hotComics);
       } catch (error) {
         console.error("error fetch data", error);
