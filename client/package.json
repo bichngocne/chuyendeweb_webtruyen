@@ -20,6 +20,7 @@
     "dotenv": "^16.3.1",
     "http-proxy-middleware": "^2.0.6",
     "i18next": "^23.7.6",
+    "qs": "^6.11.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-dropdown": "^1.11.0",

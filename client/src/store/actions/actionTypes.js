@@ -15,6 +15,11 @@ const actionTypes = {
     GET_USER_ID_ADMIN:'GET_USER_ID_ADMIN',
     GET_USER_FOR_ADMIN:'GET_USER_FOR_ADMIN',
 
+    
+    LOGIN_SUCCESS: 'LOGIN_SUCCESS',
+  SET_USER_ROLE: 'SET_USER_ROLE',
+  REGISTER_SUCCESS:'REGISTER_SUCCESS',
+
 }
 
 export default actionTypes

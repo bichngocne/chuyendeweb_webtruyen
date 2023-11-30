@@ -12,12 +12,19 @@ import { Role } from "./role.js";
       // define association here
       user.belongsTo(models.Role, {
         foreignKey: "id_role", // Khóa ngoại của bảng Story trỏ đến khóa chính của bảng User
+        
       });
     }
   }
   user.init({
-    name: DataTypes.STRING,
-    email: DataTypes.STRING,
+    name: {
+      type: DataTypes.STRING,
+      unique: true, // Ràng buộc duy nhất trên trường name
+    },
+    email: {
+      type: DataTypes.STRING,
+      unique: true, // Ràng buộc duy nhất trên trường email
+    },
     password: DataTypes.STRING,
     id_role: DataTypes.INTEGER
   }, {

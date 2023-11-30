@@ -12,6 +12,7 @@ import {
 import { DetailStory, TypeStory } from "./container/system/reader";
 import { Public } from "./container/public";
 import { ListStoryAdmin,ListCategoryAdmin,ListPendingAdmin,ListUserAdmin,DetailStoryAdmin,PendingDetailAdmin } from "./container/system/admin";
+import {Login,Regester} from "./container/system/auth";
 import { Route, Routes } from "react-router-dom";
 import path from "./ultis/path";
 import { ThemeProvider } from "./components/reader/ThemeContext";
@@ -26,6 +27,9 @@ function App() {
           <div className="">
             <Suspense>
               <Routes>
+              
+              <Route path={path.LOGIN} element={<Login />} />
+              <Route path={path.REGESTER} element={<Regester />} />
                 {/* Tuyến đường của poster */}
                 <Route path={path.HOME_FOR_POSTER} element={<HomePoster />}>
                   <Route path={path.POST_STORY} element={<PostStory />} />

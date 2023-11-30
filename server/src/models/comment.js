@@ -2,7 +2,7 @@
 import { DataTypes, Model } from "sequelize";
 import {sequelize} from "../database/connect.js";
 import { user } from "./user.js";
-import { story } from "./Story.js";
+import { story } from "./story.js";
   class Comment extends Model {
     /**
      * Helper method for defining associations.
@@ -23,5 +23,5 @@ import { story } from "./Story.js";
     modelName: 'Comments',
   });
   Comment.belongsTo(user, { foreignKey: 'id_user' }); 
-  Comment.belongsTo(story, { foreignKey: 'id_story' }); 
+  Comment.belongsTo(story, { foreignKey: 'id_story',onDelete: 'CASCADE'}); 
   export {Comment};
