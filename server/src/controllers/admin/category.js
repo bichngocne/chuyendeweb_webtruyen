@@ -1,7 +1,6 @@
 import {Category} from '../../models/index.js';
 const getCategory = async (req, res) => {
   try {
-    console.log('hih');
     const categories = await Category.findAll();
     return res.json({ categories });
   } catch (error) {

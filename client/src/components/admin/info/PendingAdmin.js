@@ -38,11 +38,11 @@ const PendingAdmin = ({ detailStory, categoryStory }) => {
     >
       <div className="p-[40px]">
         <div className="flex">
-          <img className="w-[150px] h-[185px] mr-[40px]" src={`http://localhost:5000/api/static/uploads/${detailStory?.storyById?.image}`}  />
+          <img className="w-[150px] h-[185px] mr-[40px]"  src={`http://localhost:5000/api/static/uploads/${detailStory?.storyById?.image}`}/>
           <div className=" w-full flex justify-between">
             <div className="[font-family:'Roboto-Regular',Helvetica] font-normal text-black text-[14px]">
               <div className="pb-2.5">Tên truyện:{detailStory?.storyById.name}</div>
-              <div className="py-2.5">Thể loại:{categoryStory?.foundStory.map((element) => {
+              <div className="py-2.5">Thể loại:{categoryStory?.categoryStory.map((element) => {
             return element.Category.name;
           })}</div>
               <div className="py-2.5">Tác giả:{detailStory?.storyById.author}</div>

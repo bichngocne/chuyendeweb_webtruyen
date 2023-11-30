@@ -3,13 +3,14 @@ import express from "express";
 import {createProxyMiddleware} from "http-proxy-middleware";
 import {sequelize } from "./database/connect.js";
 import {categoryP,chapperP,storyP} from './routes/index.js'
+import {auth} from './routes/index.js'
 import {category, Story, story_categoryR, Comment , categoryReader, storyReader,chapperReader, comicsReader} from './routes/index.js';
 import cors from "cors"
 import methodOverride  from 'method-override';
 import bodyparser from 'body-parser';
 import { fileURLToPath } from 'url'
 import path from 'path'
-import {categoryA, storyA, userA } from './routes/index.js'
+import {categoryA, storyA, userA,chapperA } from './routes/index.js'
 dotenv.config();
 const app = express();
 // Initialize Sequelize
@@ -47,6 +48,8 @@ app.use('/api',cors({ origin: '*' }),Comment)
 app.use('/api',cors({ origin: '*' }),categoryA)
 app.use('/api',cors({ origin: '*' }),storyA)
 app.use('/api',cors({ origin: '*' }),userA)
+app.use('/api',cors({ origin: '*' }),chapperA)
+app.use('/api',cors({ origin: '*' }),auth)
 console.log("hello");
 // Cấu hình proxy middleware
 var options = {

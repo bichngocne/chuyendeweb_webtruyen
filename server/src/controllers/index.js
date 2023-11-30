@@ -12,3 +12,5 @@ export {default as category} from './Category.js' //category lấy chung
 export {default as categoryA} from './admin/category.js'
 export {default as storyA} from './admin/story.js'
 export {default as userA} from './admin/user.js'
+export {default as chapperA} from './admin/chapper.js'
+export {default as auth} from './auth/auth.js'

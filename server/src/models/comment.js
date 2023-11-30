@@ -22,6 +22,6 @@ import { story } from "./story.js";
     sequelize,
     modelName: 'Comments',
   });
-  Comment.belongsTo(user, { foreignKey: 'id_user', targetKey: 'id'  }); 
-  Comment.belongsTo(story, { foreignKey: 'id_story', targetKey: 'id'  }); 
+  Comment.belongsTo(user, { foreignKey: 'id_user', targetKey: 'id' }); 
+  Comment.belongsTo(story, { foreignKey: 'id_story', targetKey: 'id',onDelete: 'CASCADE'}); 
   export {Comment};

@@ -1,4 +1,5 @@
 "use strict";
+"use strict";
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../database/connect.js";
 import { story } from "./Story.js";

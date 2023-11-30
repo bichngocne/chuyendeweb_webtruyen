@@ -26,5 +26,5 @@ story_category.init(
   }
 );
 story_category.belongsTo(Category, { foreignKey: "id_category", targetKey: 'id' });
-story_category.belongsTo(story, { foreignKey: "id_story", targetKey: 'id' });
+story_category.belongsTo(story, { foreignKey: "id_story", targetKey: 'id', onDelete: 'CASCADE'  });
 export { story_category };
