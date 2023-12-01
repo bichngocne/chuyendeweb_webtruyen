@@ -89,8 +89,15 @@ const FormComment = () => {
         return response.json();
       })
       .then((data) => {
-        console.log("Comment created:", data);
+        // console.log("Comment created:", data);
         // Xử lý sau khi comment được tạo
+        if (data.comment) {
+          setidUseComment(data.comment.id_user);
+          console.log(data.comment.id_user);
+        }
+        setCommentContent("");
+        setstar(0);
+        setError(null);
       })
       .catch((error) => {
         console.error("Error creating comment:", error);
